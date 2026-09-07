@@ -1453,7 +1453,7 @@
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhYnFrYWdkemZldmtqaWtscnBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4MDQxMDMsImV4cCI6MjEwNDM4MDEwM30.MVEnwXCdapV0qXS14JvuRBoWggLAnVJjBJStpkST_6g";
 
         const supabaseClient =
-            (SUPABASE_URL.startsWith("http") && SUPABASE_ANON_KEY.startsWith("ey"))
+            (SUPABASE_URL.startsWith("http") && SUPABASE_ANON_KEY.startsWith("ey") && window.supabase && typeof window.supabase.createClient === "function")
                 ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
                 : null;
 
@@ -2093,8 +2093,15 @@
             loader.style.display = 'flex';
 
             setTimeout(() => {
-                callback();
-                loader.style.opacity = '0';
+                try {
+                    callback();
+                } catch (error) {
+                    console.error('Page action failed:', error);
+                    const errorBox = document.getElementById('auth-error');
+                    if (errorBox) errorBox.innerText = error.message || 'Unable to open this article.';
+                } finally {
+                    loader.style.opacity = '0';
+                }
                 setTimeout(() => {
                     loader.style.display = 'none';
                 }, 300);
