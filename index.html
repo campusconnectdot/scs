@@ -1,0 +1,7522 @@
+<!DOCTYPE HTML>
+<!-- Website Template by freewebsitetemplates.com -->
+<html lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Student Portal</title>
+
+	<!--[if IE 7]>
+		<link rel="stylesheet" href="css/ie7.css" type="text/css">
+	<![endif]-->
+
+<style>
+
+/* =========================================================
+   ROOT
+   ========================================================= */
+
+:root{
+
+	--bg:#fff;
+
+	--text:#222;
+
+	--muted:#777;
+
+	--line:#e7e7e7;
+
+	--accent:#111;
+
+	--content:720px;
+
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+*{
+
+	box-sizing:border-box;
+
+}
+
+
+html{
+
+	scroll-behavior:smooth;
+
+}
+
+
+body{
+
+	margin:0;
+
+	background:var(--bg);
+
+	color:var(--text);
+
+	font-family:Arial, Helvetica, sans-serif;
+
+	font-size:17px;
+
+	line-height:1.8;
+
+	-webkit-font-smoothing:antialiased;
+
+}
+
+
+img{
+
+	max-width:100%;
+
+	height:auto;
+
+	display:block;
+
+}
+
+
+a{
+
+	color:inherit;
+
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+#header{
+
+	width:100%;
+
+	border-bottom:1px solid var(--line);
+
+}
+
+
+#header>div,
+#body,
+#footer>div{
+
+	width:min(var(--content),calc(100% - 32px));
+
+	margin:0 auto;
+
+}
+
+
+/* =========================================================
+   HEADER TOP
+   ========================================================= */
+
+#header>div>div{
+
+	width:100%;
+
+	display:flex;
+
+	flex-direction:column;
+
+	align-items:flex-start;
+
+	gap:8px;
+
+	padding:28px 0 20px;
+
+}
+
+
+/* =========================================================
+   SCHOOL NAME
+   ========================================================= */
+
+#header>div>div>span:first-child{
+
+	display:block;
+
+	margin:0;
+
+	font-size:14px;
+
+	line-height:1.4;
+
+	font-weight:500;
+
+	color:var(--text);
+
+	text-align:left;
+
+	text-transform:none;
+
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+#header .logo{
+
+	display:block;
+
+	margin:2px 0;
+
+	padding:0;
+
+	text-decoration:none;
+
+	line-height:0;
+
+}
+
+
+#header .logo img{
+
+	display:block;
+
+	width:auto;
+
+	max-width:150px;
+
+	max-height:60px;
+
+	height:auto;
+
+	object-fit:contain;
+
+}
+
+
+/* =========================================================
+   TAGLINE
+   ========================================================= */
+
+#header>div>div>.tagline{
+
+	display:block;
+
+	margin:0;
+
+	font-size:13px;
+
+	line-height:1.4;
+
+	color:var(--muted);
+
+	text-align:left;
+
+	text-transform:none;
+
+}
+
+
+/* =========================================================
+   HEADER NAVIGATION
+   ========================================================= */
+
+#header ul{
+
+	display:flex;
+
+	flex-wrap:wrap;
+
+	align-items:center;
+
+	justify-content:flex-start;
+
+	gap:6px;
+
+	list-style:none;
+
+	padding:0 0 16px;
+
+	margin:0;
+
+}
+
+
+#header li{
+
+	margin:0;
+
+	padding:0;
+
+}
+
+
+/* =========================================================
+   NAVIGATION BUTTONS
+   ========================================================= */
+
+#header li a{
+
+	appearance:none;
+
+	background-color:#fafbfc;
+
+	border:1px solid rgba(27,31,35,0.15);
+
+	border-radius:0.9px;
+
+	box-shadow:
+
+		rgba(27,31,35,0.04) 0 1px 0,
+
+		rgba(255,255,255,0.25) 0 1px 0 inset;
+
+	box-sizing:border-box;
+
+	color:#24292e;
+
+	cursor:pointer;
+
+	display:inline-block;
+
+	font-family:Arial,Helvetica,sans-serif;
+
+	font-size:13px;
+
+	font-weight:500;
+
+	line-height:20px;
+
+	padding:4px 8px;
+
+	position:relative;
+
+	text-decoration:none;
+
+	text-transform:none;
+
+	letter-spacing:.02em;
+
+	transition:
+
+		background-color .2s cubic-bezier(.3,0,.5,1),
+
+		border-color .2s ease;
+
+	user-select:none;
+
+	-webkit-user-select:none;
+
+	touch-action:manipulation;
+
+	vertical-align:middle;
+
+	white-space:nowrap;
+
+}
+
+
+/* Hover */
+
+#header li a:hover{
+
+	background-color:#f3f4f6;
+
+	border-color:rgba(27,31,35,0.25);
+
+	text-decoration:none;
+
+	transition-duration:.1s;
+
+}
+
+
+/* Active */
+
+#header li a:active{
+
+	background-color:#edeff2;
+
+	box-shadow:
+
+		rgba(225,228,232,.2) 0 1px 0 inset;
+
+	transition:none;
+
+}
+
+
+/* Focus */
+
+#header li a:focus{
+
+	outline:1px transparent;
+
+}
+
+
+/* Selected */
+
+#header li.selected a{
+
+	background-color:#edeff2;
+
+	border-color:rgba(27,31,35,0.20);
+
+	text-decoration:none;
+
+}
+
+
+/* =========================================================
+   BODY HEADER
+   ========================================================= */
+
+#body>.header{
+
+	padding:28px 0 0;
+
+}
+
+
+#body>.header>div{
+
+	display:grid;
+
+	grid-template-columns:minmax(0,1fr) 190px;
+
+	gap:24px;
+
+	align-items:stretch;
+
+	/*
+	   Desktop image and pattern
+	   have exactly the same height.
+	*/
+
+	height:180px;
+
+	min-height:0;
+
+}
+
+
+/* =========================================================
+   BODY HEADER IMAGE
+   ========================================================= */
+
+#body>.header>div>img{
+
+	width:100%;
+
+	height:180px;
+
+	display:block;
+
+	object-fit:cover;
+
+	min-width:0;
+
+	min-height:0;
+
+}
+
+
+/* =========================================================
+   SMALL COLORED BOX PATTERN
+   ========================================================= */
+
+#usefulLinksPattern{
+
+	width:100%;
+
+	height:180px;
+
+	display:grid;
+
+	/*
+	   8 columns x 8 rows
+	   = 64 small boxes
+	*/
+
+	grid-template-columns:repeat(8,minmax(0,1fr));
+
+	grid-template-rows:repeat(8,minmax(0,1fr));
+
+	gap:3px;
+
+	overflow:hidden;
+
+	min-width:0;
+
+	min-height:0;
+
+}
+
+
+/* =========================================================
+   INDIVIDUAL SMALL BOX
+   ========================================================= */
+
+.useful-link-box{
+
+	width:100%;
+
+	height:100%;
+
+	min-width:0;
+
+	min-height:0;
+
+	border:0;
+
+	cursor:pointer;
+
+	display:block;
+
+	overflow:hidden;
+
+	opacity:.9;
+
+	transition:
+
+		transform .15s ease,
+
+		opacity .15s ease;
+
+}
+
+
+/* =========================================================
+   BOX HOVER
+   ========================================================= */
+
+.useful-link-box:hover{
+
+	transform:scale(1.12);
+
+	opacity:1;
+
+	position:relative;
+
+	z-index:2;
+
+}
+
+
+/* =========================================================
+   BOX ACTIVE
+   ========================================================= */
+
+.useful-link-box:active{
+
+	transform:scale(.90);
+
+}
+
+
+/* =========================================================
+   BOX FOCUS
+   ========================================================= */
+
+.useful-link-box:focus{
+
+	outline:2px solid #111;
+
+	outline-offset:1px;
+
+}
+
+
+/* =========================================================
+   MAIN BODY
+   ========================================================= */
+
+#body>.body{
+
+	padding:42px 0;
+
+}
+
+
+/* =========================================================
+   MAIN SECTION
+   ========================================================= */
+
+.section{
+
+	display:grid;
+
+	grid-template-columns:minmax(0,1fr) 190px;
+
+	gap:42px;
+
+	min-width:0;
+
+}
+
+
+/* =========================================================
+   ARTICLE
+   ========================================================= */
+
+.article{
+
+	min-width:0;
+
+}
+
+
+.article h2{
+
+	margin:0 0 18px;
+
+	font-size:29px;
+
+	line-height:1.2;
+
+	font-weight:500;
+
+	letter-spacing:-.02em;
+
+}
+
+
+.article>img{
+
+	width:100%;
+
+	max-height:340px;
+
+	object-fit:cover;
+
+	margin:0 0 18px;
+
+}
+
+
+.article p{
+
+	margin:0;
+
+	word-wrap:break-word;
+
+	overflow-wrap:break-word;
+
+}
+
+
+.article a{
+
+	text-decoration:underline;
+
+	text-underline-offset:3px;
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.aside{
+
+	border-top:1px solid var(--line);
+
+	padding-top:50px;
+
+	font-size:14px;
+
+	color:var(--muted);
+
+	min-width:0;
+
+}
+
+
+.aside b{
+
+	display:block;
+
+	margin-bottom:10px;
+
+	color:var(--text);
+
+	font-size:13px;
+
+	font-weight:600;
+
+}
+
+
+.aside p{
+
+	margin:0 0 10px;
+
+	word-wrap:break-word;
+
+	overflow-wrap:break-word;
+
+}
+
+
+.aside a{
+
+	font-size:11px;
+
+	text-decoration:underline;
+
+	text-underline-offset:3px;
+
+}
+
+
+/* =========================================================
+   FEATURE AREA
+   ========================================================= */
+
+#body>.footer{
+
+	display:grid;
+
+	grid-template-columns:repeat(3,minmax(0,1fr));
+
+	gap:24px;
+
+	padding:0 0 46px;
+
+}
+
+
+#body>.footer>div{
+
+	border-top:1px solid var(--line);
+
+	padding-top:10px;
+
+	min-width:0;
+
+}
+
+
+#body>.footer img{
+
+	width:100%;
+
+	aspect-ratio:16/9;
+
+	object-fit:cover;
+
+	margin-bottom:12px;
+
+}
+
+
+#body>.footer h3{
+
+	margin:0 0 5px;
+
+	font-size:14px;
+
+	line-height:1.35;
+
+	font-weight:600;
+
+}
+
+
+#body>.footer p{
+
+	margin:0;
+
+	font-size:13px;
+
+	line-height:1.75;
+
+	color:var(--muted);
+
+	word-wrap:break-word;
+
+	overflow-wrap:break-word;
+
+}
+
+
+/* =========================================================
+   SITE FOOTER
+   ========================================================= */
+
+#footer{
+
+	border-top:1px solid var(--line);
+
+}
+
+
+#footer>div{
+
+	padding:18px 0 28px;
+
+	display:grid;
+
+	grid-template-columns:1fr auto;
+
+	gap:14px 25px;
+
+	align-items:start;
+
+}
+
+
+#footer p{
+
+	margin:0;
+
+	font-size:12px;
+
+	color:var(--muted);
+
+}
+
+
+#footer ul{
+
+	display:flex;
+
+	flex-wrap:wrap;
+
+	justify-content:flex-end;
+
+	gap:4px 14px;
+
+	list-style:none;
+
+	margin:0;
+
+	padding:0;
+
+}
+
+
+#footer li a{
+
+	font-size:12px;
+
+	text-decoration:none;
+
+	color:var(--muted);
+
+}
+
+
+#footer li a:hover{
+
+	text-decoration:underline;
+
+}
+
+
+/* =========================================================
+   FOOTER BOTTOM
+   ========================================================= */
+
+#footer>div>div{
+
+	grid-column:1 / -1;
+
+	display:flex;
+
+	align-items:center;
+
+	justify-content:flex-end;
+
+	gap:12px;
+
+	border-top:1px solid var(--line);
+
+	padding-top:12px;
+
+}
+
+
+#footer>div>div span{
+
+	font-size:12px;
+
+	color:var(--muted);
+
+	margin-right:2px;
+
+}
+
+
+#footer>div>div a{
+
+	font-size:12px;
+
+	text-decoration:none;
+
+	color:var(--text);
+
+}
+
+
+#footer>div>div a:hover{
+
+	text-decoration:underline;
+
+}
+
+
+/* =========================================================
+   BLUR IMAGE
+   ========================================================= */
+
+.blur-image{
+
+	filter:blur(0.5px);
+
+	transition:filter 0.3s ease;
+
+}
+
+
+.blur-image:hover,
+.blur-image:active{
+
+	filter:blur(0);
+
+}
+
+
+/* =========================================================
+   SOCIAL LINKS
+   ========================================================= */
+
+#facebook,
+#twitter,
+#googleplus{
+
+	text-decoration:none;
+
+	font-weight:600;
+
+	transition:color 0.3s ease;
+
+}
+
+
+/* Facebook */
+
+#facebook{
+
+	color:#1877F2;
+
+}
+
+
+#facebook:hover,
+#facebook:focus{
+
+	color:#0d5dcc;
+
+}
+
+
+/* Twitter / X */
+
+#twitter{
+
+	color:#000;
+
+}
+
+
+#twitter:hover,
+#twitter:focus{
+
+	color:#555;
+
+}
+
+
+/* Google Plus */
+
+#googleplus{
+
+	color:#DB4437;
+
+}
+
+
+#googleplus:hover,
+#googleplus:focus{
+
+	color:#a5271c;
+
+}
+
+
+/* Active */
+
+#facebook:active{
+
+	color:#084298;
+
+}
+
+
+#twitter:active{
+
+	color:#222;
+
+}
+
+
+#googleplus:active{
+
+	color:#8b1a12;
+
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width:700px){
+
+	body{
+
+		font-size:15px;
+
+	}
+
+
+	#header>div,
+	#body,
+	#footer>div{
+
+		width:min(var(--content),calc(100% - 24px));
+
+	}
+
+
+	/* =====================================================
+	   HEADER
+	   ===================================================== */
+
+	#header>div>div{
+
+		align-items:flex-start;
+
+		padding:22px 0 16px;
+
+		gap:7px;
+
+	}
+
+
+	#header>div>div>span:first-child{
+
+		font-size:14px;
+
+		text-align:left;
+
+	}
+
+
+	#header .logo{
+
+		margin:2px 0;
+
+	}
+
+
+	#header .logo img{
+
+		max-width:130px;
+
+		max-height:52px;
+
+	}
+
+
+	#header>div>div>.tagline{
+
+		font-size:12px;
+
+		text-align:left;
+
+	}
+
+
+	#header ul{
+
+		justify-content:flex-start;
+
+		gap:6px;
+
+		padding-bottom:14px;
+
+	}
+
+
+	#header li a{
+
+		font-size:13px;
+
+		padding:2px 5px;
+
+	}
+
+
+	/* =====================================================
+	   BODY HEADER
+	   ===================================================== */
+
+	#body>.header{
+
+		padding-top:20px;
+
+	}
+
+
+	#body>.header>div{
+
+		display:flex;
+
+		flex-direction:column;
+
+		gap:18px;
+
+		height:auto;
+
+		align-items:stretch;
+
+	}
+
+
+	/* Image */
+
+	#body>.header>div>img{
+
+		width:100%;
+
+		height:auto;
+
+		aspect-ratio:16/8;
+
+		object-fit:cover;
+
+	}
+
+
+	/* =====================================================
+	   PATTERN
+	   ===================================================== */
+
+	#usefulLinksPattern{
+
+		width:100%;
+
+		height:120px;
+
+		display:grid;
+
+		grid-template-columns:repeat(8,minmax(0,1fr));
+
+		grid-template-rows:repeat(6,minmax(0,1fr));
+
+		gap:4px;
+
+		overflow:hidden;
+
+	}
+
+
+	.useful-link-box{
+
+		width:100%;
+
+		height:100%;
+
+		min-width:0;
+
+		min-height:0;
+
+	}
+
+
+	/* =====================================================
+	   MAIN BODY
+	   ===================================================== */
+
+	#body>.body{
+
+		padding:32px 0;
+
+	}
+
+
+	.section{
+
+		grid-template-columns:1fr;
+
+		gap:30px;
+
+	}
+
+
+	/* =====================================================
+	   ARTICLE
+	   ===================================================== */
+
+	.article h2{
+
+		font-size:25px;
+
+	}
+
+
+	/* =====================================================
+	   SIDEBAR
+	   ===================================================== */
+
+	.aside{
+
+		font-size:13px;
+
+	}
+
+
+	/* =====================================================
+	   FEATURE AREA
+	   ===================================================== */
+
+	#body>.footer{
+
+		grid-template-columns:1fr;
+
+		gap:28px;
+
+		padding-bottom:32px;
+
+	}
+
+
+	#body>.footer img{
+
+		aspect-ratio:16/7;
+
+	}
+
+
+	/* =====================================================
+	   SITE FOOTER
+	   ===================================================== */
+
+	#footer>div{
+
+		grid-template-columns:1fr;
+
+		gap:12px;
+
+	}
+
+
+	#footer ul{
+
+		justify-content:flex-start;
+
+	}
+
+
+	#footer>div>div{
+
+		justify-content:flex-start;
+
+	}
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width:480px){
+
+	#header>div>div{
+
+		align-items:flex-start;
+
+		padding:20px 0 14px;
+
+		gap:7px;
+
+	}
+
+
+	#header>div>div>span:first-child{
+
+		font-size:14px;
+
+		text-align:left;
+
+	}
+
+
+	#header .logo{
+
+		margin:2px 0;
+
+	}
+
+
+	#header .logo img{
+
+		max-width:120px;
+
+		max-height:50px;
+
+	}
+
+
+	#header>div>div>.tagline{
+
+		font-size:12px;
+
+		text-align:left;
+
+	}
+
+
+	/* =====================================================
+	   MOBILE NAV
+	   ===================================================== */
+
+	#header ul{
+
+		justify-content:flex-start;
+
+		gap:5px;
+
+		padding-bottom:14px;
+
+	}
+
+
+	#header li a{
+
+		font-size:12px;
+
+		padding:2px 5px;
+
+	}
+
+
+	/* =====================================================
+	   BODY HEADER
+	   ===================================================== */
+
+	#body>.header{
+
+		padding-top:18px;
+
+	}
+
+
+	#body>.header>div{
+
+		display:flex;
+
+		flex-direction:column;
+
+		gap:16px;
+
+		height:auto;
+
+	}
+
+
+	/* =====================================================
+	   IMAGE
+	   ===================================================== */
+
+	#body>.header>div>img{
+
+		width:100%;
+
+		height:auto;
+
+		aspect-ratio:16/9;
+
+		object-fit:cover;
+
+	}
+
+
+	/* =====================================================
+	   SMALL BOX PATTERN
+	   ===================================================== */
+
+	#usefulLinksPattern{
+
+		width:100%;
+
+		height:105px;
+
+		display:grid;
+
+		grid-template-columns:repeat(10,minmax(0,1fr));
+
+		grid-template-rows:repeat(5,minmax(0,1fr));
+
+		gap:3px;
+
+		overflow:hidden;
+
+	}
+
+
+	.useful-link-box{
+
+		width:100%;
+
+		height:100%;
+
+		min-width:0;
+
+		min-height:0;
+
+		transform:none;
+
+	}
+
+
+	.useful-link-box:hover{
+
+		transform:scale(1.08);
+
+	}
+
+
+	/* =====================================================
+	   MAIN
+	   ===================================================== */
+
+	#body>.body{
+
+		padding:28px 0;
+
+	}
+
+
+	.section{
+
+		gap:28px;
+
+	}
+
+
+	.article h2{
+
+		font-size:23px;
+
+		line-height:1.25;
+
+	}
+
+
+	.article>img{
+
+		max-height:260px;
+
+	}
+
+
+	/* =====================================================
+	   FEATURE AREA
+	   ===================================================== */
+
+	#body>.footer{
+
+		gap:24px;
+
+	}
+
+
+	#footer>div{
+
+		padding-top:16px;
+
+		padding-bottom:24px;
+
+	}
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width:390px){
+
+	#header>div>div{
+
+		padding-top:18px;
+
+		gap:6px;
+
+	}
+
+
+	#header>div>div>span:first-child{
+
+		font-size:13px;
+
+	}
+
+
+	#header .logo img{
+
+		max-width:110px;
+
+		max-height:46px;
+
+	}
+
+
+	#header>div>div>.tagline{
+
+		font-size:11px;
+
+	}
+
+
+	#header ul{
+
+		gap:5px;
+
+	}
+
+
+	#header li a{
+
+		font-size:11px;
+
+		padding:2px 4px;
+
+	}
+
+
+	/* =====================================================
+	   VERY SMALL PATTERN
+	   ===================================================== */
+
+	#usefulLinksPattern{
+
+		width:100%;
+
+		height:90px;
+
+		grid-template-columns:repeat(10,minmax(0,1fr));
+
+		grid-template-rows:repeat(5,minmax(0,1fr));
+
+		gap:3px;
+
+	}
+
+
+	.useful-link-box{
+
+		width:100%;
+
+		height:100%;
+
+		min-width:0;
+
+		min-height:0;
+
+	}
+
+
+	.useful-link-box:hover{
+
+		transform:scale(1.05);
+
+	}
+
+
+	/* =====================================================
+	   ARTICLE
+	   ===================================================== */
+
+	.article h2{
+
+		font-size:21px;
+
+	}
+
+
+	.article>img{
+
+		max-height:220px;
+
+	}
+
+}
+
+
+
+/* Hide useful links pattern on screens below 720px */
+@media (max-width: 719px) {
+    #usefulLinksPattern {
+        display: none !important;
+    }
+}
+
+@media (max-width:600px){
+  #footer{
+    width:100%;
+    overflow:hidden;
+  }
+
+  #footer>div{
+    width:100%;
+    margin:0;
+    padding:16px 12px 22px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+    box-sizing:border-box;
+  }
+
+  #footer p{
+    width:100%;
+    margin:0;
+    font-size:11px;
+    line-height:1.5;
+    text-align:left;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
+
+  #footer ul{
+    width:100%;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-start;
+    justify-content:flex-start;
+    gap:4px 12px;
+    list-style:none;
+  }
+
+  #footer li{
+    margin:0;
+    padding:0;
+  }
+
+  #footer li a{
+    font-size:11px;
+    line-height:1.6;
+    white-space:normal;
+  }
+
+  #footer>div>div{
+    width:100%;
+    margin:0;
+    padding-top:10px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:flex-start;
+    gap:4px 10px;
+  }
+
+  #footer>div>div span,
+  #footer>div>div a{
+    font-size:11px;
+    line-height:1.5;
+    white-space:normal;
+  }
+}
+
+@media (max-width:390px){
+  #footer>div{
+    padding:14px 10px 20px;
+    gap:8px;
+  }
+
+  #footer p{
+    font-size:10px;
+  }
+
+  #footer ul{
+    gap:3px 9px;
+  }
+
+  #footer li a{
+    font-size:10px;
+  }
+
+  #footer>div>div{
+    gap:3px 8px;
+    padding-top:8px;
+  }
+
+  #footer>div>div span,
+  #footer>div>div a{
+    font-size:10px;
+  }
+}
+</style>
+<style> .useful-link-box { position: relative; border: 0 !important; outline: 0 !important; box-shadow: none !important; cursor: pointer; transition: clip-path 0.4s ease, border-radius 0.4s ease, transform 0.4s ease; } .useful-link-box:focus, .useful-link-box:focus-visible, .useful-link-box:active { border: 0 !important; outline: none !important; box-shadow: none !important; } .shape-circle { border-radius: 50%; } .shape-triangle { clip-path: polygon( 50% 0%, 100% 100%, 0% 100% ); } .shape-diamond { clip-path: polygon( 50% 0%, 100% 50%, 50% 100%, 0% 50% ); } .shape-pentagon { clip-path: polygon( 50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38% ); } .shape-hexagon { clip-path: polygon( 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50% ); } .shape-octagon { clip-path: polygon( 30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30% ); } .shape-star { clip-path: polygon( 50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 94%, 50% 72%, 21% 94%, 32% 57%, 2% 35%, 39% 35% ); } .shape-parallelogram { clip-path: polygon( 25% 0%, 100% 0%, 75% 100%, 0% 100% ); } .shape-trapezoid { clip-path: polygon( 20% 0%, 80% 0%, 100% 100%, 0% 100% ); } .shape-chevron { clip-path: polygon( 0% 0%, 70% 0%, 100% 50%, 70% 100%, 0% 100%, 30% 50% ); } .shape-arrow { clip-path: polygon( 0% 25%, 60% 25%, 60% 0%, 100% 50%, 60% 100%, 60% 75%, 0% 75% ); } .shape-cross { clip-path: polygon( 35% 0%, 65% 0%, 65% 35%, 100% 35%, 100% 65%, 65% 65%, 65% 100%, 35% 100%, 35% 65%, 0% 65%, 0% 35%, 35% 35% ); } .shape-change { transform: scale(0.82) rotate(8deg); } </style>
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+*{
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#fff;
+    --panel:#fff;
+    --panel2:#f7f7f8;
+    --hover:#f1f1f1;
+    --border:#e5e5e5;
+    --text:#202020;
+    --muted:#6f6f6f;
+    --accent:#10a37f;
+    --danger:#d00;
+    --shadow:0 20px 60px rgba(0,0,0,.20);
+    --input:#fff;
+    --overlay:rgba(0,0,0,.45);
+    --light-muted:#888;
+}
+
+html.dark{
+    --bg:#212121;
+    --panel:#2f2f2f;
+    --panel2:#171717;
+    --hover:#3a3a3a;
+    --border:#474747;
+    --text:#f5f5f5;
+    --muted:#b5b5b5;
+    --shadow:0 20px 60px rgba(0,0,0,.55);
+    --input:#2f2f2f;
+    --overlay:rgba(0,0,0,.65);
+    --light-muted:#aaa;
+}
+
+html.high-contrast{
+    --border:#777;
+    --muted:#555;
+}
+
+html.dark.high-contrast{
+    --border:#888;
+    --muted:#ddd;
+}
+
+body{
+    margin:0;
+    
+    background:var(--bg);
+    color:var(--text);
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+button,
+select,
+input,
+textarea{
+    font:inherit;
+}
+
+button{
+    color:inherit;
+}
+
+
+/* =========================================================
+   SETTINGS LINK
+========================================================= */
+
+.settings-link{
+    color:var(--text);
+    font-size:14px;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.settings-link:hover{
+    text-decoration:underline;
+}
+
+
+/* =========================================================
+   SETTINGS OVERLAY
+========================================================= */
+
+.settings-overlay{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+
+    background:rgba(0,0,0,.45);
+    backdrop-filter:blur(3px);
+
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.settings-overlay.open{
+    display:flex;
+}
+
+
+/* =========================================================
+   SETTINGS WINDOW
+========================================================= */
+
+.settings-window{
+    width:720px;
+    max-width:98%;
+
+    height:560px;
+    max-height:calc(100vh - 40px);
+
+    display:flex;
+
+    overflow:hidden;
+
+    background:var(--panel);
+
+    border:1px solid var(--border);
+    border-radius:14px;
+
+    box-shadow:var(--shadow);
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.settings-sidebar{
+    width:190px;
+    flex:0 0 190px;
+
+    background:var(--panel2);
+    border-right:1px solid var(--border);
+
+    padding:16px 10px;
+
+    overflow-y:auto;
+}
+
+.settings-heading{
+    padding:5px 10px 15px;
+
+    font-size:16px;
+    font-weight:600;
+}
+
+.settings-nav{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+}
+
+.settings-nav button{
+    width:100%;
+    min-height:36px;
+
+    border:0;
+    background:transparent;
+
+    border-radius:7px;
+
+    padding:7px 10px;
+
+    display:flex;
+    align-items:center;
+
+    gap:9px;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    font-size:13px;
+}
+
+.settings-nav button:hover{
+    background:var(--hover);
+}
+
+.settings-nav button.active{
+    background:var(--hover);
+    font-weight:600;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.settings-main{
+    min-width:0;
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+}
+
+.settings-top{
+    height:58px;
+    min-height:58px;
+
+    padding:0 18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    border-bottom:1px solid var(--border);
+}
+
+.settings-title{
+    font-size:17px;
+    font-weight:600;
+}
+
+.close-btn{
+    width:32px;
+    height:32px;
+
+    border:0;
+    border-radius:50%;
+
+    background:transparent;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    font-size:21px;
+    line-height:1;
+}
+
+.close-btn:hover{
+    background:var(--hover);
+}
+
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+.mobile-nav{
+    display:none;
+
+    padding:10px 15px;
+
+    border-bottom:1px solid var(--border);
+}
+
+.mobile-nav select{
+    width:100%;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.settings-content{
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:22px;
+}
+
+.page{
+    display:none;
+    max-width:600px;
+}
+
+.page.active{
+    display:block;
+}
+
+.page-title{
+    font-size:15px;
+    font-weight:600;
+
+    margin-bottom:5px;
+}
+
+.page-description{
+    margin:0 0 18px;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   SETTING GROUP
+========================================================= */
+
+.setting-group{
+    margin-bottom:28px;
+}
+
+.setting-group-title{
+    font-size:15px;
+    font-weight:600;
+
+    margin-bottom:5px;
+}
+
+
+/* =========================================================
+   SETTING ROW
+========================================================= */
+
+.setting-row{
+    min-height:58px;
+
+    border-top:1px solid var(--border);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:15px;
+}
+
+.setting-row:last-child{
+    border-bottom:1px solid var(--border);
+}
+
+.setting-text{
+    min-width:0;
+}
+
+.setting-text strong{
+    display:block;
+
+    font-size:13px;
+    font-weight:500;
+}
+
+.setting-text span{
+    display:block;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    line-height:1.4;
+
+    margin-top:2px;
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.select{
+    min-width:135px;
+    max-width:190px;
+
+    padding:8px 10px;
+
+    border:1px solid var(--border);
+    border-radius:7px;
+
+    background:var(--panel);
+    color:var(--text);
+
+    outline:none;
+
+    cursor:pointer;
+
+    font-size:12px;
+}
+
+.select:focus{
+    border-color:var(--accent);
+}
+
+
+/* =========================================================
+   TOGGLE
+========================================================= */
+
+.toggle{
+    width:40px;
+    height:23px;
+
+    flex:none;
+
+    border:0;
+    border-radius:20px;
+
+    background:#aaa;
+
+    position:relative;
+
+    cursor:pointer;
+
+    transition:.18s;
+}
+
+.toggle::after{
+    content:"";
+
+    position:absolute;
+
+    top:3px;
+    left:3px;
+
+    width:17px;
+    height:17px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    transition:.18s;
+
+    box-shadow:0 1px 3px rgba(0,0,0,.25);
+}
+
+.toggle.on{
+    background:var(--accent);
+}
+
+.toggle.on::after{
+    left:20px;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.action-btn{
+    padding:7px 11px;
+
+    border:1px solid var(--border);
+    border-radius:7px;
+
+    background:var(--panel);
+
+    cursor:pointer;
+
+    font-size:12px;
+}
+
+.action-btn:hover{
+    background:var(--hover);
+}
+
+.action-btn.danger{
+    color:var(--danger);
+}
+
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.info{
+    padding:13px;
+
+    border:1px solid var(--border);
+
+    border-radius:8px;
+
+    background:var(--panel2);
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   ACCOUNT
+========================================================= */
+
+.account-card{
+    border:1px solid var(--border);
+
+    border-radius:9px;
+
+    overflow:hidden;
+}
+
+.account-header{
+    padding:15px;
+
+    background:var(--panel2);
+}
+
+.account-header strong{
+    display:block;
+
+    font-size:13px;
+}
+
+.account-header span{
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+.account-line{
+    min-height:48px;
+
+    padding:0 15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-top:1px solid var(--border);
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   ACCOUNT SECURITY
+========================================================= */
+
+.account-status-list{
+    border:1px solid var(--border);
+    border-radius:9px;
+    overflow:hidden;
+    margin-bottom:18px;
+}
+
+.account-status-row{
+    min-height:52px;
+    padding:10px 15px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:15px;
+
+    border-top:1px solid var(--border);
+
+    font-size:12px;
+}
+
+.account-status-row:first-child{
+    border-top:0;
+}
+
+.account-status-label{
+    min-width:0;
+}
+
+.account-status-label strong{
+    display:block;
+    font-size:12px;
+    font-weight:500;
+}
+
+.account-status-label span{
+    display:block;
+    margin-top:2px;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.status-badge{
+    flex:none;
+
+    padding:4px 8px;
+
+    border-radius:999px;
+
+    font-size:10px;
+    font-weight:600;
+
+    border:1px solid var(--border);
+
+    background:var(--panel2);
+}
+
+.status-badge.success{
+    color:#087443;
+    border-color:#a8e0c5;
+    background:#effbf4;
+}
+
+.status-badge.danger{
+    color:#b42318;
+    border-color:#f2b8b5;
+    background:#fff3f2;
+}
+
+html.dark .status-badge.success{
+    color:#8ee2b4;
+    border-color:#286c49;
+    background:#173326;
+}
+
+html.dark .status-badge.danger{
+    color:#ffaaa4;
+    border-color:#7b3833;
+    background:#351b1a;
+}
+
+.code-panel{
+    border:1px solid var(--border);
+    border-radius:9px;
+
+    padding:15px;
+
+    background:var(--panel2);
+}
+
+.code-panel-top{
+    display:flex;
+
+    align-items:flex-start;
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:12px;
+}
+
+.code-panel-title{
+    font-size:13px;
+    font-weight:600;
+}
+
+.code-panel-subtitle{
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.45;
+
+    margin-top:3px;
+}
+
+.code-display{
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    gap:10px;
+
+    border:1px dashed var(--border);
+    border-radius:8px;
+
+    background:var(--panel);
+
+    padding:12px;
+
+    margin-bottom:10px;
+}
+
+.code-value{
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+    font-size:18px;
+    font-weight:700;
+
+    letter-spacing:2px;
+
+    overflow-wrap:anywhere;
+}
+
+.code-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.code-note{
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.45;
+    margin-top:10px;
+}
+
+.code-date{
+    font-size:10px;
+    color:var(--muted);
+    margin-top:8px;
+}
+
+.account-danger-zone{
+    margin-top:24px;
+
+    border-top:1px solid var(--border);
+
+    padding-top:20px;
+}
+
+.action-btn.danger-fill{
+    color:#fff;
+
+    background:#cf222e;
+
+    border-color:#cf222e;
+}
+
+.action-btn.danger-fill:hover{
+    background:#a40e26;
+}
+
+.signout-nav{
+    margin-top:14px;
+
+    padding-top:14px;
+
+    border-top:1px solid var(--border);
+}
+
+.settings-nav .signout-nav button{
+    color:#cf222e;
+}
+
+.settings-nav .signout-nav button:hover{
+    color:#a40e26;
+
+    background:rgba(207,34,46,.08);
+}
+
+.signout-icon{
+    width:15px;
+
+    text-align:center;
+
+    font-weight:700;
+}
+
+
+
+/* =========================================================
+   SIGN OUT MODAL
+========================================================= */
+
+.signout-modal-overlay{
+    position:fixed;
+    inset:0;
+    z-index:10000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:var(--overlay);
+    backdrop-filter:blur(4px);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.signout-modal-overlay.open{
+    display:flex;
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+}
+
+
+.signout-modal{
+    width:540px;
+    max-width:100%;
+
+    background:var(--panel);
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    box-shadow:var(--shadow);
+
+    overflow:hidden;
+}
+
+.signout-header{
+    padding:22px 24px 12px;
+}
+
+.signout-header h1{
+    margin:0;
+
+    font-size:20px;
+
+    line-height:1.3;
+
+    font-weight:600;
+}
+
+.signout-body{
+    padding:0 24px 24px;
+}
+
+.signout-account{
+    border:1px solid var(--border);
+
+    border-radius:7px;
+
+    padding:14px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    gap:15px;
+
+    background:var(--panel);
+}
+
+.signout-account-left{
+    min-width:0;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+.signout-avatar{
+    width:38px;
+    height:38px;
+
+    flex:none;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    background:var(--panel2);
+
+    border:1px solid var(--border);
+}
+
+.signout-account-info{
+    min-width:0;
+
+    font-size:12px;
+
+    line-height:1.45;
+}
+
+.signout-account-info span{
+    display:block;
+
+    color:var(--muted);
+}
+
+.signout-account-info strong{
+    display:block;
+
+    font-size:13px;
+
+    overflow-wrap:anywhere;
+}
+
+.signout-actions{
+    margin-top:14px;
+}
+
+.signout-all-btn{
+    width:100%;
+
+    min-height:42px;
+
+    border:1px solid #cf222e;
+
+    border-radius:7px;
+
+    background:#cf222e;
+
+    color:#fff;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    font-size:13px;
+}
+
+.signout-all-btn:hover{
+    background:#a40e26;
+
+    border-color:#a40e26;
+}
+
+.signout-cancel{
+    width:100%;
+
+    margin-top:9px;
+
+    min-height:40px;
+}
+
+
+/* =========================================================
+   PROFILE CARD
+========================================================= */
+
+.fir-image-figure{
+    margin:0;
+
+    display:flex;
+
+    align-items:center;
+
+    position:relative;
+}
+
+.fir-imageover{
+    position:relative;
+
+    display:flex;
+
+    text-decoration:none;
+
+    cursor:pointer;
+}
+
+.fir-clickcircle{
+    width:80px;
+    height:80px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    display:block;
+
+    background:var(--panel2);
+
+    border:1px solid var(--border);
+}
+
+.fir-imageover-color{
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:80px;
+    height:80px;
+
+    border-radius:50%;
+
+    background:rgba(85,172,238,0);
+
+    transition:background .2s ease;
+}
+
+.fir-imageover:hover .fir-imageover-color{
+    background:rgba(85,172,238,.15);
+}
+
+.fir-image-figure figcaption{
+    padding-left:15px;
+}
+
+.fig-author-figure-title{
+    color:var(--muted);
+
+    font-size:15px;
+
+    line-height:1.45;
+
+    margin-top:2px;
+}
+
+.fig-author-figure-title:first-child{
+    color:var(--text);
+
+    font-size:16px;
+
+    font-weight:600;
+}
+
+
+/* =========================================================
+   PROFILE POPUP
+========================================================= */
+
+.profile-popup{
+    position:fixed;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    background:var(--overlay);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    z-index:9999;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:
+        opacity .2s ease,
+        visibility .2s ease;
+}
+
+.profile-popup.active{
+    opacity:1;
+
+    visibility:visible;
+}
+
+.profile-popup-box{
+    position:relative;
+
+    width:100%;
+
+    max-width:500px;
+
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    background:var(--panel);
+
+    border-radius:14px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.20);
+
+    transform:translateY(10px) scale(.98);
+
+    transition:transform .2s ease;
+}
+
+.profile-popup.active .profile-popup-box{
+    transform:translateY(0) scale(1);
+}
+
+
+/* =========================================================
+   PROFILE HEADER
+========================================================= */
+
+.profile-popup-header{
+    position:relative;
+
+    min-height:118px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    padding:24px 80px 20px 28px;
+
+    border-bottom:1px solid var(--border);
+}
+
+.popup-avatar{
+    width:72px;
+    height:72px;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    background:var(--panel2);
+
+    border:1px solid var(--border);
+}
+
+.popup-header-info{
+    min-width:0;
+}
+
+.popup-header-info h2{
+    margin:0;
+
+    font-size:22px;
+
+    line-height:1.2;
+
+    font-weight:650;
+
+    color:var(--text);
+}
+
+.popup-header-info p{
+    margin:6px 0 0;
+
+    font-size:14px;
+
+    line-height:1.4;
+
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.popup-header-actions{
+    position:absolute;
+
+    top:18px;
+    right:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+}
+
+.header-action{
+    width:34px;
+    height:34px;
+
+    padding:0;
+
+    border:none;
+
+    background:transparent;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:var(--muted);
+
+    cursor:pointer;
+
+    transition:
+        background .18s ease,
+        color .18s ease;
+}
+
+.header-action:hover{
+    background:var(--hover);
+
+    color:var(--text);
+}
+
+.header-action svg{
+    width:17px;
+    height:17px;
+
+    display:block;
+}
+
+
+/* =========================================================
+   CLOSE ICON
+========================================================= */
+
+.close-icon{
+    width:18px;
+    height:18px;
+
+    position:relative;
+}
+
+.close-icon::before,
+.close-icon::after{
+    content:"";
+
+    position:absolute;
+
+    top:8px;
+    left:1px;
+
+    width:16px;
+    height:1.7px;
+
+    background:currentColor;
+
+    border-radius:2px;
+}
+
+.close-icon::before{
+    transform:rotate(45deg);
+}
+
+.close-icon::after{
+    transform:rotate(-45deg);
+}
+
+
+/* =========================================================
+   PROFILE CONTENT
+========================================================= */
+
+.profile-popup-content{
+    padding:25px 28px 28px;
+}
+
+.profile-section{
+    margin-bottom:24px;
+}
+
+.profile-section:last-child{
+    margin-bottom:0;
+}
+
+.profile-section-title{
+    margin:0 0 9px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    letter-spacing:.8px;
+
+    text-transform:uppercase;
+
+    color:var(--light-muted);
+}
+
+.profile-about{
+    margin:0;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+    color:var(--text);
+}
+
+
+/* =========================================================
+   WEBSITE
+========================================================= */
+
+.profile-website{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    color:var(--text);
+
+    font-size:15px;
+
+    text-decoration:none;
+
+    border-bottom:1px solid var(--border);
+
+    padding-bottom:2px;
+
+    transition:
+        color .2s ease,
+        border-color .2s ease;
+}
+
+.profile-website:hover{
+    color:var(--accent);
+
+    border-color:var(--accent);
+}
+
+
+/* =========================================================
+   SOCIAL
+========================================================= */
+
+.social-links{
+    display:flex;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:14px;
+}
+
+.social-link{
+    width:28px;
+    height:28px;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    border:none;
+
+    background:transparent;
+
+    padding:0;
+
+    text-decoration:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    transition:
+        transform .18s ease,
+        opacity .18s ease;
+}
+
+.social-link.visible{
+    display:flex;
+}
+
+.social-link:hover{
+    transform:translateY(-2px);
+
+    opacity:.65;
+}
+
+.social-link img{
+    width:23px;
+    height:23px;
+
+    object-fit:contain;
+
+    display:block;
+}
+
+
+/* =========================================================
+   EMAIL
+========================================================= */
+
+.profile-email{
+    display:inline-flex;
+
+    align-items:center;
+
+    min-height:38px;
+
+    padding:0 13px;
+
+    border-radius:8px;
+
+    background:var(--panel2);
+
+    color:var(--text);
+
+    text-decoration:none;
+
+    font-size:14px;
+}
+
+
+/* =========================================================
+   EDIT FORM
+========================================================= */
+
+.edit-form{
+    display:none;
+
+    width:100%;
+    margin:0;
+}
+
+.edit-form.active{
+    display:block;
+}
+
+.edit-form .edit-group{
+    display:block;
+
+    width:100%;
+
+    margin-left:0;
+    margin-right:0;
+
+    padding-left:0;
+    padding-right:0;
+
+    text-align:left;
+
+    margin-bottom:18px;
+}
+
+.edit-form .edit-label{
+    display:block;
+
+    width:100%;
+
+    margin-left:0;
+    padding-left:0;
+
+    text-align:left;
+
+    margin-bottom:7px;
+}
+
+.profile-view{
+    display:none;
+}
+
+.profile-view.active{
+    display:block;
+}
+
+
+/* =========================================================
+   SMALL HORIZONTAL PROFILE IMAGE EDITOR
+========================================================= */
+
+.profile-image-editor{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    width:100%;
+
+    padding:10px 12px;
+
+    margin:0 0 20px;
+
+    background:rgba(0,0,0,.025);
+
+    border:1px solid rgba(0,0,0,.055);
+
+    border-radius:8px;
+}
+
+html.dark .profile-image-editor{
+    background:rgba(255,255,255,.035);
+
+    border-color:rgba(255,255,255,.06);
+}
+
+.profile-image-editor-preview{
+    width:46px;
+    height:46px;
+
+    flex:0 0 46px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    background:var(--panel);
+
+    border:1px solid var(--border);
+}
+
+.profile-image-editor-info{
+    min-width:0;
+
+    flex:1;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+}
+
+.profile-image-editor-copy{
+    min-width:0;
+}
+
+.profile-image-editor-title{
+    font-size:12px;
+
+    line-height:1.3;
+
+    font-weight:600;
+
+    color:var(--text);
+}
+
+.profile-image-editor-description{
+    margin-top:2px;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    line-height:1.35;
+}
+
+.profile-image-actions{
+    display:flex;
+
+    align-items:center;
+
+    flex:none;
+
+    gap:7px;
+}
+
+.profile-image-change{
+    padding:6px 9px;
+
+    border:1px solid var(--border);
+
+    border-radius:6px;
+
+    background:var(--panel);
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    font-size:11px;
+
+    white-space:nowrap;
+
+    transition:
+        background .15s ease,
+        border-color .15s ease;
+}
+
+.profile-image-change:hover{
+    background:var(--hover);
+
+    border-color:#d0d0d0;
+}
+
+.profile-image-remove{
+    padding:5px 4px;
+
+    border:0;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    cursor:pointer;
+
+    font-size:11px;
+
+    white-space:nowrap;
+}
+
+.profile-image-remove:hover{
+    color:#cf222e;
+}
+
+#profileImageInput{
+    display:none;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.edit-group{
+    margin-bottom:18px;
+}
+
+.edit-label{
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    letter-spacing:.7px;
+
+    text-transform:uppercase;
+
+    color:var(--light-muted);
+}
+
+.edit-input,
+.edit-textarea,
+.social-platform,
+.social-url{
+    display:block;
+
+    width:100%;
+
+    margin-left:0;
+    margin-right:0;
+
+    border:1px solid var(--border);
+
+    background:var(--input);
+
+    border-radius:8px;
+
+    padding:11px 12px;
+
+    outline:none;
+
+    font-family:inherit;
+
+    font-size:14px;
+
+    color:var(--text);
+
+    transition:
+        border-color .2s ease,
+        background .2s ease;
+}
+
+.edit-input:focus,
+.edit-textarea:focus,
+.social-platform:focus,
+.social-url:focus{
+    background:var(--panel);
+
+    border-color:#aaa;
+}
+
+.edit-textarea{
+    min-height:105px;
+
+    resize:vertical;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   SOCIAL EDITOR
+========================================================= */
+
+.social-editor{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    width:100%;
+}
+
+.social-row{
+    display:grid;
+
+    grid-template-columns:130px 1fr 34px;
+
+    gap:7px;
+
+    align-items:center;
+
+    width:100%;
+}
+
+.social-platform{
+    cursor:pointer;
+}
+
+.remove-social{
+    width:34px;
+    height:34px;
+
+    border:none;
+
+    background:transparent;
+
+    color:#999;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:18px;
+}
+
+.remove-social:hover{
+    background:var(--hover);
+
+    color:var(--text);
+}
+
+
+/* =========================================================
+   ADD SOCIAL
+========================================================= */
+
+.add-social{
+    align-self:flex-start;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:5px 0;
+
+    border:none;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    cursor:pointer;
+}
+
+.add-social:hover{
+    color:var(--text);
+}
+
+.add-social-plus{
+    font-size:18px;
+
+    line-height:1;
+}
+
+
+/* =========================================================
+   SAVE ACTIONS
+========================================================= */
+
+.edit-actions{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    gap:10px;
+
+    margin-top:24px;
+}
+
+.cancel-button{
+    border:none;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    font-size:14px;
+
+    padding:9px 12px;
+
+    border-radius:7px;
+
+    cursor:pointer;
+}
+
+.cancel-button:hover{
+    background:var(--hover);
+
+    color:var(--text);
+}
+
+.save-button{
+    width:40px;
+    height:40px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#222;
+
+    color:#fff;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    transition:
+        transform .18s ease,
+        background .2s ease;
+}
+
+.save-button:hover{
+    transform:scale(1.05);
+
+    background:#000;
+}
+
+.save-button svg{
+    width:18px;
+    height:18px;
+
+    fill:none;
+
+    stroke:currentColor;
+
+    stroke-width:2;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+}
+
+.save-button.saved{
+    background:#2e8b57;
+
+    transform:scale(1);
+}
+
+
+/* =========================================================
+   PROFILE SETTINGS HOST
+========================================================= */
+
+.profile-settings-host{
+    width:100%;
+    max-width:100%;
+}
+
+:root {
+    --profile-border: color-mix(in srgb,var(--border) 62%,transparent);
+    --profile-bg: color-mix(in srgb,var(--panel2) 34%,transparent);
+    --profile-hover: color-mix(in srgb,var(--hover) 38%,transparent);
+}
+
+/* Profile settings */
+.profile-settings-host {
+    margin: 0 0 16px;
+    padding: 8px 10px;
+
+    border: 1px solid var(--profile-border);
+    border-radius: 7px;
+    background: var(--profile-bg);
+
+    transition:
+        background-color 180ms ease,
+        border-color 180ms ease,
+        opacity 160ms ease,
+        transform 160ms ease;
+}
+
+
+
+.profile-settings-host .profile-popup{
+    z-index:5000;
+}
+
+.profile-settings-host .profile-popup-box{
+    max-height:calc(100vh - 100px);
+
+    overflow:auto;
+}
+
+.profile-settings-host .fir-image-figure{
+    margin-left:0;
+    margin-right:0;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:650px){
+
+    .settings-overlay{
+        padding:10px;
+    }
+
+    .settings-window{
+        width:100%;
+        height:100%;
+        max-height:none;
+
+        border-radius:10px;
+    }
+
+    .settings-sidebar{
+        display:none;
+    }
+
+    .mobile-nav{
+        display:block;
+    }
+
+    .settings-top{
+        height:55px;
+        min-height:55px;
+
+        padding:0 15px;
+    }
+
+    .settings-content{
+        padding:18px 15px 30px;
+    }
+
+    .signout-modal-overlay{
+        padding:10px;
+    }
+
+    .signout-modal{
+        width:100%;
+    }
+
+    .signout-header{
+        padding:19px 16px 10px;
+    }
+
+    .signout-body{
+        padding:0 16px 17px;
+    }
+
+    .signout-account{
+        align-items:flex-start;
+    }
+
+    .fir-clickcircle,
+    .fir-imageover-color{
+        width:65px;
+        height:65px;
+    }
+
+    .fig-author-figure-title{
+        font-size:13px;
+    }
+
+    .fig-author-figure-title:first-child{
+        font-size:15px;
+    }
+
+    .profile-popup{
+        padding:14px;
+    }
+
+    .profile-popup-box{
+        max-width:100%;
+
+        border-radius:12px;
+    }
+
+    .profile-popup-header{
+        min-height:100px;
+
+        padding:
+            20px
+            75px
+            18px
+            20px;
+    }
+
+    .popup-avatar{
+        width:60px;
+        height:60px;
+    }
+
+    .popup-header-info h2{
+        font-size:19px;
+    }
+
+    .profile-popup-content{
+        padding:21px 20px 24px;
+    }
+
+    .social-row{
+        grid-template-columns:105px 1fr 32px;
+    }
+
+    .profile-settings-host .profile-popup-box{
+        max-height:calc(100vh - 50px);
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width:480px){
+
+    .setting-row{
+        padding:12px 0;
+
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    .setting-row > .select,
+    .setting-row > .action-btn{
+        width:100%;
+        max-width:none;
+    }
+
+    .setting-row > .toggle{
+        align-self:flex-end;
+
+        margin-top:-3px;
+    }
+
+    .signout-account{
+        flex-direction:column;
+    }
+
+    .signout-account > .action-btn{
+        width:100%;
+    }
+
+    /*
+       On small screens the photo editor
+       remains horizontal, but buttons move
+       underneath only when necessary.
+    */
+
+    .profile-image-editor{
+        gap:10px;
+
+        padding:9px 10px;
+    }
+
+    .profile-image-editor-preview{
+        width:42px;
+        height:42px;
+
+        flex-basis:42px;
+    }
+
+    .profile-image-editor-info{
+        align-items:flex-start;
+
+        flex-direction:column;
+
+        gap:6px;
+    }
+
+    .profile-image-actions{
+        gap:6px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media(max-width:350px){
+
+    .profile-image-editor{
+        align-items:flex-start;
+    }
+
+    .profile-image-editor-info{
+        width:100%;
+    }
+
+    .profile-image-actions{
+        width:100%;
+    }
+
+    .profile-image-change{
+        flex:1;
+    }
+
+}
+
+
+/* =========================================================
+   AUTH PREVIEW MODE
+========================================================= */
+.auth-overlay{position:fixed;inset:0;z-index:6000;background:var(--overlay);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
+.auth-overlay.open{display:flex}
+.auth-window{width:440px;max-width:100%;background:var(--panel);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.auth-top{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--border)}
+.auth-title{font-size:16px;font-weight:600}.auth-close{border:0;background:transparent;width:34px;height:34px;border-radius:8px;font-size:24px;line-height:1;cursor:pointer;color:var(--muted)}.auth-close:hover{background:var(--hover);color:var(--text)}
+.auth-body{padding:26px}.auth-screen{display:none}.auth-screen.active{display:block}.auth-heading{font-size:22px;font-weight:650;margin:0 0 7px}.auth-subtitle{font-size:13px;color:var(--muted);line-height:1.55;margin:0 0 22px}.auth-form-group{margin-bottom:15px}.auth-label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}.auth-input{width:100%;height:42px;border:1px solid var(--border);border-radius:8px;background:var(--input);color:var(--text);padding:0 12px;outline:none}.auth-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(16,163,127,.10)}.auth-password-wrap{position:relative}.auth-password-wrap .auth-input{padding-right:46px}.auth-password-toggle{position:absolute;right:7px;top:7px;width:32px;height:28px;border:0;border-radius:6px;background:transparent;color:var(--muted);cursor:pointer;font-size:12px}.auth-password-toggle:hover{background:var(--hover);color:var(--text)}
+.auth-primary{width:100%;height:42px;border:0;border-radius:8px;background:var(--text);color:var(--bg);font-weight:600;cursor:pointer;margin-top:5px}.auth-primary:hover{opacity:.9}.auth-primary:disabled{opacity:.55;cursor:not-allowed}.auth-links{display:flex;justify-content:space-between;gap:12px;margin-top:17px}.auth-link{border:0;background:transparent;color:var(--muted);font-size:13px;padding:0;cursor:pointer}.auth-link:hover{color:var(--text);text-decoration:underline}.auth-message{display:none;border:1px solid var(--border);background:var(--panel2);border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.5;margin-bottom:15px}.auth-message.show{display:block}.auth-message.success{border-color:#6aa987}.auth-message.error{border-color:#c77}.auth-check{display:flex;gap:11px;align-items:flex-start;padding:14px;border:1px solid var(--border);border-radius:9px;background:var(--panel2);margin-bottom:18px}.auth-check-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--text);color:var(--bg);flex:0 0 28px}.auth-demo-note{font-size:11px;color:var(--muted);margin-top:13px;text-align:center}.auth-strength{height:4px;border-radius:4px;background:var(--border);overflow:hidden;margin-top:7px}.auth-strength-fill{height:100%;width:0;background:var(--text);transition:width .2s}.auth-strength-text{font-size:11px;color:var(--muted);margin-top:5px}
+.auth-account-bar{}.auth-text-link{padding: 10px;color: #000000;font-style: oblique;font-weight: 400;text-decoration:none;font-size:13px;line-height:1;cursor:pointer}.auth-text-link:hover{color:var(--text);text-decoration:underline}.auth-settings-link{display:none}.auth-settings-link.visible{display:inline}.auth-text-link.hidden{display:none}body.auth-locked #settingsLink{opacity:.65}
+@media(max-width:650px){.auth-overlay{padding:10px}.auth-window{width:100%;border-radius:10px}.auth-body{padding:22px}.auth-account-bar{right:14px;top:14px;gap:11px;flex-wrap:wrap;justify-content:flex-end}.auth-text-link{font-size:12px}}
+
+.general-intro{
+    margin:0 0 16px;
+    padding:9px 11px;
+    border:1px solid color-mix(in srgb,var(--border) 55%,transparent);
+    border-radius:7px;
+    background:color-mix(in srgb,var(--panel2) 48%,transparent);
+    color:color-mix(in srgb,var(--muted) 88%,var(--panel));
+}
+.general-intro strong{display:block;color:color-mix(in srgb,var(--text) 54%,var(--muted));font-size:11px;font-weight:600;margin-bottom:2px}
+.general-intro span{display:block;font-size:10px;line-height:1.5;color:color-mix(in srgb,var(--muted) 76%,var(--panel));}
+.account-inline-modal-overlay{position:fixed;inset:0;z-index:7000;background:var(--overlay);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:18px}
+.account-inline-modal-overlay.open{display:flex}
+.account-inline-modal{width:430px;max-width:100%;background:var(--panel);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+.account-inline-modal-header{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.account-inline-modal-header h2{font-size:15px;margin:0;font-weight:600}
+.account-inline-modal-close{width:30px;height:30px;border:0;background:transparent;border-radius:7px;color:var(--muted);font-size:21px;cursor:pointer}
+.account-inline-modal-close:hover{background:var(--hover);color:var(--text)}
+.account-inline-modal-body{padding:18px}
+.account-inline-modal-body p{font-size:12px;line-height:1.55;color:var(--muted);margin:0 0 15px}
+.account-inline-label{display:block;font-size:12px;font-weight:600;margin:0 0 7px}
+.account-inline-input{width:100%;height:40px;border:1px solid var(--border);border-radius:8px;background:var(--input);color:var(--text);padding:0 11px;outline:none;font-size:13px}
+.account-inline-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(16,163,127,.10)}
+.account-inline-error{display:none;margin-top:8px;font-size:11px;color:var(--danger);line-height:1.45}
+.account-inline-error.show{display:block}
+.account-inline-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:17px}
+.account-inline-actions .action-btn{min-width:78px}
+.delete-confirm-text{font-size:13px!important;color:var(--text)!important;font-weight:600}
+.delete-warning{padding:11px 12px;border:1px solid color-mix(in srgb,var(--danger) 28%,var(--border));background:color-mix(in srgb,var(--danger) 5%,var(--panel));border-radius:8px;color:var(--muted);font-size:11px;line-height:1.55;margin-bottom:15px}
+.delete-confirm-input{letter-spacing:.03em}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
+<div id="header">
+
+	<div>
+
+		<div>
+
+			<a href="index.html"
+			   class="logo"
+			   style="display:none">
+
+				<img src="images/logo.png" alt="">
+
+			</a>
+
+
+			<span style="display:none">
+
+				School of Computational Sciences
+
+			</span>
+
+
+			<span class="tagline"
+				  style="display:none">
+
+			</span>
+
+		</div>
+
+
+		<!-- =================================================
+		     MAIN NAVIGATION
+		     ================================================= -->
+
+		<ul>
+
+			<li class="selected">
+
+				<a href="index.html">
+					Home
+				</a>
+
+			</li>
+
+
+			<li>
+
+				<a href="about.html">
+					About
+				</a>
+
+			</li>
+
+
+			<li>
+
+				<a href="doctors.html">
+					Student Directory
+				</a>
+
+			</li>
+
+
+			<li>
+
+				<a href="services.html">
+					Services
+				</a>
+
+			</li>
+
+
+			<li>
+
+				<a href="forms.html">
+					Forms
+				</a>
+
+			</li>
+
+
+			<li>
+
+				<a href="contact.html">
+					Contact
+				</a>
+
+			</li>
+
+
+			<li>
+
+				<a href="blog.html">
+					Blog
+				</a>
+
+			</li>
+
+		</ul>
+
+	</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     BODY
+     ===================================================== -->
+
+<div id="body">
+
+	<div class="post-header"><!-- =====================================================
+     SETTINGS LINK
+====================================================== -->
+
+<nav class="auth-account-bar" aria-label="Account navigation">
+    <a href="#" class="auth-text-link" id="authCreateLink">Create account</a>
+    <a href="#" class="auth-text-link" id="authSignInLink">Sign in</a>
+    <a href="#" class="auth-text-link" id="authForgotLink">Forgot password?</a>
+    <a href="#" class="auth-text-link auth-settings-link" id="settingsLink">Settings</a>
+</nav>
+
+<!-- =====================================================
+     AUTHENTICATION PREVIEW MODE
+====================================================== -->
+<div class="auth-overlay" id="authOverlay" aria-hidden="true">
+    <div class="auth-window" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+        <header class="auth-top">
+            <div class="auth-title" id="authTitle">Student Guidance Portal</div>
+            <button class="auth-close" id="authClose" type="button" aria-label="Close">×</button>
+        </header>
+        <div class="auth-body">
+            <section class="auth-screen active" data-auth-screen="login">
+                <h2 class="auth-heading">Sign in</h2>
+                <p class="auth-subtitle">Sign in to access your dashboard, profile, and complete settings.</p>
+                <div class="auth-message" id="loginMessage"></div>
+                <form id="loginForm">
+                    <div class="auth-form-group"><label class="auth-label" for="loginEmail">Email</label><input class="auth-input" id="loginEmail" type="email" autocomplete="email" required></div>
+                    <div class="auth-form-group"><label class="auth-label" for="loginPassword">Password</label><div class="auth-password-wrap"><input class="auth-input" id="loginPassword" type="password" autocomplete="current-password" required><button class="auth-password-toggle" type="button" data-toggle-password="loginPassword">Show</button></div></div>
+                    <button class="auth-primary" id="loginButton" type="submit">Sign in</button>
+                </form>
+                <div class="auth-links"><button class="auth-link" type="button" data-auth-switch="forgot">Forgot password?</button><button class="auth-link" type="button" data-auth-switch="register">Create account</button></div>
+                <div class="auth-demo-note">Preview Mode · No Supabase connection required</div>
+            </section>
+
+            <section class="auth-screen" data-auth-screen="register">
+                <h2 class="auth-heading">Create account</h2>
+                <p class="auth-subtitle">Create your student account with your email and password. You will receive a real verification email.</p>
+                <div class="auth-message" id="registerMessage"></div>
+                <form id="registerForm">
+                    <div class="auth-form-group"><label class="auth-label" for="registerName">Full name</label><input class="auth-input" id="registerName" type="text" autocomplete="name" required></div>
+                    <div class="auth-form-group"><label class="auth-label" for="registerEmail">Email</label><input class="auth-input" id="registerEmail" type="email" autocomplete="email" required></div>
+                    <div class="auth-form-group"><label class="auth-label" for="registerPassword">Password</label><div class="auth-password-wrap"><input class="auth-input" id="registerPassword" type="password" autocomplete="new-password" required><button class="auth-password-toggle" type="button" data-toggle-password="registerPassword">Show</button></div><div class="auth-strength"><div class="auth-strength-fill" id="passwordStrengthFill"></div></div><div class="auth-strength-text" id="passwordStrengthText">Use at least 8 characters.</div></div>
+                    <div class="auth-form-group"><label class="auth-label" for="registerConfirmPassword">Confirm password</label><div class="auth-password-wrap"><input class="auth-input" id="registerConfirmPassword" type="password" autocomplete="new-password" required><button class="auth-password-toggle" type="button" data-toggle-password="registerConfirmPassword">Show</button></div></div>
+                    <button class="auth-primary" type="submit">Create account</button>
+                </form>
+                <div class="auth-links"><button class="auth-link" type="button" data-auth-switch="login">Already have an account? Sign in</button></div>
+            </section>
+
+            <section class="auth-screen" data-auth-screen="verify">
+                <h2 class="auth-heading">Verify your email</h2>
+                <p class="auth-subtitle">Your account has been created. Verify your email before signing in.</p>
+                <div class="auth-check"><div class="auth-check-icon">✓</div><div><strong id="verifyEmailText">Verification email sent</strong><div style="font-size:12px;color:var(--muted);margin-top:4px">Open the verification email from Supabase and click the verification link. Then return here.</div></div></div>
+                <button class="auth-primary" id="verifyButton" type="button">I've verified my email</button>
+                <div class="auth-links"><button class="auth-link" type="button" id="resendVerification">Resend verification</button><button class="auth-link" type="button" data-auth-switch="login">Back to sign in</button></div>
+            </section>
+
+            <section class="auth-screen" data-auth-screen="forgot">
+                <h2 class="auth-heading">Forgot password?</h2>
+                <p class="auth-subtitle">Enter your account email and we'll start the password reset process.</p>
+                <div class="auth-message" id="forgotMessage"></div>
+                <form id="forgotForm"><div class="auth-form-group"><label class="auth-label" for="forgotEmail">Email</label><input class="auth-input" id="forgotEmail" type="email" autocomplete="email" required></div><button class="auth-primary" type="submit">Send reset link</button></form>
+                <div class="auth-links"><button class="auth-link" type="button" data-auth-switch="login">Back to sign in</button><button class="auth-link" type="button" data-auth-switch="register">Create account</button></div>
+            </section>
+
+            <section class="auth-screen" data-auth-screen="change">
+                <h2 class="auth-heading">Change password</h2>
+                <p class="auth-subtitle">Update the password for your signed-in account.</p>
+                <div class="auth-message" id="changeMessage"></div>
+                <form id="changeForm">
+                    <div class="auth-form-group"><label class="auth-label" for="changeCurrentPassword">Current password</label><div class="auth-password-wrap"><input class="auth-input" id="changeCurrentPassword" type="password" autocomplete="current-password" required><button class="auth-password-toggle" type="button" data-toggle-password="changeCurrentPassword">Show</button></div></div>
+                    <div class="auth-form-group"><label class="auth-label" for="changePassword">New password</label><div class="auth-password-wrap"><input class="auth-input" id="changeNewPassword" type="password" autocomplete="new-password" required><button class="auth-password-toggle" type="button" data-toggle-password="changeNewPassword">Show</button></div></div>
+                    <div class="auth-form-group"><label class="auth-label" for="changeConfirmPassword">Confirm new password</label><div class="auth-password-wrap"><input class="auth-input" id="changeConfirmPassword" type="password" autocomplete="new-password" required><button class="auth-password-toggle" type="button" data-toggle-password="changeConfirmPassword">Show</button></div></div>
+                    <button class="auth-primary" type="submit">Update password</button>
+                </form>
+                <div class="auth-links"><button class="auth-link" type="button" data-auth-switch="login">Back to sign in</button></div>
+            </section>
+
+            <section class="auth-screen" data-auth-screen="reset">
+                <h2 class="auth-heading">Reset password</h2>
+                <p class="auth-subtitle">Choose a new password for your account.</p>
+                <div class="auth-message" id="resetMessage"></div>
+                <form id="resetForm"><div class="auth-form-group"><label class="auth-label" for="resetPassword">New password</label><div class="auth-password-wrap"><input class="auth-input" id="resetPassword" type="password" autocomplete="new-password" required><button class="auth-password-toggle" type="button" data-toggle-password="resetPassword">Show</button></div></div><div class="auth-form-group"><label class="auth-label" for="resetConfirmPassword">Confirm new password</label><div class="auth-password-wrap"><input class="auth-input" id="resetConfirmPassword" type="password" autocomplete="new-password" required><button class="auth-password-toggle" type="button" data-toggle-password="resetConfirmPassword">Show</button></div></div><button class="auth-primary" type="submit">Update password</button></form>
+                <div class="auth-links"><button class="auth-link" type="button" data-auth-switch="login">Back to sign in</button></div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- =====================================================
+     SETTINGS POPUP
+====================================================== -->
+
+<div
+    class="settings-overlay"
+    id="settingsOverlay"
+>
+
+    <div class="settings-window">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="settings-sidebar">
+
+            <div class="settings-heading">
+                Settings
+            </div>
+
+            <nav class="settings-nav">
+
+                <button
+                    class="active"
+                    data-page="general"
+                >
+                    General
+                </button>
+
+                <button data-page="personalization">
+                    Personalization
+                </button>
+
+                <button data-page="notifications">
+                    Notifications
+                </button>
+
+                <button data-page="data">
+                    Data controls
+                </button>
+<button data-page="account">
+                    Account
+                </button>
+
+
+                <div class="signout-nav">
+
+                    <button
+                        type="button"
+                        id="signOutNavButton"
+                    >
+
+                        <span class="signout-icon">
+                            ↪
+                        </span>
+
+                        Sign out
+
+                    </button>
+
+                </div>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- MAIN -->
+
+        <main class="settings-main">
+
+
+            <header class="settings-top">
+
+                <div
+                    class="settings-title"
+                    id="settingsTitle"
+                >
+                    General
+                </div>
+
+                <button
+                    class="close-btn"
+                    id="closeBtn"
+                    aria-label="Close settings"
+                >
+                    ×
+                </button>
+
+            </header>
+
+
+            <!-- MOBILE -->
+
+            <div class="mobile-nav">
+
+                <select
+                    class="select"
+                    id="mobileSelect"
+                >
+
+                    <option value="general">
+                        General
+                    </option>
+
+                    <option value="personalization">
+                        Personalization
+                    </option>
+
+                    <option value="notifications">
+                        Notifications
+                    </option>
+
+                    <option value="data">
+                        Data controls
+                    </option>
+<option value="account">
+                        Account
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="settings-content">
+
+
+                <!-- =================================================
+                     GENERAL
+                ================================================== -->
+
+                <section
+                    class="page active"
+                    id="general"
+                >
+
+                    <div class="general-intro">
+                        <strong>General settings</strong>
+                        <span>Manage your profile and basic account information. These details are saved to your account and shown here only when you are signed in.</span>
+                    </div>
+
+                    <div class="profile-settings-host">
+
+
+                        <!-- PROFILE CARD -->
+
+                        <figure class="fir-image-figure">
+
+                            <a
+                                href="#"
+                                class="fir-imageover"
+                                id="openProfile"
+                            >
+
+                                <img
+                                    class="fir-clickcircle"
+                                    src="https://fir-rollup.firebaseapp.com/de-sm.jpg"
+                                    alt="David East"
+                                    id="smallAvatar"
+                                >
+
+                                <div
+                                    class="fir-imageover-color"
+                                ></div>
+
+                            </a>
+
+
+                            <figcaption>
+
+                                <div
+                                    class="fig-author-figure-title"
+                                    id="smallProfileName"
+                                >
+                                    David East
+                                </div>
+
+                                <div
+                                    class="fig-author-figure-title"
+                                    id="smallProfileIntro"
+                                >
+                                    Engineer at Google on Firebase.
+                                </div>
+
+                                <div
+                                    class="fig-author-figure-title"
+                                    id="smallProfileDate"
+                                >
+                                    Jan. 16th, 2017 &#8212; 5m read
+                                </div>
+
+                            </figcaption>
+
+                        </figure>
+
+
+
+                        <!-- =================================================
+                             PROFILE POPUP
+                        ================================================== -->
+
+                        <div
+                            class="profile-popup"
+                            id="profilePopup"
+                            aria-hidden="true"
+                        >
+
+                            <div
+                                class="profile-popup-box"
+                                role="dialog"
+                                aria-modal="true"
+                            >
+
+
+                                <!-- =================================================
+                                     PROFILE HEADER
+                                ================================================== -->
+
+                                <div class="profile-popup-header">
+
+
+                                    <img
+                                        class="popup-avatar"
+                                        src="https://fir-rollup.firebaseapp.com/de-sm.jpg"
+                                        alt="David East"
+                                        id="popupAvatar"
+                                    >
+
+
+                                    <div class="popup-header-info">
+
+                                        <h2 id="popupName">
+                                            David East
+                                        </h2>
+
+                                        <p id="popupRole">
+                                            Engineer at Google on Firebase.
+                                        </p>
+
+                                    </div>
+
+
+                                    <div class="popup-header-actions">
+
+
+                                        <!-- PENCIL -->
+
+                                        <button
+                                            class="header-action"
+                                            id="editProfileButton"
+                                            type="button"
+                                            aria-label="Edit profile"
+                                            title="Edit profile"
+                                        >
+
+                                            <svg
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+
+                                                <path d="M12 20h9"/>
+
+                                                <path d="
+                                                    M16.5 3.5
+                                                    a2.121 2.121 0 0 1 3 3
+                                                    L7 19
+                                                    l-4 1
+                                                    1-4
+                                                    Z
+                                                "/>
+
+                                            </svg>
+
+                                        </button>
+
+
+                                        <!-- CLOSE -->
+
+                                        <button
+                                            class="header-action"
+                                            id="closeProfile"
+                                            type="button"
+                                            aria-label="Close"
+                                            title="Close"
+                                        >
+
+                                            <span class="close-icon"></span>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- =================================================
+                                     PROFILE VIEW
+                                ================================================== -->
+
+                                <div
+                                    class="profile-popup-content profile-view active"
+                                    id="profileView"
+                                >
+
+
+                                    <section class="profile-section">
+
+                                        <h3 class="profile-section-title">
+                                            About Me
+                                        </h3>
+
+                                        <p
+                                            class="profile-about"
+                                            id="aboutText"
+                                        >
+                                            I'm a software engineer interested in building
+                                            useful products, developer tools, and simple
+                                            experiences that make technology easier to use.
+                                        </p>
+
+                                    </section>
+
+
+                                    <section
+                                        class="profile-section"
+                                        id="websiteSection"
+                                    >
+
+                                        <h3 class="profile-section-title">
+                                            Website
+                                        </h3>
+
+                                        <a
+                                            class="profile-website"
+                                            id="websiteLink"
+                                            href="https://example.com"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            🌐 example.com
+                                        </a>
+
+                                    </section>
+
+
+                                    <section
+                                        class="profile-section"
+                                        id="socialSection"
+                                    >
+
+                                        <h3 class="profile-section-title">
+                                            Social
+                                        </h3>
+
+                                        <div
+                                            class="social-links"
+                                            id="socialLinks"
+                                        ></div>
+
+                                    </section>
+
+
+                                    <section
+                                        class="profile-section"
+                                        id="emailSection"
+                                    >
+
+                                        <h3 class="profile-section-title">
+                                            Contact
+                                        </h3>
+
+                                        <a
+                                            class="profile-email"
+                                            id="emailLink"
+                                            href="mailto:hello@example.com"
+                                        >
+                                            ✉ hello@example.com
+                                        </a>
+
+                                    </section>
+
+                                </div>
+
+
+
+                                <!-- =================================================
+                                     EDIT FORM
+                                ================================================== -->
+
+                                <div
+                                    class="profile-popup-content edit-form"
+                                    id="editForm"
+                                >
+
+
+                                    <!-- =================================================
+                                         SMALL PHOTO ROW
+                                    ================================================== -->
+
+                                    <div class="profile-image-editor">
+
+
+                                        <img
+                                            class="profile-image-editor-preview"
+                                            id="editProfileImagePreview"
+                                            src="https://fir-rollup.firebaseapp.com/de-sm.jpg"
+                                            alt="Profile image"
+                                        >
+
+
+                                        <div class="profile-image-editor-info">
+
+
+                                            <div class="profile-image-editor-copy">
+
+                                                <div class="profile-image-editor-title">
+                                                    Profile photo
+                                                </div>
+
+                                                <div class="profile-image-editor-description">
+                                                    Update the photo shown on your profile.
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="profile-image-actions">
+
+                                                <button
+                                                    type="button"
+                                                    class="profile-image-change"
+                                                    id="changeProfileImage"
+                                                >
+                                                    Change photo
+                                                </button>
+
+                                                <button
+                                                    type="button"
+                                                    class="profile-image-remove"
+                                                    id="removeProfileImage"
+                                                >
+                                                    Remove
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <input
+                                        type="file"
+                                        id="profileImageInput"
+                                        accept="image/*"
+                                    >
+
+
+
+                                    <!-- NAME -->
+
+                                    <div class="edit-group">
+
+                                        <label
+                                            class="edit-label"
+                                            for="editName"
+                                        >
+                                            Name
+                                        </label>
+
+                                        <input
+                                            class="edit-input"
+                                            id="editName"
+                                            type="text"
+                                        >
+
+                                    </div>
+
+
+
+                                    <!-- ROLE -->
+
+                                    <div class="edit-group">
+
+                                        <label
+                                            class="edit-label"
+                                            for="editRole"
+                                        >
+                                            Short Introduction
+                                        </label>
+
+                                        <input
+                                            class="edit-input"
+                                            id="editRole"
+                                            type="text"
+                                            placeholder="A short introduction about you"
+                                        >
+
+                                    </div>
+
+
+
+                                    <!-- ABOUT -->
+
+                                    <div class="edit-group">
+
+                                        <label
+                                            class="edit-label"
+                                            for="editAbout"
+                                        >
+                                            About Me
+                                        </label>
+
+                                        <textarea
+                                            class="edit-textarea"
+                                            id="editAbout"
+                                        ></textarea>
+
+                                    </div>
+
+
+
+                                    <!-- WEBSITE -->
+
+                                    <div class="edit-group">
+
+                                        <label
+                                            class="edit-label"
+                                            for="editWebsite"
+                                        >
+                                            Website
+                                        </label>
+
+                                        <input
+                                            class="edit-input"
+                                            id="editWebsite"
+                                            type="url"
+                                            placeholder="https://example.com"
+                                        >
+
+                                    </div>
+
+
+
+                                    <!-- SOCIAL -->
+
+                                    <div class="edit-group">
+
+                                        <label class="edit-label">
+                                            Social Links
+                                        </label>
+
+                                        <div
+                                            class="social-editor"
+                                            id="socialEditor"
+                                        ></div>
+
+                                        <button
+                                            class="add-social"
+                                            id="addSocial"
+                                            type="button"
+                                        >
+
+                                            <span class="add-social-plus">
+                                                +
+                                            </span>
+
+                                            Add social link
+
+                                        </button>
+
+                                    </div>
+
+
+
+                                    <!-- EMAIL -->
+
+                                    <div class="edit-group">
+
+                                        <label
+                                            class="edit-label"
+                                            for="editEmail"
+                                        >
+                                            Email
+                                        </label>
+
+                                        <input
+                                            class="edit-input"
+                                            id="editEmail"
+                                            type="email"
+                                        >
+
+                                    </div>
+
+
+
+                                    <!-- ACTIONS -->
+
+                                    <div class="edit-actions">
+
+                                        <button
+                                            class="cancel-button"
+                                            id="cancelEdit"
+                                            type="button"
+                                        >
+                                            Cancel
+                                        </button>
+
+
+                                        <button
+                                            class="save-button"
+                                            id="saveProfile"
+                                            type="button"
+                                            aria-label="Save profile"
+                                            title="Save"
+                                        >
+
+                                            <svg
+                                                viewBox="0 0 24 24"
+                                            >
+
+                                                <path
+                                                    d="M5 13l4 4L19 7"
+                                                />
+
+                                            </svg>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     PERSONALIZATION
+                ================================================== -->
+
+                <section
+                    class="page"
+                    id="personalization"
+                >
+
+                    <div class="setting-group">
+
+                        <div class="setting-group-title">
+                            Personalization
+                        </div>
+
+                        <p class="page-description">
+                            Customize how your account and portal behave.
+                        </p>
+<div class="setting-row">
+
+                            <div class="setting-text">
+
+                                <strong>
+                                    Profile visibility
+                                </strong>
+
+                                <span>
+                                    Control whether other students can find you.
+                                </span>
+
+                            </div>
+
+                            <select class="select" id="profileVisibility"><option value="visible">Visible</option><option value="hidden">Hidden</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     NOTIFICATIONS
+                ================================================== -->
+
+                <section
+                    class="page"
+                    id="notifications"
+                >
+
+                    <div class="setting-group">
+
+                        <div class="setting-group-title">
+                            Notifications
+                        </div>
+
+                        <p class="page-description">
+                            Manage notifications from the Student Guidance Portal.
+                        </p>
+
+
+                        <div class="setting-row">
+
+                            <div class="setting-text">
+
+                                <strong>
+                                    Email notifications
+                                </strong>
+
+                                <span>
+                                    Receive important account notifications.
+                                </span>
+
+                            </div>
+
+                            <button class="toggle on"></button>
+
+                        </div>
+
+
+                        <div class="setting-row">
+
+                            <div class="setting-text">
+
+                                <strong>
+                                    Security alerts
+                                </strong>
+
+                                <span>
+                                    Receive important security alerts.
+                                </span>
+
+                            </div>
+
+                            <button class="toggle on"></button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     DATA
+                ================================================== -->
+
+                <section
+                    class="page"
+                    id="data"
+                >
+
+                    <div class="setting-group">
+
+                        <div class="setting-group-title">
+                            Data controls
+                        </div>
+
+                        <p class="page-description">
+                            Manage your portal data.
+                        </p>
+
+
+                        <div class="setting-row">
+
+                            <div class="setting-text">
+
+                                <strong>
+                                    Save activity
+                                </strong>
+
+                                <span>
+                                    Save your portal activity.
+                                </span>
+
+                            </div>
+
+                            <button class="toggle on"></button>
+
+                        </div>
+
+
+                        <div class="setting-row">
+
+                            <div class="setting-text">
+
+                                <strong>
+                                    Export data
+                                </strong>
+
+                                <span>
+                                    Download a safe copy of your account, profile, uploaded images, and portal activity. Passwords, authentication secrets, and Supabase credentials are never included.
+                                </span>
+
+                            </div>
+
+                            <button class="action-btn" id="exportData">
+                                Export
+                            </button>
+
+                        </div>
+
+
+                        <div class="setting-row">
+
+                            <div class="setting-text">
+
+                                <strong>
+                                    Clear activity
+                                </strong>
+
+                                <span>
+                                    Remove locally saved portal activity.
+                                </span>
+
+                            </div>
+
+                            <button
+                                class="action-btn danger"
+                                id="clearActivity"
+                            >
+                                Clear
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- =================================================
+                     APPS
+                ================================================== -->
+<!-- =================================================
+                     ACCOUNT
+                ================================================== -->
+
+                <section
+                    class="page"
+                    id="account"
+                >
+
+                    <div class="setting-group">
+
+                        <div class="setting-group-title">
+                            Account
+                        </div>
+
+                        <p class="page-description">
+                            Manage your registered email, password, verification status, and account data.
+                        </p>
+
+                        <div class="account-card">
+
+                            <div class="account-header">
+
+                                <strong id="accountNameText">
+                                    Student Account
+                                </strong>
+
+                                <span id="accountEmailText">
+                                    Your registered email account
+                                </span>
+
+                            </div>
+
+
+                            <div class="account-line">
+
+                                <span>
+                                    Email
+                                </span>
+
+                                <button
+                                    class="action-btn"
+                                    id="manageEmail"
+                                >
+                                    Manage
+                                </button>
+
+                            </div>
+
+
+                            <div class="account-line">
+
+                                <span>
+                                    Password
+                                </span>
+
+                                <button
+                                    class="action-btn"
+                                    id="accountPassword"
+                                >
+                                    Change
+                                </button>
+
+                            </div>
+
+
+                            <div class="account-line">
+                                <span>
+                                    Email verification
+                                </span>
+                                <span style="display:flex;align-items:center;gap:8px;">
+                                    <strong id="emailVerificationStatus" class="status-badge danger">
+                                        Pending
+                                    </strong>
+                                    <button class="action-btn" id="resendVerificationAccount" type="button" style="display:none;">
+                                        Resend
+                                    </button>
+                                </span>
+                            </div>
+
+                            <div class="account-line">
+
+                                <span>
+                                    Account status
+                                </span>
+
+                                <strong id="accountStatusText">
+                                    Active
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="account-danger-zone">
+
+                        <div class="setting-group-title">
+                            Account actions
+                        </div>
+
+
+                        <div class="setting-row">
+
+                            <div class="setting-text">
+
+                                <strong>
+                                    Forgot / reset password
+                                </strong>
+
+                                <span>
+                                    Start the password recovery flow for your registered email.
+                                </span>
+
+                            </div>
+
+                            <button
+                                class="action-btn"
+                                id="forgotPasswordBtn"
+                            >
+                                Reset
+                            </button>
+
+                        </div>
+
+
+                        <div class="setting-row">
+
+                            <div class="setting-text">
+
+                                <strong>
+                                    Delete account
+                                </strong>
+
+                                <span>
+                                    Permanently delete your account and associated data.
+                                </span>
+
+                            </div>
+
+                            <button
+                                class="action-btn danger-fill"
+                                id="deleteAccount"
+                            >
+                                Delete account
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- =========================================================
+     ACCOUNT INLINE MODALS
+========================================================= -->
+<div class="account-inline-modal-overlay" id="manageEmailModal" aria-hidden="true">
+    <div class="account-inline-modal" role="dialog" aria-modal="true" aria-labelledby="manageEmailTitle">
+        <div class="account-inline-modal-header">
+            <h2 id="manageEmailTitle">Manage email</h2>
+            <button class="account-inline-modal-close" type="button" data-close-account-modal="manageEmailModal" aria-label="Close">×</button>
+        </div>
+        <div class="account-inline-modal-body">
+            <p>Change the email address connected to your account. A new verification step will be required before you can sign in again.</p>
+            <label class="account-inline-label" for="manageEmailInput">New email address</label>
+            <input class="account-inline-input" id="manageEmailInput" type="email" autocomplete="email" placeholder="you@example.com">
+            <div class="account-inline-error" id="manageEmailError"></div>
+            <div class="account-inline-actions">
+                <button class="action-btn" type="button" data-close-account-modal="manageEmailModal">Cancel</button>
+                <button class="action-btn" type="button" id="saveManagedEmail">Save email</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="account-inline-modal-overlay" id="deleteAccountModal" aria-hidden="true">
+    <div class="account-inline-modal" role="dialog" aria-modal="true" aria-labelledby="deleteAccountTitle">
+        <div class="account-inline-modal-header">
+            <h2 id="deleteAccountTitle">Delete account</h2>
+            <button class="account-inline-modal-close" type="button" data-close-account-modal="deleteAccountModal" aria-label="Close">×</button>
+        </div>
+        <div class="account-inline-modal-body">
+            <p class="delete-confirm-text">This action is permanent.</p>
+            <div class="delete-warning">Deleting your account will permanently remove your account information, profile data, uploaded images, and other portal data associated with this account. You will not be able to recover it.</div>
+            <label class="account-inline-label" for="deleteConfirmInput">Type <strong>DELETE</strong> to confirm</label>
+            <input class="account-inline-input delete-confirm-input" id="deleteConfirmInput" type="text" autocomplete="off" placeholder="DELETE">
+            <div class="account-inline-error" id="deleteAccountError"></div>
+            <div class="account-inline-actions">
+                <button class="action-btn" type="button" data-close-account-modal="deleteAccountModal">Cancel</button>
+                <button class="action-btn danger-fill" type="button" id="confirmDeleteAccount">Delete account</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     SIGN OUT
+========================================================= -->
+
+<div
+    class="signout-modal-overlay"
+    id="signoutModalOverlay"
+    aria-hidden="true"
+>
+
+    <div
+        class="signout-modal"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="signout-header">
+
+            <h1>
+                Select account to sign out
+            </h1>
+
+        </div>
+
+
+        <div class="signout-body">
+
+            <div class="signout-account">
+
+                <div class="signout-account-left">
+
+                    <img
+                        class="signout-avatar"
+                        id="signoutAvatar"
+                        src=""
+                        alt="Account avatar"
+                    >
+
+                    <div class="signout-account-info">
+
+                        <span>
+                            Signed in as
+                        </span>
+
+                        <strong id="signoutAccountName">
+                            Student Account
+                        </strong>
+
+                        <span id="signoutAccountEmail"></span>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="action-btn"
+                    id="signOutCurrentBtn"
+                >
+                    Sign out
+                </button>
+
+            </div>
+
+
+            <div class="signout-actions">
+
+                <button
+                    class="signout-all-btn"
+                    id="signOutAllBtn"
+                >
+                    Sign out from all accounts
+                </button>
+
+                <button
+                    class="action-btn signout-cancel"
+                    id="cancelSignoutBtn"
+                >
+                    Cancel
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+	<!-- =================================================
+	     BODY HEADER
+	     ================================================= -->
+
+	<div class="header">
+
+		<div>
+
+
+			<!-- IMAGE -->
+
+			<img
+				src="images/biking.png"
+				alt="Student Portal"
+			>
+
+
+			<!-- =================================================
+			     JAVASCRIPT WILL CREATE THE BOXES HERE
+			     ================================================= -->
+
+			<div id="usefulLinksPattern"></div>
+
+
+		</div>
+
+	</div>
+
+
+
+	<!-- =================================================
+	     MAIN BODY
+	     ================================================= -->
+
+	<div class="body">
+
+		<div class="section">
+
+
+			<!-- =================================================
+			     ARTICLE
+			     ================================================= -->
+
+			<div class="article">
+
+
+				<h2>
+
+					Welcome to Student Portal!
+
+				</h2>
+
+
+				<img
+					src="images/heart.png"
+					alt="Student Portal"
+				>
+
+
+				<p>
+
+					Student portal, your ultimate digital ecosystem engineered to connect, empower, and support learners and graduates across M.Sc, MCA, B.Sc, BCA, and B.Sc AI & IoT programs. Built by students for students, this platform strips away the friction of academic life by replacing scattered files and fragmented communication with a single, frictionless powerhouse. Whether you are hunting down a last-minute lecture slide before an exam, mapping out your elective roadmap, or tapping into an alumni network for real-world career advice, this hub puts everything you need right at your fingertips.
+
+					​The platform is driven by core pillars built to elevate your entire academic and professional trajectory:
+
+				</p>
+
+			</div>
+
+
+
+			<!-- =================================================
+			     SIDEBAR
+			     ================================================= -->
+
+			<div class="aside">
+
+				<b>
+
+					Patients' testimonials
+
+				</b>
+
+
+				<p>
+
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in vestibulum mi. Donec felis nunc, placerat quis varius quis, posuere sed velit. In convallis pulvinar rutrum. Suspendisse nec mi lectus, at fermentum felis.
+
+				</p>
+
+
+				<a href="#">
+
+					-Mr.Robinson, Ohio
+
+				</a>
+
+			</div>
+
+
+		</div>
+
+	</div>
+
+
+
+	<!-- =================================================
+	     FEATURE AREA
+	     ================================================= -->
+
+	<div class="footer">
+
+
+		<!-- =================================================
+		     RESOURCE HUB
+		     ================================================= -->
+
+		<div>
+
+			<a href="doctors.html">
+
+				<img
+					src="images/crh.png"
+					class="blur-image"
+					alt=""
+				>
+
+			</a>
+
+
+			<h3>
+
+				Centralized Resource Hub
+
+			</h3>
+
+
+			<p>
+
+				A living, breathing library where you can seamlessly browse, filter, and download verified lecture notes, reference documents, and study materials organized precisely by your degree and subject.
+
+			</p>
+
+		</div>
+
+
+
+		<!-- =================================================
+		     CURRICULUM
+		     ================================================= -->
+
+		<div>
+
+			<a href="services.html">
+
+				<img
+					src="images/crg.png"
+					class="blur-image"
+					alt=""
+				>
+
+			</a>
+
+
+			<h3>
+
+				Curriculum & Roadmap Guidance
+
+			</h3>
+
+
+			<p>
+
+				Clear, structured academic paths and subject breakdowns that give you total visibility over your degree milestones, core requirements, and technical tracks.
+
+			</p>
+
+		</div>
+
+
+
+		<!-- =================================================
+		     ALUMNI
+		     ================================================= -->
+
+		<div>
+
+			<a href="services.html">
+
+				<img
+					src="images/ad.png"
+					class="blur-image"
+					alt=""
+				>
+
+			</a>
+
+
+			<h3>
+
+				Alumni Directory
+
+			</h3>
+
+
+			<p>
+
+				A powerful networking directory linking current learners with graduates who have walked the exact same path, opening doors to mentorship, career tips, and industry insights.
+
+			</p>
+
+		</div>
+
+
+
+		<!-- =================================================
+		     Q&A
+		     ================================================= -->
+
+		<div>
+
+			<a href="services.html">
+
+				<img
+					src="images/q&a.png"
+					class="blur-image"
+					alt=""
+				>
+
+			</a>
+
+
+			<h3>
+
+				Peer Q&A & Community Discussions
+
+			</h3>
+
+
+			<p>
+
+				Interactive collaborative spaces designed to spark discussions, solve complex coding or theoretical problems together, and share peer-to-peer knowledge.
+
+			</p>
+
+		</div>
+
+
+
+		<!-- =================================================
+		     OPEN ACCESS
+		     ================================================= -->
+
+		<div>
+
+			<a href="services.html">
+
+				<img
+					src="images/foa.png"
+					class="blur-image"
+					alt=""
+				>
+
+			</a>
+
+
+			<h3>
+
+				Frictionless Open Access
+
+			</h3>
+
+
+			<p>
+
+				Built for ultimate convenience with open guest browsing and instant downloads—no login walls required just to study—while keeping a secure login ready whenever you choose to contribute back to the community.
+
+			</p>
+
+		</div>
+
+
+	</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SITE FOOTER
+     ===================================================== -->
+
+<div id="footer">
+
+	<div>
+
+
+		<p>
+
+			Copyright &copy;
+
+			<a href="index.html">
+
+				Student Portal
+
+			</a>
+
+		</p>
+
+
+
+		<ul>
+
+			<li>
+
+				<a href="index.html">
+
+					Home
+
+				</a>
+
+			</li>
+
+
+			<li>
+
+				<a href="about.html">
+
+					About
+
+				</a>
+
+			</li>
+
+
+			<li>
+
+				<a href="doctors.html">
+
+					Student Directory
+
+				</a>
+
+			</li>
+
+
+			<li>
+
+				<a href="services.html">
+
+					Services
+
+				</a>
+
+			</li>
+
+
+			<li>
+
+				<a href="forms.html">
+
+					Forms
+
+				</a>
+
+			</li>
+
+
+			<li>
+
+				<a href="contact.html">
+
+					Contact
+
+				</a>
+
+			</li>
+
+
+			<li>
+
+				<a href="blog.html">
+
+					Blog
+
+				</a>
+
+			</li>
+
+		</ul>
+
+
+
+		<!-- =================================================
+		     SOCIAL LINKS
+		     ================================================= -->
+
+		<div>
+
+			<span>
+
+				Stay Connected:
+
+			</span>
+
+
+			<a
+				href="http://freewebsitetemplates.com/go/facebook/"
+				id="facebook">
+
+				Facebook
+
+			</a>
+
+
+			<a
+				href="http://freewebsitetemplates.com/go/twitter/"
+				id="twitter">
+
+				Twitter/X
+
+			</a>
+
+
+			<a
+				href="http://freewebsitetemplates.com/go/googleplus/"
+				id="googleplus">
+
+				Googleplus
+
+			</a>
+
+		</div>
+
+
+	</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     USEFUL WEBSITE BOX SCRIPT
+     ===================================================== -->
+<script> const usefulLinks = [ "https://www.google.com", "https://github.com", "https://www.w3schools.com", "https://developer.mozilla.org", "https://stackoverflow.com", "https://www.geeksforgeeks.org", "https://www.freecodecamp.org", "https://roadmap.sh", "https://www.khanacademy.org", "https://www.coursera.org", "https://www.edx.org", "https://www.nasa.gov", "https://www.python.org", "https://www.java.com", "https://www.microsoft.com", "https://www.canva.com", "https://www.figma.com", "https://www.adobe.com" ]; const boxColors = [ "#FF6B6B", "#FF8E72", "#FFA94D", "#FFD43B", "#FFE066", "#A9E34B", "#69DB7C", "#38D9A9", "#20C997", "#3BC9DB", "#4DABF7", "#74C0FC", "#748FFC", "#9775FA", "#DA77F2", "#F783AC", "#FF87AB", "#FF9F68", "#E599F7", "#B197FC", "#91A7FF", "#63E6BE", "#66D9E8", "#82C91E", "#C0EB75", "#FAB005", "#FD7E14", "#E8590C", "#D9480F", "#C92A2A", "#A61E4D", "#862E9C", "#5F3DC4", "#364FC7", "#1971C2", "#0B7285", "#087F5B", "#2B8A3E", "#5C940D", "#495057", "#868E96", "#ADB5BD", "#CED4DA", "#FFB8B8", "#FFC9A9", "#FFE8A1", "#D8F5A2", "#B2F2BB", "#96F2D7", "#A5D8FF", "#BAC8FF", "#D0BFFF", "#EEBEFA", "#FCC2D7", "#FFE3E3", "#E7F5FF", "#E5DBFF", "#F3D9FA", "#D3F9D8", "#FFF3BF", "#FFE8CC", "#F1F3F5", "#343A40" ]; const shapes = [ "circle", "triangle", "diamond", "pentagon", "hexagon", "octagon", "star", "parallelogram", "trapezoid", "chevron", "arrow", "cross" ]; const pattern = document.getElementById( "usefulLinksPattern" ); const totalBoxes = 64; function getNextShape(box) { if (!box.shapeHistory) { box.shapeHistory = []; } let availableShapes = shapes.filter(function(shape) { return !box.shapeHistory.includes( shape ); }); if (availableShapes.length === 0) { box.shapeHistory = []; availableShapes = [...shapes]; } const shape = availableShapes[ Math.floor( Math.random() * availableShapes.length ) ]; box.shapeHistory.push( shape ); return shape; } function applyShape(box, shape) { box.classList.remove( "shape-circle", "shape-triangle", "shape-diamond", "shape-pentagon", "shape-hexagon", "shape-octagon", "shape-star", "shape-parallelogram", "shape-trapezoid", "shape-chevron", "shape-arrow", "shape-cross" ); box.classList.add( "shape-" + shape ); } function changeShape(box) { const newShape = getNextShape(box); applyShape( box, newShape ); box.classList.remove( "shape-change" ); void box.offsetWidth; box.classList.add( "shape-change" ); setTimeout(function() { box.classList.remove( "shape-change" ); }, 400); } for ( let i = 0; i < totalBoxes; i++ ) { const link = usefulLinks[ i % usefulLinks.length ]; const box = document.createElement( "div" ); box.className = "useful-link-box"; box.style.backgroundColor = boxColors[ i % boxColors.length ]; box.shapeHistory = []; box.setAttribute( "role", "link" ); box.setAttribute( "tabindex", "0" ); box.setAttribute( "title", "Open useful website" ); box.addEventListener( "click", function() { changeShape( box ); window.open( link, "_blank", "noopener,noreferrer" ); } ); box.addEventListener( "keydown", function(event) { if ( event.key === "Enter" || event.key === " " ) { event.preventDefault(); changeShape( box ); window.open( link, "_blank", "noopener,noreferrer" ); } } ); pattern.appendChild( box ); } </script>
+
+<script>
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+const settingsLink =
+    document.getElementById("settingsLink");
+
+const settingsOverlay =
+    document.getElementById("settingsOverlay");
+
+const closeBtn =
+    document.getElementById("closeBtn");
+
+const settingsTitle =
+    document.getElementById("settingsTitle");
+
+const mobileSelect =
+    document.getElementById("mobileSelect");
+
+const navButtons =
+    document.querySelectorAll(
+        ".settings-nav button[data-page]"
+    );
+
+const pages =
+    document.querySelectorAll(".page");
+
+
+settingsLink.addEventListener(
+    "click",
+    function(e){
+
+        e.preventDefault();
+
+        /* Preview Auth manager controls whether Settings may open. */
+        if(typeof window.openStudentGuidanceAuth === "function"){
+            return;
+        }
+
+        settingsOverlay.classList.add("open");
+        document.body.style.overflow = "hidden";
+    }
+);
+
+
+function closeSettings(){
+
+    settingsOverlay.classList.remove(
+        "open"
+    );
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+closeBtn.addEventListener(
+    "click",
+    closeSettings
+);
+
+
+settingsOverlay.addEventListener(
+    "click",
+    function(e){
+
+        if(e.target === settingsOverlay){
+
+            closeSettings();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+function openPage(id){
+
+    pages.forEach(
+        function(page){
+
+            page.classList.toggle(
+                "active",
+                page.id === id
+            );
+
+        }
+    );
+
+
+    navButtons.forEach(
+        function(button){
+
+            button.classList.toggle(
+                "active",
+                button.dataset.page === id
+            );
+
+        }
+    );
+
+
+    const active =
+        document.querySelector(
+            '.settings-nav button[data-page="' +
+            id +
+            '"]'
+        );
+
+
+    if(active){
+
+        settingsTitle.textContent =
+            active.textContent.trim();
+
+    }
+
+
+    mobileSelect.value =
+        id;
+
+}
+
+
+navButtons.forEach(
+    function(button){
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                openPage(
+                    this.dataset.page
+                );
+
+            }
+        );
+
+    }
+);
+
+
+mobileSelect.addEventListener(
+    "change",
+    function(){
+
+        openPage(
+            this.value
+        );
+
+    }
+);
+
+
+/* =========================================================
+   TOGGLES
+========================================================= */
+
+document.querySelectorAll(
+    ".toggle"
+).forEach(
+    function(toggle){
+
+        toggle.addEventListener(
+            "click",
+            function(){
+
+                this.classList.toggle(
+                    "on"
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   SUPABASE ACCOUNT / PROFILE HELPERS
+========================================================= */
+
+const PROFILE_KEY = "student_guidance_profile";
+let currentAuthUser = null;
+
+function getLocalProfile(){
+    try{
+        return JSON.parse(localStorage.getItem(PROFILE_KEY) || "{}") || {};
+    }catch(e){
+        return {};
+    }
+}
+
+function saveLocalProfile(profile){
+    try{
+        localStorage.setItem(PROFILE_KEY, JSON.stringify(profile || {}));
+    }catch(e){
+        console.error("Could not save profile.", e);
+    }
+}
+
+function getDemoAccount(){
+    const profile = getLocalProfile();
+    const user = currentAuthUser;
+    if(!user){
+        return profile.name || profile.email || profile.avatar ? profile : {
+            name:"Student Account",
+            email:"",
+            avatar:""
+        };
+    }
+
+    return {
+        id: user.id,
+        name: user.user_metadata?.full_name || profile.name || "Student Account",
+        email: user.email || profile.email || "",
+        avatar: profile.avatar || user.user_metadata?.avatar_url || "",
+        verified: !!user.email_confirmed_at,
+        createdAt: user.created_at || null,
+        verifiedAt: user.email_confirmed_at || null,
+        profileVisibility: profile.profileVisibility === "hidden" ? "hidden" : "visible"
+    };
+}
+
+function saveDemoAccount(account){
+    const profile = getLocalProfile();
+    if(account?.name) profile.name = account.name;
+    if(account?.email) profile.email = account.email;
+    if(account && Object.prototype.hasOwnProperty.call(account,"avatar")) profile.avatar = account.avatar || "";
+    if(account?.profileVisibility) profile.profileVisibility = account.profileVisibility;
+    saveLocalProfile(profile);
+}
+
+function dateText(value){
+    if(!value) return "—";
+    return new Date(value).toLocaleString(undefined,{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+}
+
+function updateAccountUI(){
+    const account = getDemoAccount() || {};
+    const signed = !!currentAuthUser;
+    const verified = signed && account.verified === true;
+
+    const accountName = document.getElementById("accountNameText");
+    if(accountName) accountName.textContent = account.name || "Student Account";
+
+    const emailText = document.getElementById("accountEmailText");
+    if(emailText) emailText.textContent = account.email || "No email configured";
+
+    const verification = document.getElementById("emailVerificationStatus");
+    if(verification){
+        verification.textContent = verified ? "Verified" : (signed ? "Pending" : "Not signed in");
+        verification.className = "status-badge " + (verified ? "success" : "danger");
+    }
+
+    const resend = document.getElementById("resendVerificationAccount");
+    if(resend) resend.style.display = signed && !verified ? "" : "none";
+
+    const accountStatus = document.getElementById("accountStatusText");
+    if(accountStatus) accountStatus.textContent = verified ? "Active" : (signed ? "Pending verification" : "Signed out");
+
+    const profileEmail = document.getElementById("editEmail");
+    if(profileEmail) profileEmail.value = account.email || "";
+
+    const emailLink = document.getElementById("emailLink");
+    if(emailLink){
+        emailLink.href = account.email ? "mailto:" + account.email : "#";
+        emailLink.textContent = account.email ? "✉ " + account.email : "";
+    }
+
+    const visibility = document.getElementById("profileVisibility");
+    if(visibility) visibility.value = account.profileVisibility === "hidden" ? "hidden" : "visible";
+
+    if(typeof updateSignoutAccount === "function") updateSignoutAccount();
+}
+
+function getProfileVisibility(){
+    return getDemoAccount()?.profileVisibility === "hidden" ? "hidden" : "visible";
+}
+
+function saveProfileVisibility(value){
+    const visibility = value === "hidden" ? "hidden" : "visible";
+    const profile = getLocalProfile();
+    profile.profileVisibility = visibility;
+    saveLocalProfile(profile);
+    updateAccountUI();
+}
+
+window.getPublicStudentProfile = function(){
+    if(getProfileVisibility() === "hidden") return null;
+    const account = getDemoAccount();
+    if(!currentAuthUser) return null;
+    return {
+        id: currentAuthUser.id,
+        name: account.name || "Student Account",
+        email: account.email || "",
+        avatar: account.avatar || "",
+        profileVisibility: account.profileVisibility || "visible"
+    };
+};
+
+const profileVisibilitySelect = document.getElementById("profileVisibility");
+if(profileVisibilitySelect){
+    profileVisibilitySelect.value = getProfileVisibility();
+    profileVisibilitySelect.addEventListener("change", function(){ saveProfileVisibility(this.value); });
+}
+
+/* =========================================================
+   ACCOUNT ACTIONS
+========================================================= */
+function openAccountInlineModal(id){
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.classList.add("open");
+    el.setAttribute("aria-hidden","false");
+    document.body.style.overflow="hidden";
+}
+function closeAccountInlineModal(id){
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.classList.remove("open");
+    el.setAttribute("aria-hidden","true");
+    if(!document.querySelector(".account-inline-modal-overlay.open") && !document.getElementById("settingsOverlay").classList.contains("open")) document.body.style.overflow="";
+}
+
+document.querySelectorAll("[data-close-account-modal]").forEach(btn=>btn.addEventListener("click",()=>closeAccountInlineModal(btn.dataset.closeAccountModal)));
+document.querySelectorAll(".account-inline-modal-overlay").forEach(overlay=>overlay.addEventListener("click",e=>{if(e.target===overlay)closeAccountInlineModal(overlay.id)}));
+
+const resendVerificationAccountButton = document.getElementById("resendVerificationAccount");
+if(resendVerificationAccountButton){
+    resendVerificationAccountButton.addEventListener("click", async function(){
+        if(!currentAuthUser?.email || currentAuthUser.email_confirmed_at) return;
+        const { error } = await supabaseClient.auth.resend({ type:"signup", email:currentAuthUser.email });
+        if(error){ alertInline("Could not resend verification email: " + error.message); return; }
+        if(window.openStudentGuidanceAuth){
+            document.getElementById("verifyEmailText").textContent="Verification email sent to " + currentAuthUser.email;
+            window.openStudentGuidanceAuth("verify");
+        }
+    });
+}
+
+document.getElementById("accountPassword").addEventListener("click",function(){
+    if(window.openStudentGuidanceAuth){
+        closeSettings();
+        window.openStudentGuidanceAuth("change");
+    }
+});
+
+document.getElementById("manageEmail").addEventListener("click",function(){
+    if(!currentAuthUser) return;
+    document.getElementById("manageEmailInput").value=currentAuthUser.email||"";
+    document.getElementById("manageEmailError").classList.remove("show");
+    openAccountInlineModal("manageEmailModal");
+    setTimeout(()=>document.getElementById("manageEmailInput").focus(),50);
+});
+
+document.getElementById("saveManagedEmail").addEventListener("click",async function(){
+    const input=document.getElementById("manageEmailInput");
+    const error=document.getElementById("manageEmailError");
+    const next=input.value.trim().toLowerCase();
+    if(!/^\S+@\S+\.\S+$/.test(next)){error.textContent="Enter a valid email address.";error.classList.add("show");return;}
+    if(!currentAuthUser){error.textContent="Please sign in again.";error.classList.add("show");return;}
+    const { error: updateError } = await supabaseClient.auth.updateUser({email:next});
+    if(updateError){error.textContent=updateError.message;error.classList.add("show");return;}
+    error.classList.remove("show");
+    closeAccountInlineModal("manageEmailModal");
+    alertInline("A confirmation email was sent to " + next + ". Your email changes after confirmation.");
+});
+
+document.getElementById("forgotPasswordBtn").addEventListener("click",function(){
+    if(window.openStudentGuidanceAuth){
+        closeSettings();
+        document.getElementById("forgotEmail").value=currentAuthUser?.email||"";
+        window.openStudentGuidanceAuth("forgot");
+    }
+});
+
+document.getElementById("deleteAccount").addEventListener("click",function(){
+    document.getElementById("deleteConfirmInput").value="";
+    document.getElementById("deleteAccountError").textContent="Account deletion requires a secure Supabase Edge Function. Do not put a service-role key in this HTML file.";
+    document.getElementById("deleteAccountError").classList.add("show");
+    openAccountInlineModal("deleteAccountModal");
+});
+
+document.getElementById("confirmDeleteAccount").addEventListener("click",function(){
+    const error=document.getElementById("deleteAccountError");
+    error.textContent="For security, permanent Supabase Auth deletion must be handled server-side. This button is intentionally not performing a fake local deletion.";
+    error.classList.add("show");
+});
+
+const exportDataButton = document.getElementById("exportData");
+if(exportDataButton){
+    exportDataButton.addEventListener("click", function(){
+        const account = getDemoAccount() || {};
+        const profile = getLocalProfile();
+        const exportPayload = {
+            exportType:"Student Guidance Portal user data export",
+            exportedAt:new Date().toISOString(),
+            account:{id:account.id||null,name:account.name||"",email:account.email||"",verified:!!account.verified,createdAt:account.createdAt||null,verifiedAt:account.verifiedAt||null},
+            profile:profile,
+            note:"Passwords, reset tokens, access tokens, Supabase service-role keys and other authentication secrets are intentionally excluded."
+        };
+        const blob=new Blob([JSON.stringify(exportPayload,null,2)],{type:"application/json"});
+        const url=URL.createObjectURL(blob); const link=document.createElement("a");
+        link.href=url; link.download="student-guidance-portal-data.json"; document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url);
+    });
+}
+
+function alertInline(message){
+    let box=document.getElementById("supabaseInlineNotice");
+    if(!box){
+        box=document.createElement("div"); box.id="supabaseInlineNotice";
+        box.style.cssText="position:fixed;left:50%;top:22px;transform:translateX(-50%);z-index:100000;max-width:420px;width:calc(100% - 32px);padding:12px 15px;border:1px solid #ddd;background:#fff;color:#222;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.12);font:14px/1.45 Arial,sans-serif";
+        document.body.appendChild(box);
+    }
+    box.textContent=message; box.style.display="block";
+    clearTimeout(box._timer); box._timer=setTimeout(()=>box.style.display="none",4500);
+}
+
+/* =========================================================
+   SIGN OUT
+========================================================= */
+function updateSignoutAccount(){
+    const account=getDemoAccount()||{};
+    const name=document.getElementById("signoutAccountName"); if(name) name.textContent=account.name||"Student Account";
+    const email=document.getElementById("signoutAccountEmail"); if(email) email.textContent=account.email||"";
+    const avatar=document.getElementById("signoutAvatar");
+    if(avatar){ if(account.avatar){avatar.src=account.avatar;avatar.style.display="";}else avatar.style.display="none"; }
+}
+function openSignoutModal(){ updateSignoutAccount(); document.getElementById("signoutModalOverlay").classList.add("open"); }
+function closeSignoutModal(){ document.getElementById("signoutModalOverlay").classList.remove("open"); }
+
+document.getElementById("signOutNavButton").addEventListener("click",openSignoutModal);
+document.getElementById("cancelSignoutBtn").addEventListener("click",closeSignoutModal);
+document.getElementById("signOutCurrentBtn").addEventListener("click",async function(){
+    closeSignoutModal();
+    closeSettings();
+    await supabaseClient.auth.signOut({scope:"local"});
+});
+document.getElementById("signOutAllBtn").addEventListener("click",async function(){
+    closeSignoutModal();
+    closeSettings();
+    await supabaseClient.auth.signOut({scope:"global"});
+});
+
+/* =========================================================
+   PROFILE COMPONENT
+========================================================= */
+
+(function(){
+
+    "use strict";
+
+
+    const host =
+        document.querySelector(
+            ".profile-settings-host"
+        );
+
+
+    if(!host)
+        return;
+
+
+    const $ =
+        selector =>
+            host.querySelector(
+                selector
+            );
+
+
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const open =
+        $("#openProfile");
+
+    const close =
+        $("#closeProfile");
+
+    const popup =
+        $("#profilePopup");
+
+    const edit =
+        $("#editProfileButton");
+
+    const cancel =
+        $("#cancelEdit");
+
+    const save =
+        $("#saveProfile");
+
+    const view =
+        $("#profileView");
+
+    const form =
+        $("#editForm");
+
+    const add =
+        $("#addSocial");
+
+    const editor =
+        $("#socialEditor");
+
+    const links =
+        $("#socialLinks");
+
+
+    /* IMAGE */
+
+    const smallAvatar =
+        $("#smallAvatar");
+
+    const popupAvatar =
+        $("#popupAvatar");
+
+    const imageInput =
+        $("#profileImageInput");
+
+    const imagePreview =
+        $("#editProfileImagePreview");
+
+    const changeImage =
+        $("#changeProfileImage");
+
+    const removeImage =
+        $("#removeProfileImage");
+
+
+    const smallName =
+        $("#smallProfileName");
+
+    const smallIntro =
+        $("#smallProfileIntro");
+
+    const smallDate =
+        $("#smallProfileDate");
+
+
+    const defaultAvatar =
+        "https://fir-rollup.firebaseapp.com/de-sm.jpg";
+
+
+    const KEY =
+        "student_guidance_profile";
+
+
+    /* =====================================================
+       DEFAULT DATA
+    ===================================================== */
+
+    const defaults = {
+
+        name:
+            "David East",
+
+        role:
+            "Engineer at Google on Firebase.",
+
+        about:
+            "I'm a software engineer interested in building useful products, developer tools, and simple experiences that make technology easier to use.",
+
+        website:
+            "https://example.com",
+
+        email:
+            "hello@example.com",
+
+        socials:[],
+
+        avatar:
+            defaultAvatar
+
+    };
+
+
+    let data = {
+        ...defaults
+    };
+
+
+    try{
+
+        const stored =
+            JSON.parse(
+                localStorage.getItem(
+                    KEY
+                ) || "null"
+            );
+
+
+        if(stored){
+
+            data = {
+                ...data,
+                ...stored
+            };
+
+        }
+
+    }catch(e){
+
+        console.warn(
+            "Could not load profile.",
+            e
+        );
+
+    }
+
+
+    /* =====================================================
+       SOCIAL ICONS
+    ===================================================== */
+
+    const icons = {
+
+        github:
+            "https://cdn.simpleicons.org/github",
+
+        linkedin:
+            "https://cdn.simpleicons.org/linkedin",
+
+        instagram:
+            "https://cdn.simpleicons.org/instagram",
+
+        youtube:
+            "https://cdn.simpleicons.org/youtube",
+
+        facebook:
+            "https://cdn.simpleicons.org/facebook",
+
+        discord:
+            "https://cdn.simpleicons.org/discord",
+
+        website:
+            "https://cdn.simpleicons.org/googlechrome",
+
+        other:
+            "https://cdn.simpleicons.org/linktree"
+
+    };
+
+
+    /* =====================================================
+       URL
+    ===================================================== */
+
+    function makeUrl(value){
+
+        if(!value)
+            return "";
+
+
+        if(
+            /^https?:\/\//i.test(
+                value
+            )
+        ){
+
+            return value;
+
+        }
+
+
+        return "https://" + value;
+
+    }
+
+
+    /* =====================================================
+       DATE
+    ===================================================== */
+
+    function currentDate(){
+
+        const d =
+            new Date();
+
+        const months = [
+
+            "Jan.",
+            "Feb.",
+            "Mar.",
+            "Apr.",
+            "May",
+            "Jun.",
+            "Jul.",
+            "Aug.",
+            "Sep.",
+            "Oct.",
+            "Nov.",
+            "Dec."
+
+        ];
+
+
+        const n =
+            d.getDate();
+
+
+        let suffix =
+            "th";
+
+
+        if(
+            n % 100 < 11 ||
+            n % 100 > 13
+        ){
+
+            if(
+                n % 10 === 1
+            ){
+
+                suffix =
+                    "st";
+
+            }else if(
+                n % 10 === 2
+            ){
+
+                suffix =
+                    "nd";
+
+            }else if(
+                n % 10 === 3
+            ){
+
+                suffix =
+                    "rd";
+
+            }
+
+        }
+
+
+        return (
+
+            months[d.getMonth()] +
+            " " +
+            n +
+            suffix +
+            ", " +
+            d.getFullYear()
+
+        );
+
+    }
+
+
+    /* =====================================================
+       SAVE PROFILE DATA
+    ===================================================== */
+
+    function persist(){
+
+        try{
+
+            data.profileVisibility = getProfileVisibility();
+
+            localStorage.setItem(
+                KEY,
+                JSON.stringify(data)
+            );
+
+        }catch(e){
+
+            console.error(e);
+
+            alert(
+                "The profile could not be saved. The selected image may be too large."
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       UPDATE IMAGE EVERYWHERE
+    ===================================================== */
+
+    function updateProfileImages(){
+
+        const avatar =
+            data.avatar ||
+            defaultAvatar;
+
+
+        if(smallAvatar){
+
+            smallAvatar.src =
+                avatar;
+
+        }
+
+
+        if(popupAvatar){
+
+            popupAvatar.src =
+                avatar;
+
+        }
+
+
+        if(imagePreview){
+
+            imagePreview.src =
+                avatar;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       RENDER PROFILE
+    ===================================================== */
+
+    function render(){
+
+        $("#popupName").textContent =
+            data.name ||
+            "Unnamed";
+
+
+        $("#popupRole").textContent =
+            data.role ||
+            "";
+
+
+        $("#aboutText").textContent =
+            data.about ||
+            "";
+
+
+        smallName.textContent =
+            data.name ||
+            "Unnamed";
+
+
+        smallIntro.textContent =
+            data.role ||
+            "";
+
+
+        smallDate.innerHTML =
+            currentDate() +
+            " &#8212; 5m read";
+
+
+        updateProfileImages();
+
+
+        /* WEBSITE */
+
+        const websiteSection =
+            $("#websiteSection");
+
+        const websiteLink =
+            $("#websiteLink");
+
+
+        if(data.website){
+
+            websiteSection.style.display =
+                "block";
+
+
+            websiteLink.href =
+                makeUrl(
+                    data.website
+                );
+
+
+            websiteLink.textContent =
+                "🌐 " +
+                data.website.replace(
+                    /^https?:\/\//,
+                    ""
+                );
+
+        }else{
+
+            websiteSection.style.display =
+                "none";
+
+        }
+
+
+        /* EMAIL */
+
+        const emailSection =
+            $("#emailSection");
+
+        const emailLink =
+            $("#emailLink");
+
+
+        if(data.email){
+
+            emailSection.style.display =
+                "block";
+
+
+            emailLink.href =
+                "mailto:" +
+                data.email;
+
+
+            emailLink.textContent =
+                "✉ " +
+                data.email;
+
+        }else{
+
+            emailSection.style.display =
+                "none";
+
+        }
+
+
+        /* SOCIAL */
+
+        links.innerHTML =
+            "";
+
+
+        (data.socials || [])
+            .forEach(
+                function(item){
+
+                    if(!item.url)
+                        return;
+
+
+                    const a =
+                        document.createElement(
+                            "a"
+                        );
+
+
+                    a.className =
+                        "social-link visible";
+
+
+                    a.href =
+                        makeUrl(
+                            item.url
+                        );
+
+
+                    a.target =
+                        "_blank";
+
+
+                    a.rel =
+                        "noopener noreferrer";
+
+
+                    a.title =
+                        item.platform;
+
+
+                    const img =
+                        document.createElement(
+                            "img"
+                        );
+
+
+                    img.src =
+                        icons[
+                            item.platform
+                        ] ||
+                        icons.other;
+
+
+                    img.alt =
+                        item.platform;
+
+
+                    a.appendChild(
+                        img
+                    );
+
+
+                    links.appendChild(
+                        a
+                    );
+
+                }
+            );
+
+
+        $("#socialSection").style.display =
+            links.children.length
+                ? "block"
+                : "none";
+
+    }
+
+
+    /* =====================================================
+       SOCIAL ROW
+    ===================================================== */
+
+    function createSocialRow(
+        platform = "github",
+        value = ""
+    ){
+
+        const row =
+            document.createElement(
+                "div"
+            );
+
+
+        row.className =
+            "social-row";
+
+
+        row.innerHTML = `
+
+            <select class="social-platform">
+
+                <option value="github">
+                    GitHub
+                </option>
+
+                <option value="linkedin">
+                    LinkedIn
+                </option>
+
+                <option value="instagram">
+                    Instagram
+                </option>
+
+                <option value="youtube">
+                    YouTube
+                </option>
+
+                <option value="facebook">
+                    Facebook
+                </option>
+
+                <option value="discord">
+                    Discord
+                </option>
+
+                <option value="website">
+                    Website
+                </option>
+
+                <option value="other">
+                    Other
+                </option>
+
+            </select>
+
+            <input
+                class="social-url"
+                type="url"
+                placeholder="https://..."
+            >
+
+            <button
+                class="remove-social"
+                type="button"
+            >
+                ×
+            </button>
+
+        `;
+
+
+        editor.appendChild(
+            row
+        );
+
+
+        row.querySelector(
+            ".social-platform"
+        ).value =
+            platform;
+
+
+        row.querySelector(
+            ".social-url"
+        ).value =
+            value;
+
+
+        row.querySelector(
+            ".remove-social"
+        ).addEventListener(
+            "click",
+            function(){
+
+                row.remove();
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       LOAD EDIT FORM
+    ===================================================== */
+
+    function loadForm(){
+
+        $("#editName").value =
+            data.name ||
+            "";
+
+
+        $("#editRole").value =
+            data.role ||
+            "";
+
+
+        $("#editAbout").value =
+            data.about ||
+            "";
+
+
+        $("#editWebsite").value =
+            data.website ||
+            "";
+
+
+        $("#editEmail").value =
+            data.email ||
+            "";
+
+
+        imagePreview.src =
+            data.avatar ||
+            defaultAvatar;
+
+
+        imageInput.value =
+            "";
+
+
+        editor.innerHTML =
+            "";
+
+
+        if(
+            data.socials &&
+            data.socials.length
+        ){
+
+            data.socials.forEach(
+                function(item){
+
+                    createSocialRow(
+                        item.platform,
+                        item.url
+                    );
+
+                }
+            );
+
+        }else{
+
+            createSocialRow();
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ENTER EDIT
+    ===================================================== */
+
+    function enterEdit(){
+
+        loadForm();
+
+
+        view.classList.remove(
+            "active"
+        );
+
+
+        form.classList.add(
+            "active"
+        );
+
+
+        /*
+         * Hide pencil while editing.
+         * Close button remains visible.
+         */
+
+        edit.style.display =
+            "none";
+
+    }
+
+
+    /* =====================================================
+       EXIT EDIT
+    ===================================================== */
+
+    function exitEdit(){
+
+        view.classList.add(
+            "active"
+        );
+
+
+        form.classList.remove(
+            "active"
+        );
+
+
+        /*
+         * IMPORTANT:
+         * Pencil comes back after Cancel or Save.
+         */
+
+        edit.style.display =
+            "flex";
+
+    }
+
+
+    /* =====================================================
+       OPEN PROFILE
+    ===================================================== */
+
+    open.addEventListener(
+        "click",
+        function(e){
+
+            e.preventDefault();
+
+
+            popup.classList.add(
+                "active"
+            );
+
+
+            popup.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       CLOSE
+    ===================================================== */
+
+    close.addEventListener(
+        "click",
+        function(){
+
+            popup.classList.remove(
+                "active"
+            );
+
+
+            popup.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+
+            exitEdit();
+
+        }
+    );
+
+
+    popup.addEventListener(
+        "click",
+        function(e){
+
+            if(e.target === popup){
+
+                popup.classList.remove(
+                    "active"
+                );
+
+
+                popup.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+
+                exitEdit();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       PENCIL
+    ===================================================== */
+
+    edit.addEventListener(
+        "click",
+        enterEdit
+    );
+
+
+    /* =====================================================
+       CANCEL
+    ===================================================== */
+
+    cancel.addEventListener(
+        "click",
+        function(){
+
+            /*
+             * Restore original data if the user
+             * selected a new photo but cancelled.
+             */
+
+            loadForm();
+
+            exitEdit();
+
+        }
+    );
+
+
+    /* =====================================================
+       ADD SOCIAL
+    ===================================================== */
+
+    add.addEventListener(
+        "click",
+        function(){
+
+            createSocialRow();
+
+        }
+    );
+
+
+    /* =====================================================
+       CHANGE PHOTO
+    ===================================================== */
+
+    changeImage.addEventListener(
+        "click",
+        function(){
+
+            imageInput.click();
+
+        }
+    );
+
+
+    /* =====================================================
+       IMAGE SELECTION
+    ===================================================== */
+
+    imageInput.addEventListener(
+        "change",
+        function(){
+
+            const file =
+                this.files &&
+                this.files[0];
+
+
+            if(!file)
+                return;
+
+
+            if(
+                !file.type.startsWith(
+                    "image/"
+                )
+            ){
+
+                alert(
+                    "Please select an image file."
+                );
+
+                this.value =
+                    "";
+
+                return;
+
+            }
+
+
+            /*
+             * Keep the original upload under 5 MB.
+             */
+
+            if(
+                file.size >
+                5 * 1024 * 1024
+            ){
+
+                alert(
+                    "Please choose an image smaller than 5 MB."
+                );
+
+                this.value =
+                    "";
+
+                return;
+
+            }
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(e){
+
+                    const selectedImage =
+                        e.target.result;
+
+
+                    /*
+                     * Temporary preview.
+                     * It is only persisted when
+                     * Save is clicked.
+                     */
+
+                    imagePreview.src =
+                        selectedImage;
+
+
+                    data.avatar =
+                        selectedImage;
+
+                };
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       REMOVE PHOTO
+    ===================================================== */
+
+    removeImage.addEventListener(
+        "click",
+        function(){
+
+            /*
+             * Do not permanently save this until
+             * the user presses Save.
+             */
+
+            data.avatar =
+                "";
+
+
+            imagePreview.src =
+                defaultAvatar;
+
+
+            imageInput.value =
+                "";
+
+        }
+    );
+
+
+    /* =====================================================
+       SAVE
+    ===================================================== */
+
+    save.addEventListener(
+        "click",
+        function(){
+
+            data.name =
+                $("#editName")
+                    .value
+                    .trim();
+
+
+            data.role =
+                $("#editRole")
+                    .value
+                    .trim();
+
+
+            data.about =
+                $("#editAbout")
+                    .value
+                    .trim();
+
+
+            data.website =
+                $("#editWebsite")
+                    .value
+                    .trim();
+
+
+            data.email =
+                $("#editEmail")
+                    .value
+                    .trim();
+
+
+            data.socials = [
+
+                ...editor.querySelectorAll(
+                    ".social-row"
+                )
+
+            ]
+            .map(
+                function(row){
+
+                    return {
+
+                        platform:
+                            row.querySelector(
+                                ".social-platform"
+                            ).value,
+
+                        url:
+                            row.querySelector(
+                                ".social-url"
+                            ).value.trim()
+
+                    };
+
+                }
+            )
+            .filter(
+                function(item){
+
+                    return item.url;
+
+                }
+            );
+
+
+            /*
+             * Persist profile.
+             */
+
+            persist();
+
+
+            /*
+             * Also synchronize the account
+             * avatar used by the sign-out popup.
+             */
+
+            const account =
+                getDemoAccount();
+
+
+            account.name =
+                data.name ||
+                account.name;
+
+
+            account.email =
+                data.email ||
+                account.email;
+
+
+            account.avatar =
+                data.avatar ||
+                "";
+
+
+            saveDemoAccount(
+                account
+            );
+
+
+            /*
+             * Refresh profile UI.
+             */
+
+            render();
+
+
+            /*
+             * Small save feedback.
+             */
+
+            save.classList.add(
+                "saved"
+            );
+
+
+            setTimeout(
+                function(){
+
+                    save.classList.remove(
+                        "saved"
+                    );
+
+
+                    exitEdit();
+
+                },
+                350
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       ESCAPE
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        function(e){
+
+            if(
+                e.key === "Escape" &&
+                popup.classList.contains(
+                    "active"
+                )
+            ){
+
+                popup.classList.remove(
+                    "active"
+                );
+
+
+                popup.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+
+                exitEdit();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       INITIAL
+    ===================================================== */
+
+    render();
+
+})();
+
+
+/* =========================================================
+   SUPABASE AUTH MANAGER
+========================================================= */
+(function(){
+    "use strict";
+
+    const SUPABASE_URL = "https://pabqkagdzfevkjiklrpj.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhYnFrYWdkemZldmtqaWtscnBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4MDQxMDMsImV4cCI6MjEwNDM4MDEwM30.MVEnwXCdapV0qXS14JvuRBoWggLAnVJjBJStpkST_6g";
+
+    if(!window.supabase || SUPABASE_URL.startsWith("YOUR_") || SUPABASE_ANON_KEY.startsWith("YOUR_")){
+        console.error("Supabase is not configured. Add your Project URL and Publishable/Anon key in the constants above.");
+        return;
+    }
+
+    window.supabaseClient = window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+    const auth = window.supabaseClient.auth;
+    const overlay=document.getElementById("authOverlay");
+    const close=document.getElementById("authClose");
+    const settingsOverlay=document.getElementById("settingsOverlay");
+    const createLink=document.getElementById("authCreateLink");
+    const signInLink=document.getElementById("authSignInLink");
+    const forgotLink=document.getElementById("authForgotLink");
+    const settingsLink=document.getElementById("settingsLink");
+
+    function setMessage(id,text,type){
+        const el=document.getElementById(id); if(!el)return;
+        el.textContent=text; el.className="auth-message show "+(type||"");
+    }
+    function clearMessages(){document.querySelectorAll(".auth-message").forEach(e=>e.className="auth-message");}
+    function switchScreen(name){document.querySelectorAll("[data-auth-screen]").forEach(e=>e.classList.toggle("active",e.dataset.authScreen===name));clearMessages();}
+    function openAuth(screen="login"){
+        overlay.classList.add("open"); overlay.setAttribute("aria-hidden","false"); switchScreen(screen); document.body.classList.add("auth-locked");
+    }
+    function closeAuth(){overlay.classList.remove("open");overlay.setAttribute("aria-hidden","true");document.body.classList.remove("auth-locked");}
+    function isSignedIn(){return !!currentAuthUser;}
+    function redirectUrl(){return window.location.href.split("#")[0];}
+
+    function syncUserToLocalProfile(user){
+        if(!user)return;
+        const profile=getLocalProfile();
+        if(user.user_metadata?.full_name) profile.name=user.user_metadata.full_name;
+        if(user.email) profile.email=user.email;
+        saveLocalProfile(profile);
+    }
+
+    function refreshUI(){
+        const signed=isSignedIn();
+        createLink.classList.toggle("hidden",signed);
+        signInLink.classList.toggle("hidden",signed);
+        forgotLink.classList.toggle("hidden",signed);
+        settingsLink.classList.toggle("visible",signed);
+        document.body.classList.toggle("auth-signed-in",signed);
+        updateAccountUI();
+    }
+
+    window.openStudentGuidanceAuth=openAuth;
+    window.closeStudentGuidanceAuth=closeAuth;
+
+    createLink.addEventListener("click",e=>{e.preventDefault();openAuth("register")});
+    signInLink.addEventListener("click",e=>{e.preventDefault();openAuth("login")});
+    forgotLink.addEventListener("click",e=>{e.preventDefault();openAuth("forgot")});
+    settingsLink.addEventListener("click",e=>{e.preventDefault();if(isSignedIn()){settingsOverlay.classList.add("open");document.body.style.overflow="hidden";}else openAuth("login")});
+    close.addEventListener("click",closeAuth);
+    overlay.addEventListener("click",e=>{if(e.target===overlay)closeAuth()});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape"&&overlay.classList.contains("open"))closeAuth()});
+    document.querySelectorAll("[data-auth-switch]").forEach(b=>b.addEventListener("click",()=>switchScreen(b.dataset.authSwitch)));
+    document.querySelectorAll("[data-toggle-password]").forEach(b=>b.addEventListener("click",()=>{const i=document.getElementById(b.dataset.togglePassword);i.type=i.type==="password"?"text":"password";b.textContent=i.type==="password"?"Show":"Hide"}));
+
+    const registerPassword=document.getElementById("registerPassword");
+    if(registerPassword) registerPassword.addEventListener("input",function(){const n=this.value.length,f=document.getElementById("passwordStrengthFill"),t=document.getElementById("passwordStrengthText");f.style.width=(n<6?25:n<8?50:n<12?75:100)+"%";t.textContent=n<8?"Use at least 8 characters.":n<12?"Good password.":"Strong password."});
+
+    document.getElementById("registerForm").addEventListener("submit",async function(e){
+        e.preventDefault();
+        const name=document.getElementById("registerName").value.trim();
+        const email=document.getElementById("registerEmail").value.trim().toLowerCase();
+        const password=document.getElementById("registerPassword").value;
+        const confirm=document.getElementById("registerConfirmPassword").value;
+        if(!name){setMessage("registerMessage","Please enter your full name.","error");return}
+        if(password.length<8){setMessage("registerMessage","Password must contain at least 8 characters.","error");return}
+        if(password!==confirm){setMessage("registerMessage","Passwords do not match.","error");return}
+        const button=this.querySelector("button[type=submit]"); button.disabled=true;
+        const {data,error}=await auth.signUp({email,password,options:{data:{full_name:name},emailRedirectTo:redirectUrl()}});
+        button.disabled=false;
+        if(error){setMessage("registerMessage",error.message,"error");return}
+        syncUserToLocalProfile(data.user);
+        document.getElementById("verifyEmailText").textContent="Verification email sent to "+email;
+        switchScreen("verify");
+        setMessage("registerMessage","Account created. Check your email to verify it.","success");
+    });
+
+    document.getElementById("verifyButton").addEventListener("click",async function(){
+        const {data,error}=await auth.getUser();
+        if(error){setMessage("loginMessage",error.message,"error");return}
+        currentAuthUser=data.user;
+        if(currentAuthUser?.email_confirmed_at){
+            document.getElementById("loginEmail").value=currentAuthUser.email||"";
+            switchScreen("login");
+            setMessage("loginMessage","Email verified successfully. You can now sign in.","success");
+            refreshUI();
+        }else{
+            setMessage("registerMessage","Please click the verification link in your email first, then return here.","error");
+        }
+    });
+
+    document.getElementById("resendVerification").addEventListener("click",async function(){
+        const email=document.getElementById("verifyEmailText").textContent.replace(/^Verification email sent to /,"").trim() || document.getElementById("registerEmail").value.trim().toLowerCase();
+        if(!email){setMessage("registerMessage","Enter your email first.","error");return}
+        const {error}=await auth.resend({type:"signup",email});
+        if(error){setMessage("registerMessage",error.message,"error");return}
+        setMessage("registerMessage","A new verification email has been sent.","success");
+    });
+
+    document.getElementById("loginForm").addEventListener("submit",async function(e){
+        e.preventDefault();
+        const email=document.getElementById("loginEmail").value.trim().toLowerCase();
+        const password=document.getElementById("loginPassword").value;
+        const button=this.querySelector("button[type=submit]"); button.disabled=true;
+        const {data,error}=await auth.signInWithPassword({email,password});
+        button.disabled=false;
+        if(error){setMessage("loginMessage",error.message,"error");return}
+        currentAuthUser=data.user;
+        syncUserToLocalProfile(currentAuthUser);
+        refreshUI();
+        closeAuth();
+    });
+
+    document.getElementById("forgotForm").addEventListener("submit",async function(e){
+        e.preventDefault();
+        const email=document.getElementById("forgotEmail").value.trim().toLowerCase();
+        const button=this.querySelector("button[type=submit]"); button.disabled=true;
+        const {error}=await auth.resetPasswordForEmail(email,{redirectTo:redirectUrl()});
+        button.disabled=false;
+        if(error){setMessage("forgotMessage",error.message,"error");return}
+        setMessage("forgotMessage","If an account exists for that email, a password reset link has been sent.","success");
+    });
+
+    document.getElementById("resetForm").addEventListener("submit",async function(e){
+        e.preventDefault();
+        const p=document.getElementById("resetPassword").value;
+        const c=document.getElementById("resetConfirmPassword").value;
+        if(p.length<8){setMessage("resetMessage","Password must contain at least 8 characters.","error");return}
+        if(p!==c){setMessage("resetMessage","Passwords do not match.","error");return}
+        const {error}=await auth.updateUser({password:p});
+        if(error){setMessage("resetMessage",error.message,"error");return}
+        document.getElementById("resetForm").reset();
+        switchScreen("login");
+        setMessage("loginMessage","Password reset successfully. Sign in with your new password.","success");
+    });
+
+    document.getElementById("changeForm").addEventListener("submit",async function(e){
+        e.preventDefault();
+        if(!currentAuthUser){closeSettings();openAuth("login");return}
+        const current=document.getElementById("changeCurrentPassword").value;
+        const p=document.getElementById("changeNewPassword").value;
+        const c=document.getElementById("changeConfirmPassword").value;
+        if(p.length<8){setMessage("changeMessage","New password must contain at least 8 characters.","error");return}
+        if(p!==c){setMessage("changeMessage","Passwords do not match.","error");return}
+        if(current){
+            const {error:verifyError}=await auth.signInWithPassword({email:currentAuthUser.email,password:current});
+            if(verifyError){setMessage("changeMessage","Current password is incorrect.","error");return}
+        }
+        const {error}=await auth.updateUser({password:p});
+        if(error){setMessage("changeMessage",error.message,"error");return}
+        document.getElementById("changeForm").reset();
+        closeAuth();
+        alertInline("Password changed successfully.");
+    });
+
+    const observer=new MutationObserver(()=>{if(settingsOverlay.classList.contains("open")&&!isSignedIn()){settingsOverlay.classList.remove("open");document.body.style.overflow="";openAuth("login")}});
+    observer.observe(settingsOverlay,{attributes:true,attributeFilter:["class"]});
+
+    auth.onAuthStateChange((event,session)=>{
+        currentAuthUser=session?.user||null;
+        if(currentAuthUser) syncUserToLocalProfile(currentAuthUser);
+        if(event==="PASSWORD_RECOVERY"){
+            openAuth("reset");
+        }
+        refreshUI();
+    });
+
+    (async function initAuth(){
+        const {data}=await auth.getSession();
+        currentAuthUser=data.session?.user||null;
+        if(currentAuthUser) syncUserToLocalProfile(currentAuthUser);
+        refreshUI();
+    })();
+})();
+
+/* =========================================================
+   INITIAL ACCOUNT
+========================================================= */
+
+updateAccountUI();
+
+</script>
+
+
+
+
+
+</body>
+
+</html>
