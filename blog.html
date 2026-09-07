@@ -86,17 +86,7 @@ body{
 .article-cover{
   width:100%;max-height:420px;object-fit:cover;border-radius:4px;margin-bottom:30px
 }
-.single-content{
-  font-size:1rem;margin-bottom:30px;display:block;width:100%;
-  overflow:visible;word-break:break-word;overflow-wrap:anywhere;
-}
-.single-content *{max-width:100%}
-.single-content pre{white-space:pre-wrap;word-break:break-word;overflow:auto}
-.single-content blockquote{margin:24px 0;padding:12px 18px;border-left:3px solid var(--border)}
-.article-image-gallery{display:flex;flex-direction:column;gap:18px;margin:24px 0}
-.article-image-gallery img{display:block;width:100%;max-width:100%;height:auto;object-fit:contain}
-.single-content table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}
-.single-content iframe{width:100%;max-width:100%;min-height:360px;border:0}
+.single-content{font-size:1rem;margin-bottom:30px}
 .single-content h1,.single-content h2,.single-content h3,.single-content h4{
   font-weight:500;margin-top:38px;margin-bottom:14px
 }
@@ -199,7 +189,7 @@ body{
   <h1 class="single-title" id="view-title"></h1>
   <div class="single-meta" id="view-meta"></div>
   <img id="view-cover" class="article-cover" style="display:none" alt="">
-  <div class="single-content" id="view-content" style="display:block;max-height:none;overflow:visible"></div>
+  <div class="single-content" id="view-content"></div>
 
   <div class="resources-section" id="resources-section" style="display:none">
     <div id="videos-container" style="display:none">
@@ -247,7 +237,7 @@ const SUPABASE_URL = "https://pabqkagdzfevkjiklrpj.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhYnFrYWdkemZldmtqaWtscnBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4MDQxMDMsImV4cCI6MjEwNDM4MDEwM30.MVEnwXCdapV0qXS14JvuRBoWggLAnVJjBJStpkST_6g";
 
 const supabaseClient =
-  (SUPABASE_URL.startsWith("http") && SUPABASE_ANON_KEY.startsWith("ey"))
+  (SUPABASE_URL.startsWith("http") && SUPABASE_ANON_KEY.startsWith("ey") && window.supabase && typeof window.supabase.createClient === "function")
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
     : null;
 
@@ -425,8 +415,9 @@ function goToPage(page){
 }
 
 function openArticle(id){
-  const article = allArticles.find(a=>String(a.id)===String(id));
-  if(!article) return;
+  try {
+    const article = allArticles.find(a=>String(a.id)===String(id));
+    if(!article) return;
 
   currentArticleId = article.id;
 
@@ -443,7 +434,7 @@ function openArticle(id){
     cover.style.display="none";
   }
 
-  renderArticleContent(article);
+  document.getElementById("view-content").innerHTML = article.content || "";
   renderResources(article);
 
   const tags = document.getElementById("view-tags");
@@ -455,7 +446,14 @@ function openArticle(id){
 
   listView.style.display="none";
   articleView.style.display="block";
-  window.scrollTo({top:0,behavior:"smooth"});
+    window.scrollTo({top:0,behavior:"smooth"});
+  } catch(error) {
+    console.error("Article open failed:", error);
+    showLoader(false);
+    listView.style.display="block";
+    articleView.style.display="none";
+    listEl.innerHTML = `<div class="empty-state">Unable to open this article: ${escapeHtml(error.message || "Unknown error")}</div>`;
+  }
 }
 
 function showList(){
@@ -463,74 +461,6 @@ function showList(){
   articleView.style.display="none";
   listView.style.display="block";
   window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function parseContentValue(value){
-  if(value == null) return "";
-  if(typeof value === "string") return value;
-  try{
-    if(typeof value === "object") return JSON.stringify(value);
-  }catch(e){}
-  return String(value);
-}
-
-function looksLikeHtml(text){
-  return /<\\/?[a-z][\\s\\S]*>/i.test(text);
-}
-
-function renderPlainText(text){
-  const normalized = text.replace(/\r\n/g,"\n").replace(/\r/g,"\n").trim();
-  if(!normalized) return "";
-  return normalized
-    .split(/\n{2,}/)
-    .map(block => {
-      const lines = block.split("\n");
-      if(lines.length > 1){
-        return `<p>${lines.map(line => escapeHtml(line)).join("<br>")}</p>`;
-      }
-      return `<p>${escapeHtml(block)}</p>`;
-    })
-    .join("");
-}
-
-function renderArticleContent(article){
-  const contentEl = document.getElementById("view-content");
-  const raw = parseContentValue(article.content);
-
-  // Always show the complete stored article body.
-  if(!raw.trim()){
-    contentEl.innerHTML = "<p>No article content available.</p>";
-  }else if(looksLikeHtml(raw)){
-    contentEl.innerHTML = raw;
-  }else{
-    contentEl.innerHTML = renderPlainText(raw);
-  }
-
-  // The editor stores article images in the separate `images` column.
-  // Show ALL of them instead of using only the first image as the cover.
-  const images = Array.isArray(article.images) ? article.images.filter(Boolean) : [];
-  const coverUrl = article.thumbnail || images[0] || "";
-  const galleryImages = images.filter(url => String(url) !== String(coverUrl));
-
-  if(galleryImages.length){
-    const gallery = document.createElement("div");
-    gallery.className = "article-image-gallery";
-    galleryImages.forEach((url, index) => {
-      const img = document.createElement("img");
-      img.src = safeUrl(url);
-      img.alt = `${article.title || "Article"} image ${index + 1}`;
-      img.loading = "lazy";
-      img.onerror = () => img.remove();
-      gallery.appendChild(img);
-    });
-    contentEl.appendChild(gallery);
-  }
-
-  contentEl.style.display = "block";
-  contentEl.style.visibility = "visible";
-  contentEl.style.height = "auto";
-  contentEl.style.maxHeight = "none";
-  contentEl.style.overflow = "visible";
 }
 
 function renderResources(article){
@@ -628,24 +558,10 @@ async function shareArticle(){
   }
   try{
     await navigator.clipboard.writeText(url);
-    showCopyMessage("Article link copied.");
+    alert("Article link copied.");
   }catch(e){
     prompt("Copy this article link:",url);
   }
-}
-
-function showCopyMessage(message){
-  let box = document.getElementById("copy-message");
-  if(!box){
-    box = document.createElement("div");
-    box.id = "copy-message";
-    box.style.cssText = "position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:9px 14px;border-radius:6px;font-size:.82rem;z-index:10000;box-shadow:0 4px 18px rgba(0,0,0,.15)";
-    document.body.appendChild(box);
-  }
-  box.textContent = message;
-  box.style.display = "block";
-  clearTimeout(box._timer);
-  box._timer = setTimeout(() => { box.style.display = "none"; }, 2200);
 }
 
 function formatDate(value){
