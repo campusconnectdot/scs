@@ -275,6 +275,13 @@ function safeUrl(value=""){
   return "#";
 }
 
+function normalizeContent(value){
+  if(value == null) return "";
+  if(typeof value === "string") return value;
+  if(typeof value === "object") return value.html || value.content || value.body || value.text || "";
+  return String(value);
+}
+
 function normalizeArticle(row){
   return {
     id: row.id,
@@ -282,7 +289,7 @@ function normalizeArticle(row){
     date: row.published_at || row.created_at || "",
     thumbnail: row.thumbnail || "",
     images: Array.isArray(row.images) ? row.images : [],
-    content: row.content || "",
+    content: normalizeContent(row.content ?? row.body ?? row.article_content ?? row.description ?? ""),
     videos: Array.isArray(row.videos) ? row.videos : [],
     audio: Array.isArray(row.audio) ? row.audio : [],
     links: Array.isArray(row.links) ? row.links : [],
@@ -359,7 +366,7 @@ function render(){
         `<span class="tag">#${escapeHtml(tag)}</span>`).join("");
 
       return `
-        <article class="article-item" onclick="openArticle(${JSON.stringify(String(article.id))})">
+        <article class="article-item" data-article-id="${escapeHtml(String(article.id))}" tabindex="0" role="button">
           <div class="article-item-content">
             ${thumb ? `<img class="thumbnail" src="${escapeHtml(thumb)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
             <div class="article-details">
@@ -375,6 +382,12 @@ function render(){
 
   loadMoreContainer.style.display =
     visibleCount < pageArticles.length ? "block" : "none";
+
+  listEl.querySelectorAll(".article-item").forEach(item=>{
+    const id=item.dataset.articleId;
+    item.addEventListener("click",()=>openArticle(id));
+    item.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();openArticle(id);} });
+  });
 
   renderPagination();
 }
@@ -415,44 +428,29 @@ function goToPage(page){
 }
 
 function openArticle(id){
-  try {
-    const article = allArticles.find(a=>String(a.id)===String(id));
-    if(!article) return;
-
-  currentArticleId = article.id;
-
-  document.getElementById("view-title").textContent = article.title;
-  document.getElementById("view-meta").textContent =
-    `${formatDate(article.date)}${article.author ? " · " + article.author : ""}`;
-
-  const cover = document.getElementById("view-cover");
-  const coverUrl = article.thumbnail || (article.images && article.images[0]) || "";
-  if(coverUrl){
-    cover.src=coverUrl;
-    cover.style.display="block";
-  }else{
-    cover.style.display="none";
-  }
-
-  document.getElementById("view-content").innerHTML = article.content || "";
-  renderResources(article);
-
-  const tags = document.getElementById("view-tags");
-  tags.innerHTML=(article.tags||[]).map(t=>`<span class="tag">#${escapeHtml(t)}</span>`).join("");
-
-  const index=allArticles.findIndex(a=>String(a.id)===String(article.id));
-  document.getElementById("prev-btn").disabled=index<=0;
-  document.getElementById("next-btn").disabled=index>=allArticles.length-1;
-
-  listView.style.display="none";
-  articleView.style.display="block";
+  const article=allArticles.find(a=>String(a.id)===String(id));
+  if(!article){console.error("Article not found",id);return;}
+  try{
+    currentArticleId=article.id;
+    document.getElementById("view-title").textContent=article.title||"Untitled article";
+    document.getElementById("view-meta").textContent=`${formatDate(article.date)}${article.author?" · "+article.author:""}`;
+    const cover=document.getElementById("view-cover");
+    const coverUrl=article.thumbnail||(article.images&&article.images[0])||"";
+    if(coverUrl){cover.src=safeUrl(coverUrl);cover.style.display="block";cover.onerror=()=>cover.style.display="none";}
+    else{cover.removeAttribute("src");cover.style.display="none";}
+    const content=normalizeContent(article.content);
+    document.getElementById("view-content").innerHTML=content||'<p style="color:var(--muted)">This article has no content yet.</p>';
+    renderResources(article);
+    document.getElementById("view-tags").innerHTML=(article.tags||[]).map(t=>`<span class="tag">#${escapeHtml(t)}</span>`).join("");
+    const index=allArticles.findIndex(a=>String(a.id)===String(article.id));
+    document.getElementById("prev-btn").disabled=index<=0;
+    document.getElementById("next-btn").disabled=index>=allArticles.length-1;
+    listView.style.display="none"; articleView.style.display="block"; showLoader(false);
     window.scrollTo({top:0,behavior:"smooth"});
-  } catch(error) {
-    console.error("Article open failed:", error);
-    showLoader(false);
-    listView.style.display="block";
-    articleView.style.display="none";
-    listEl.innerHTML = `<div class="empty-state">Unable to open this article: ${escapeHtml(error.message || "Unknown error")}</div>`;
+  }catch(error){
+    console.error("Article open failed:",error); showLoader(false);
+    listView.style.display="block"; articleView.style.display="none";
+    listEl.innerHTML=`<div class="empty-state">Unable to open this article: ${escapeHtml(error.message||"Unknown error")}</div>`;
   }
 }
 
