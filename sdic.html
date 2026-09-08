@@ -1,0 +1,5570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#fafafa">
+
+<title>Alumni Directory</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+
+    --text-main: #262626;
+    --text-muted: #737373;
+    --text-faint: #a3a3a3;
+
+    --border: #f0f0f0;
+    --border-hover: #e5e5e5;
+
+    --bg-main: #fafafa;
+    --bg-card: #ffffff;
+    --bg-subtle: #f7f7f7;
+
+    --overlay: rgba(255,255,255,.88);
+
+    --verified: #238636;
+    --verified-bg: #f0fdf4;
+
+    --pending: #9a6700;
+    --pending-bg: #fff8c5;
+
+    --unverified: #737373;
+    --unverified-bg: #f5f5f5;
+
+    --rejected: #b42318;
+    --rejected-bg: #fff5f5;
+
+    --radius: 8px;
+
+    --transition:
+        opacity .18s ease,
+        background-color .18s ease,
+        border-color .18s ease,
+        color .18s ease,
+        transform .18s ease;
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    margin: 0;
+
+    background: var(--bg-main);
+
+    color: var(--text-main);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.logout-button {
+
+    position: fixed;
+
+    top: 18px;
+    right: 20px;
+
+    z-index: 100;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 32px;
+
+    padding: 5px 10px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    background: #fff;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+
+    transition: var(--transition);
+
+}
+
+.logout-button:hover {
+
+    color: var(--text-main);
+
+    border-color: var(--border-hover);
+
+    background: var(--bg-subtle);
+
+}
+
+.logout-button:active {
+
+    opacity: .65;
+
+    transform: translateY(1px);
+
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page {
+
+    width: 100%;
+
+    max-width: 1180px;
+
+    margin: 0 auto;
+
+    padding: 90px 20px 60px;
+
+}
+
+
+/* =========================================================
+   WELCOME
+========================================================= */
+
+.welcome {
+
+    margin-bottom: 32px;
+
+}
+
+.welcome h1 {
+
+    margin: 0 0 5px;
+
+    font-size: 25px;
+
+    font-weight: 500;
+
+    letter-spacing: -.02em;
+
+}
+
+.welcome p {
+
+    margin: 0;
+
+    color: var(--text-muted);
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   LOGIN REQUIRED
+========================================================= */
+
+.login-required {
+
+    padding: 22px;
+
+    margin-bottom: 25px;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    background: var(--bg-card);
+
+}
+
+.login-required p {
+
+    margin: 0 0 14px;
+
+    color: var(--text-muted);
+
+}
+
+.sign-in-button {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 34px;
+
+    padding: 6px 14px;
+
+    border: 1px solid var(--border-hover);
+
+    border-radius: 6px;
+
+    background: #fff;
+
+    color: var(--text-main);
+
+    font-size: 13px;
+
+    transition: var(--transition);
+
+}
+
+.sign-in-button:hover {
+
+    background: var(--bg-subtle);
+
+    border-color: #d8d8d8;
+
+}
+
+.sign-in-button:active {
+
+    opacity: .65;
+
+    transform: translateY(1px);
+
+}
+
+
+/* =========================================================
+   ALUMNI AREA
+========================================================= */
+
+.alumni-area {
+
+    display: none;
+
+}
+
+
+/* =========================================================
+   VERIFICATION STATUS PANEL
+========================================================= */
+
+.verification-panel {
+
+    display: none;
+
+    margin-bottom: 18px;
+
+    padding: 12px 13px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 7px;
+
+    background: #fff;
+
+}
+
+.verification-panel.visible {
+
+    display: block;
+
+}
+
+.verification-panel-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+}
+
+.verification-panel-title {
+
+    color: var(--text-main);
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+}
+
+.verification-panel-message {
+
+    margin-top: 4px;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+.verification-panel-actions {
+
+    margin-top: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    flex-wrap: wrap;
+
+}
+
+.verification-rejection {
+
+    display: none;
+
+    margin-top: 8px;
+
+    padding: 8px 9px;
+
+    border: 1px solid #f1dddd;
+
+    border-radius: 6px;
+
+    background: var(--rejected-bg);
+
+    color: var(--rejected);
+
+    font-size: 11px;
+
+}
+
+.verification-rejection.visible {
+
+    display: block;
+
+}
+
+
+/* =========================================================
+   SEARCH / FILTERS
+========================================================= */
+
+.directory-controls {
+
+    margin-bottom: 18px;
+
+}
+
+.search-row {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-bottom: 9px;
+
+}
+
+.search-input {
+
+    width: 100%;
+
+    min-height: 36px;
+
+    padding: 7px 11px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    outline: none;
+
+    background: #fff;
+
+    color: var(--text-main);
+
+    transition: var(--transition);
+
+}
+
+.search-input::placeholder {
+
+    color: var(--text-faint);
+
+}
+
+.search-input:hover {
+
+    border-color: var(--border-hover);
+
+}
+
+.search-input:focus {
+
+    border-color: #d8d8d8;
+
+    box-shadow: 0 0 0 2px rgba(0,0,0,.025);
+
+}
+
+.filter-row {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 8px;
+
+}
+
+.filter-select {
+
+    width: 100%;
+
+    min-height: 34px;
+
+    padding: 6px 9px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    outline: none;
+
+    background: #fff;
+
+    color: var(--text-muted);
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+}
+
+.filter-select:hover {
+
+    border-color: var(--border-hover);
+
+}
+
+.filter-select:focus {
+
+    border-color: #d8d8d8;
+
+}
+
+
+/* =========================================================
+   RESULT HEADER
+========================================================= */
+
+.result-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 8px;
+
+}
+
+.result-count {
+
+    color: var(--text-faint);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   ALUMNI LIST
+========================================================= */
+
+.alumni-list {
+
+    width: 100%;
+
+    border-top: 1px solid var(--border);
+
+}
+
+.alumni-card {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(250px, 1.7fr)
+        minmax(140px, 1fr)
+        minmax(150px, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 13px 4px;
+
+    border-bottom: 1px solid var(--border);
+
+    background: transparent;
+
+    transition:
+        background-color .18s ease,
+        border-color .18s ease;
+
+}
+
+.alumni-card:hover {
+
+    background: rgba(0,0,0,.012);
+
+}
+
+
+/* =========================================================
+   PROFILE SUMMARY
+========================================================= */
+
+.alumni-profile {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+}
+
+.avatar {
+
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    border-radius: 50%;
+
+    border: 1px solid var(--border);
+
+    background: var(--bg-subtle);
+
+    object-fit: cover;
+
+}
+
+.alumni-profile-info {
+
+    min-width: 0;
+
+}
+
+.alumni-name-row {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+}
+
+.alumni-name {
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: var(--text-main);
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+}
+
+.alumni-role {
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   VERIFIED BADGE
+========================================================= */
+
+.verification-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    width: fit-content;
+
+    padding: 2px 6px;
+
+    border: 1px solid transparent;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+
+    line-height: 1.3;
+
+    white-space: nowrap;
+
+}
+
+.verification-badge svg {
+
+    width: 11px;
+    height: 11px;
+
+    flex: 0 0 11px;
+
+}
+
+.verification-badge.verified {
+
+    color: var(--verified);
+
+    background: var(--verified-bg);
+
+    border-color: #dcfce7;
+
+}
+
+.verification-badge.pending {
+
+    color: var(--pending);
+
+    background: var(--pending-bg);
+
+    border-color: #f4e6a5;
+
+}
+
+.verification-badge.unverified {
+
+    color: var(--unverified);
+
+    background: var(--unverified-bg);
+
+    border-color: var(--border);
+
+}
+
+.verification-badge.rejected {
+
+    color: var(--rejected);
+
+    background: var(--rejected-bg);
+
+    border-color: #f1dddd;
+
+}
+
+
+/* =========================================================
+   INFORMATION COLUMNS
+========================================================= */
+
+.alumni-column {
+
+    min-width: 0;
+
+}
+
+.column-label {
+
+    display: none;
+
+}
+
+.column-value {
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   VIEW BUTTON
+========================================================= */
+
+.view-button {
+
+    min-height: 30px;
+
+    padding: 5px 10px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    background: #fff;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    white-space: nowrap;
+
+    transition: var(--transition);
+
+}
+
+.view-button:hover {
+
+    color: var(--text-main);
+
+    background: var(--bg-subtle);
+
+    border-color: var(--border-hover);
+
+}
+
+.view-button:active {
+
+    opacity: .6;
+
+    transform: translateY(1px);
+
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-state {
+
+    padding: 45px 20px;
+
+    text-align: center;
+
+    color: var(--text-faint);
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+
+/* =========================================================
+   ADMIN LINK
+========================================================= */
+
+.admin-link {
+
+    display: inline-block;
+
+    margin-top: 25px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    text-decoration: none;
+
+}
+
+.admin-link:hover {
+
+    color: var(--text-main);
+
+    text-decoration: underline;
+
+}
+
+
+/* =========================================================
+   MODAL OVERLAY
+========================================================= */
+
+.modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background: var(--overlay);
+
+    backdrop-filter: blur(5px);
+
+    -webkit-backdrop-filter: blur(5px);
+
+}
+
+.modal-overlay.open {
+
+    display: flex;
+
+}
+
+
+/* =========================================================
+   LOGIN MODAL
+========================================================= */
+
+.login-modal {
+
+    width: 100%;
+
+    max-width: 390px;
+
+    padding: 24px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.06);
+
+}
+
+.login-modal-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+
+}
+
+.login-modal h2 {
+
+    margin: 0;
+
+    font-size: 18px;
+
+    font-weight: 500;
+
+}
+
+.login-modal-description {
+
+    margin: 4px 0 0;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+}
+
+.close-button {
+
+    width: 28px;
+    height: 28px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 5px;
+
+    background: transparent;
+
+    color: var(--text-faint);
+
+    font-size: 19px;
+
+    line-height: 1;
+
+    transition: var(--transition);
+
+}
+
+.close-button:hover {
+
+    background: var(--bg-subtle);
+
+    color: var(--text-main);
+
+}
+
+.form-group {
+
+    margin-bottom: 13px;
+
+}
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+}
+
+.form-input,
+.form-textarea {
+
+    width: 100%;
+
+    padding: 8px 9px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    outline: none;
+
+    background: #fff;
+
+    color: var(--text-main);
+
+    transition: var(--transition);
+
+}
+
+.form-input {
+
+    min-height: 35px;
+
+}
+
+.form-textarea {
+
+    min-height: 85px;
+
+    resize: vertical;
+
+}
+
+.form-input:focus,
+.form-textarea:focus {
+
+    border-color: #d5d5d5;
+
+    box-shadow:
+        0 0 0 2px rgba(0,0,0,.025);
+
+}
+
+.login-error {
+
+    display: none;
+
+    margin-bottom: 12px;
+
+    padding: 8px 9px;
+
+    border: 1px solid #f0dddd;
+
+    border-radius: 6px;
+
+    background: #fff8f8;
+
+    color: #a33;
+
+    font-size: 12px;
+
+}
+
+.login-submit {
+
+    width: 100%;
+
+    min-height: 36px;
+
+    border: 1px solid #dedede;
+
+    border-radius: 6px;
+
+    background: #f7f7f7;
+
+    color: var(--text-main);
+
+    font-size: 13px;
+
+    transition: var(--transition);
+
+}
+
+.login-submit:hover {
+
+    background: #f1f1f1;
+
+}
+
+.login-submit:active {
+
+    opacity: .65;
+
+}
+
+
+/* =========================================================
+   PROFILE MODAL
+========================================================= */
+
+.profile-modal {
+
+    width: 100%;
+
+    max-width: 480px;
+
+    max-height: min(720px, 90vh);
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.08);
+
+}
+
+
+/* =========================================================
+   PROFILE HEADER
+========================================================= */
+
+.profile-modal-header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 13px 15px;
+
+    border-bottom: 1px solid var(--border);
+
+    background: #fff;
+
+}
+
+.profile-header-avatar {
+
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    background: var(--bg-subtle);
+
+}
+
+.profile-header-info {
+
+    min-width: 0;
+
+    flex: 1;
+
+}
+
+.profile-header-name-row {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+}
+
+.profile-header-name {
+
+    color: var(--text-main);
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+}
+
+.profile-header-role {
+
+    margin-top: 1px;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+.profile-header-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+}
+
+
+/* =========================================================
+   PROFILE BODY
+========================================================= */
+
+.profile-modal-body {
+
+    overflow-y: auto;
+
+    padding: 17px;
+
+}
+
+.profile-section {
+
+    margin-bottom: 21px;
+
+}
+
+.profile-section:last-child {
+
+    margin-bottom: 4px;
+
+}
+
+.profile-section-title {
+
+    margin: 0 0 8px;
+
+    color: var(--text-main);
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+}
+
+.profile-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+
+}
+
+.profile-item {
+
+    min-width: 0;
+
+    padding: 9px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    background: #fff;
+
+}
+
+.profile-item-label {
+
+    margin-bottom: 2px;
+
+    color: var(--text-faint);
+
+    font-size: 10px;
+
+}
+
+.profile-item-value {
+
+    overflow-wrap: anywhere;
+
+    color: var(--text-main);
+
+    font-size: 12px;
+
+}
+
+.profile-text {
+
+    margin: 0;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    white-space: pre-wrap;
+
+    overflow-wrap: anywhere;
+
+}
+
+
+/* =========================================================
+   SKILLS / GUIDANCE
+========================================================= */
+
+.tag-list {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+
+}
+
+.profile-tag {
+
+    padding: 3px 7px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 999px;
+
+    color: var(--text-muted);
+
+    background: #fff;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+.profile-links {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+}
+
+.profile-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    width: fit-content;
+
+    max-width: 100%;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    text-decoration: none;
+
+    overflow-wrap: anywhere;
+
+}
+
+.profile-link:hover {
+
+    color: var(--text-main);
+
+    text-decoration: underline;
+
+}
+
+.profile-link svg {
+
+    width: 13px;
+    height: 13px;
+
+    flex: 0 0 13px;
+
+}
+
+
+/* =========================================================
+   EDIT FORM
+========================================================= */
+
+.edit-profile-form {
+
+    display: none;
+
+}
+
+.edit-profile-form.active {
+
+    display: block;
+
+}
+
+.profile-view.active {
+
+    display: block;
+
+}
+
+.profile-view {
+
+    display: none;
+
+}
+
+.edit-note {
+
+    margin-bottom: 15px;
+
+    padding: 8px 9px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    background: var(--bg-subtle);
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+.edit-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 7px;
+
+    margin-top: 17px;
+
+    padding-top: 13px;
+
+    border-top: 1px solid var(--border);
+
+}
+
+.secondary-button,
+.primary-button {
+
+    min-height: 32px;
+
+    padding: 5px 10px;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+
+    transition: var(--transition);
+
+}
+
+.secondary-button {
+
+    border: 1px solid var(--border);
+
+    background: #fff;
+
+    color: var(--text-muted);
+
+}
+
+.secondary-button:hover {
+
+    background: var(--bg-subtle);
+
+    color: var(--text-main);
+
+}
+
+.primary-button {
+
+    border: 1px solid #dedede;
+
+    background: #f5f5f5;
+
+    color: var(--text-main);
+
+}
+
+.primary-button:hover {
+
+    background: #ededed;
+
+}
+
+.primary-button:disabled,
+.secondary-button:disabled {
+
+    opacity: .55;
+
+    cursor: not-allowed;
+
+}
+
+
+/* =========================================================
+   LOGOUT MODAL
+========================================================= */
+
+.confirm-modal {
+
+    width: 100%;
+
+    max-width: 350px;
+
+    padding: 22px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.07);
+
+}
+
+.confirm-modal h3 {
+
+    margin: 0 0 5px;
+
+    font-size: 16px;
+
+    font-weight: 500;
+
+}
+
+.confirm-modal p {
+
+    margin: 0 0 17px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+}
+
+.confirm-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 7px;
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading {
+
+    padding: 35px 10px;
+
+    text-align: center;
+
+    color: var(--text-faint);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .page {
+
+        padding:
+            75px
+            15px
+            45px;
+
+    }
+
+    .filter-row {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .alumni-card {
+
+        grid-template-columns: 1fr;
+
+        gap: 8px;
+
+        padding: 14px 2px;
+
+    }
+
+    .alumni-column {
+
+        padding-left: 49px;
+
+    }
+
+    .column-label {
+
+        display: block;
+
+        margin-bottom: 1px;
+
+        color: var(--text-faint);
+
+        font-size: 10px;
+
+    }
+
+    .view-column {
+
+        padding-left: 49px;
+
+    }
+
+    .view-button {
+
+        width: 100%;
+
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .page {
+
+        padding-left: 12px;
+        padding-right: 12px;
+
+    }
+
+    .welcome h1 {
+
+        font-size: 22px;
+
+    }
+
+    .profile-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .modal-overlay {
+
+        padding: 10px;
+
+    }
+
+    .profile-modal {
+
+        max-height: 94vh;
+
+    }
+
+    .verification-panel-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        scroll-behavior: auto !important;
+
+        transition: none !important;
+
+        animation: none !important;
+
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<button
+    type="button"
+    id="logoutButton"
+    class="logout-button"
+>
+    Log Out
+</button>
+
+
+<main class="page">
+
+
+    <section class="welcome">
+
+        <h1>
+            Alumni Directory
+        </h1>
+
+        <p>
+            Explore alumni profiles and connect with the community.
+        </p>
+
+    </section>
+
+
+    <section
+        id="loginRequired"
+        class="login-required"
+    >
+
+        <p>
+            Sign in to view the alumni directory.
+        </p>
+
+        <button
+            type="button"
+            id="mainSignIn"
+            class="sign-in-button"
+        >
+            Sign In
+        </button>
+
+    </section>
+
+
+    <section
+        id="alumniArea"
+        class="alumni-area"
+    >
+
+
+        <!-- =================================================
+             VERIFICATION STATUS
+        ================================================== -->
+
+        <div
+            id="verificationPanel"
+            class="verification-panel"
+        >
+
+            <div class="verification-panel-header">
+
+                <div>
+
+                    <div class="verification-panel-title">
+                        Verification status
+                    </div>
+
+                    <div
+                        id="verificationMessage"
+                        class="verification-panel-message"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+                <div
+                    id="currentVerificationBadge"
+                    class="verification-badge unverified"
+                >
+                    Unverified
+                </div>
+
+            </div>
+
+
+            <div
+                id="verificationRejection"
+                class="verification-rejection"
+            ></div>
+
+
+            <div class="verification-panel-actions">
+
+                <button
+                    type="button"
+                    id="submitVerificationButton"
+                    class="primary-button"
+                >
+                    Submit for Verification
+                </button>
+
+                <button
+                    type="button"
+                    id="refreshVerificationButton"
+                    class="secondary-button"
+                >
+                    Refresh
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="directory-controls">
+
+            <div class="search-row">
+
+                <input
+                    type="search"
+                    id="alumniSearch"
+                    class="search-input"
+                    placeholder="Search alumni..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="filter-row">
+
+                <select
+                    id="degreeFilter"
+                    class="filter-select"
+                >
+
+                    <option value="">
+                        All degrees
+                    </option>
+
+                </select>
+
+
+                <select
+                    id="departmentFilter"
+                    class="filter-select"
+                >
+
+                    <option value="">
+                        All departments
+                    </option>
+
+                </select>
+
+
+                <select
+                    id="verificationFilter"
+                    class="filter-select"
+                >
+
+                    <option value="">
+                        All verification
+                    </option>
+
+                    <option value="verified">
+                        Verified
+                    </option>
+
+                    <option value="pending">
+                        Pending
+                    </option>
+
+                    <option value="unverified">
+                        Unverified
+                    </option>
+
+                    <option value="rejected">
+                        Rejected
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="result-header">
+
+            <span
+                id="filterResultCount"
+                class="result-count"
+            >
+                Loading...
+            </span>
+
+        </div>
+
+
+        <div
+            id="alumniList"
+            class="alumni-list"
+        >
+
+            <div class="loading">
+                Loading alumni...
+            </div>
+
+        </div>
+
+
+        <a
+            href="admin.html"
+            class="admin-link"
+        >
+            Admin portal
+        </a>
+
+
+    </section>
+
+
+</main>
+
+
+<!-- =====================================================
+     LOGIN MODAL
+====================================================== -->
+
+<div
+    id="loginModal"
+    class="modal-overlay"
+    aria-hidden="true"
+>
+
+    <div
+        class="login-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="loginTitle"
+    >
+
+        <div class="login-modal-header">
+
+            <div>
+
+                <h2 id="loginTitle">
+                    Sign In
+                </h2>
+
+                <p class="login-modal-description">
+                    Sign in to your alumni account.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                id="closeLogin"
+                class="close-button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="loginForm">
+
+            <div class="form-group">
+
+                <label for="loginEmail">
+                    Email
+                </label>
+
+                <input
+                    id="loginEmail"
+                    class="form-input"
+                    type="email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="loginPassword">
+                    Password
+                </label>
+
+                <input
+                    id="loginPassword"
+                    class="form-input"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <div
+                id="loginError"
+                class="login-error"
+            ></div>
+
+
+            <button
+                id="loginSubmit"
+                type="submit"
+                class="login-submit"
+            >
+                Sign In
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     PROFILE MODAL
+====================================================== -->
+
+<div
+    id="profileModal"
+    class="modal-overlay"
+    aria-hidden="true"
+>
+
+    <div
+        class="profile-modal"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <header class="profile-modal-header">
+
+            <img
+                id="profileHeaderAvatar"
+                class="profile-header-avatar"
+                src="https://fir-rollup.firebaseapp.com/de-sm.jpg"
+                alt=""
+            >
+
+
+            <div class="profile-header-info">
+
+                <div class="profile-header-name-row">
+
+                    <span
+                        id="profileHeaderName"
+                        class="profile-header-name"
+                    >
+                        Profile
+                    </span>
+
+                    <span
+                        id="profileHeaderBadge"
+                        class="verification-badge unverified"
+                    >
+                        Unverified
+                    </span>
+
+                </div>
+
+                <div
+                    id="profileHeaderRole"
+                    class="profile-header-role"
+                ></div>
+
+            </div>
+
+
+            <div class="profile-header-actions">
+
+                <button
+                    type="button"
+                    id="editProfileButton"
+                    class="secondary-button"
+                >
+                    Edit
+                </button>
+
+                <button
+                    type="button"
+                    id="closeProfile"
+                    class="close-button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <div class="profile-modal-body">
+
+
+            <div
+                id="profileView"
+                class="profile-view active"
+            >
+
+
+                <section class="profile-section">
+
+                    <h3 class="profile-section-title">
+                        Academic Record
+                    </h3>
+
+                    <div class="profile-grid">
+
+                        <div class="profile-item">
+
+                            <div class="profile-item-label">
+                                Degree / Program
+                            </div>
+
+                            <div
+                                id="viewProgram"
+                                class="profile-item-value"
+                            >
+                                —
+                            </div>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <div class="profile-item-label">
+                                Department
+                            </div>
+
+                            <div
+                                id="viewDepartment"
+                                class="profile-item-value"
+                            >
+                                —
+                            </div>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <div class="profile-item-label">
+                                Batch
+                            </div>
+
+                            <div
+                                id="viewBatch"
+                                class="profile-item-value"
+                            >
+                                —
+                            </div>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <div class="profile-item-label">
+                                Passing Year
+                            </div>
+
+                            <div
+                                id="viewPassingYear"
+                                class="profile-item-value"
+                            >
+                                —
+                            </div>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <div class="profile-item-label">
+                                PRN
+                            </div>
+
+                            <div
+                                id="viewPrn"
+                                class="profile-item-value"
+                            >
+                                —
+                            </div>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <div class="profile-item-label">
+                                Verification
+                            </div>
+
+                            <div
+                                id="viewVerification"
+                                class="profile-item-value"
+                            >
+                                —
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <section class="profile-section">
+
+                    <h3 class="profile-section-title">
+                        About
+                    </h3>
+
+                    <p
+                        id="viewAbout"
+                        class="profile-text"
+                    >
+                        No information provided.
+                    </p>
+
+                </section>
+
+
+                <section class="profile-section">
+
+                    <h3 class="profile-section-title">
+                        Experience
+                    </h3>
+
+                    <p
+                        id="viewExperience"
+                        class="profile-text"
+                    >
+                        No experience information provided.
+                    </p>
+
+                </section>
+
+
+                <section class="profile-section">
+
+                    <h3 class="profile-section-title">
+                        Skills
+                    </h3>
+
+                    <div
+                        id="viewSkills"
+                        class="tag-list"
+                    >
+                        —
+                    </div>
+
+                </section>
+
+
+                <section class="profile-section">
+
+                    <h3 class="profile-section-title">
+                        Guidance Offerings
+                    </h3>
+
+                    <div
+                        id="viewGuidance"
+                        class="tag-list"
+                    >
+                        —
+                    </div>
+
+                </section>
+
+
+                <section class="profile-section">
+
+                    <h3 class="profile-section-title">
+                        Links & Contact
+                    </h3>
+
+                    <div class="profile-links">
+
+
+                        <a
+                            id="profileLinkedin"
+                            class="profile-link"
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style="display:none"
+                        >
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"
+                                />
+                                <rect
+                                    x="2"
+                                    y="9"
+                                    width="4"
+                                    height="12"
+                                />
+                                <circle
+                                    cx="4"
+                                    cy="4"
+                                    r="2"
+                                />
+                            </svg>
+
+                            <span id="profileLinkedinText">
+                                LinkedIn
+                            </span>
+
+                        </a>
+
+
+                        <a
+                            id="profileGithub"
+                            class="profile-link"
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style="display:none"
+                        >
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+                                <path
+                                    d="M9 19c-4.3 1.4-4.3-2.1-6-2.5M15 21v-3.9c.1-1.3-.5-2.2-1.5-2.6 3.5-.4 7.1-1.7 7.1-7.5a5.8 5.8 0 0 0-1.6-4.1 5.4 5.4 0 0 0-.1-4.1S17.6-1.6 15 0a13.7 13.7 0 0 0-6 0C6.4-1.6 4.5.8 4.5.8a5.4 5.4 0 0 0-.1 4.1A5.8 5.8 0 0 0 2.8 7c0 5.8 3.6 7.1 7.1 7.5-1 .4-1.6 1.3-1.5 2.6V21"
+                                />
+                            </svg>
+
+                            <span id="profileGithubText">
+                                GitHub
+                            </span>
+
+                        </a>
+
+
+                        <a
+                            id="profileWebsite"
+                            class="profile-link"
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style="display:none"
+                        >
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="9"
+                                />
+
+                                <path
+                                    d="M3 12h18M12 3c2.3 2.5 3.4 5.5 3.4 9s-1.1 6.5-3.4 9c-2.3-2.5-3.4-5.5-3.4-9S9.7 5.5 12 3Z"
+                                />
+                            </svg>
+
+                            <span id="profileWebsiteText">
+                                Website
+                            </span>
+
+                        </a>
+
+
+                        <div
+                            id="profileEmail"
+                            class="profile-link"
+                            style="display:none"
+                        ></div>
+
+
+                        <div
+                            id="profilePhone"
+                            class="profile-link"
+                            style="display:none"
+                        ></div>
+
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <form
+                id="editProfileForm"
+                class="edit-profile-form"
+            >
+
+                <div class="edit-note">
+
+                    Save your profile first. When your academic
+                    information is complete, use "Submit for
+                    Verification" to send it to an administrator.
+
+                </div>
+
+
+                <section class="profile-section">
+
+                    <h3 class="profile-section-title">
+                        Profile
+                    </h3>
+
+
+                    <div class="form-group">
+
+                        <label for="editName">
+                            Name
+                        </label>
+
+                        <input
+                            id="editName"
+                            class="form-input"
+                            type="text"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editTitle">
+                            Title / Role
+                        </label>
+
+                        <input
+                            id="editTitle"
+                            class="form-input"
+                            type="text"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editCompany">
+                            Company
+                        </label>
+
+                        <input
+                            id="editCompany"
+                            class="form-input"
+                            type="text"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editDomain">
+                            Domain
+                        </label>
+
+                        <input
+                            id="editDomain"
+                            class="form-input"
+                            type="text"
+                        >
+
+                    </div>
+
+                </section>
+
+
+                <section class="profile-section">
+
+                    <h3 class="profile-section-title">
+                        Academic Record
+                    </h3>
+
+
+                    <div class="form-group">
+
+                        <label for="editProgram">
+                            Degree / Program
+                        </label>
+
+                        <input
+                            id="editProgram"
+                            class="form-input"
+                            type="text"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editDepartment">
+                            Department
+                        </label>
+
+                        <input
+                            id="editDepartment"
+                            class="form-input"
+                            type="text"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editBatch">
+                            Batch
+                        </label>
+
+                        <input
+                            id="editBatch"
+                            class="form-input"
+                            type="text"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editPassingYear">
+                            Passing Year
+                        </label>
+
+                        <input
+                            id="editPassingYear"
+                            class="form-input"
+                            type="text"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editPrn">
+                            PRN
+                        </label>
+
+                        <input
+                            id="editPrn"
+                            class="form-input"
+                            type="text"
+                            placeholder="Enter your SRTMUN PRN"
+                        >
+
+                    </div>
+
+                </section>
+
+
+                <section class="profile-section">
+
+                    <h3 class="profile-section-title">
+                        About
+                    </h3>
+
+                    <div class="form-group">
+
+                        <textarea
+                            id="editAbout"
+                            class="form-textarea"
+                            placeholder="Tell people about yourself..."
+                        ></textarea>
+
+                    </div>
+
+                </section>
+
+
+                <section class="profile-section">
+
+                    <h3 class="profile-section-title">
+                        Experience
+                    </h3>
+
+                    <div class="form-group">
+
+                        <textarea
+                            id="editExperience"
+                            class="form-textarea"
+                            placeholder="Experience, work, projects..."
+                        ></textarea>
+
+                    </div>
+
+                </section>
+
+
+                <section class="profile-section">
+
+                    <h3 class="profile-section-title">
+                        Skills
+                    </h3>
+
+                    <div class="form-group">
+
+                        <input
+                            id="editSkills"
+                            class="form-input"
+                            type="text"
+                            placeholder="JavaScript, React, SQL"
+                        >
+
+                    </div>
+
+                </section>
+
+
+                <section class="profile-section">
+
+                    <h3 class="profile-section-title">
+                        Guidance Offerings
+                    </h3>
+
+                    <div class="form-group">
+
+                        <input
+                            id="editGuidance"
+                            class="form-input"
+                            type="text"
+                            placeholder="Career guidance, internships..."
+                        >
+
+                    </div>
+
+                </section>
+
+
+                <section class="profile-section">
+
+                    <h3 class="profile-section-title">
+                        Contact
+                    </h3>
+
+
+                    <div class="form-group">
+
+                        <label for="editEmail">
+                            Email
+                        </label>
+
+                        <input
+                            id="editEmail"
+                            class="form-input"
+                            type="email"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editPhone">
+                            Phone
+                        </label>
+
+                        <input
+                            id="editPhone"
+                            class="form-input"
+                            type="text"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editLinkedin">
+                            LinkedIn
+                        </label>
+
+                        <input
+                            id="editLinkedin"
+                            class="form-input"
+                            type="url"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editGithub">
+                            GitHub
+                        </label>
+
+                        <input
+                            id="editGithub"
+                            class="form-input"
+                            type="url"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editWebsite">
+                            Website
+                        </label>
+
+                        <input
+                            id="editWebsite"
+                            class="form-input"
+                            type="url"
+                        >
+
+                    </div>
+
+                </section>
+
+
+                <div class="edit-actions">
+
+                    <button
+                        type="button"
+                        id="cancelEdit"
+                        class="secondary-button"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="saveProfile"
+                        class="primary-button"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     LOGOUT CONFIRMATION
+====================================================== -->
+
+<div
+    id="logoutModal"
+    class="modal-overlay"
+    aria-hidden="true"
+>
+
+    <div
+        class="confirm-modal"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <h3>
+            Log out?
+        </h3>
+
+        <p>
+            You will need to sign in again to view the alumni directory.
+        </p>
+
+        <div class="confirm-actions">
+
+            <button
+                type="button"
+                id="cancelLogout"
+                class="secondary-button"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                id="confirmLogout"
+                class="primary-button"
+            >
+                Log Out
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+    "https://pabqkagdzfevkjiklrpj.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhYnFrYWdkemZldmtqaWtscnBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4MDQxMDMsImV4cCI6MjEwNDM4MDEwM30.MVEnwXCdapV0qXS14JvuRBoWggLAnVJjBJStpkST_6g";
+
+let supabaseClient = null;
+
+try {
+
+    supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+}
+catch (error) {
+
+    console.error(
+        "Supabase initialization error:",
+        error
+    );
+
+}
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentUser = null;
+let currentUserProfile = null;
+let alumniProfiles = [];
+let selectedProfile = null;
+let verificationChannel = null;
+
+const DEFAULT_AVATAR =
+    "https://fir-rollup.firebaseapp.com/de-sm.jpg";
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function valueOrDash(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        String(value).trim() === ""
+    ) {
+
+        return "—";
+
+    }
+
+    return String(value).trim();
+
+}
+
+
+function escapeHTML(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function normalizeArray(value) {
+
+    if (Array.isArray(value)) {
+
+        return value
+            .map(item => String(item).trim())
+            .filter(Boolean);
+
+    }
+
+    if (
+        typeof value === "string" &&
+        value.trim()
+    ) {
+
+        return value
+            .split(",")
+            .map(item => item.trim())
+            .filter(Boolean);
+
+    }
+
+    return [];
+
+}
+
+
+function normalizeProfile(profile) {
+
+    if (!profile) {
+        return null;
+    }
+
+    return {
+
+        ...profile,
+
+        skills:
+            normalizeArray(profile.skills),
+
+        guidance:
+            normalizeArray(profile.guidance),
+
+        profile_visibility:
+            profile.profile_visibility ||
+            "visible",
+
+        verification_status:
+            profile.verification_status ||
+            "unverified"
+
+    };
+
+}
+
+
+/* =========================================================
+   VERIFICATION BADGE
+========================================================= */
+
+function getVerificationBadge(status) {
+
+    const normalized =
+        String(status || "unverified")
+            .toLowerCase()
+            .trim();
+
+
+    if (normalized === "verified") {
+
+        return `
+            <span class="verification-badge verified">
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path d="m5 12 4 4L19 6"/>
+                </svg>
+                Verified
+            </span>
+        `;
+
+    }
+
+
+    if (normalized === "pending") {
+
+        return `
+            <span class="verification-badge pending">
+                Pending Admin Review
+            </span>
+        `;
+
+    }
+
+
+    if (normalized === "rejected") {
+
+        return `
+            <span class="verification-badge rejected">
+                Rejected
+            </span>
+        `;
+
+    }
+
+
+    return `
+        <span class="verification-badge unverified">
+            Unverified
+        </span>
+    `;
+
+}
+
+
+/* =========================================================
+   PROFILE HELPERS
+========================================================= */
+
+function getProfileName(profile) {
+
+    return (
+        profile.name ||
+        profile.email ||
+        "Alumni"
+    );
+
+}
+
+
+function getProfileRole(profile) {
+
+    const parts = [];
+
+    if (profile.title) {
+        parts.push(profile.title);
+    }
+
+    if (profile.company) {
+        parts.push(profile.company);
+    }
+
+    if (!parts.length && profile.domain) {
+        parts.push(profile.domain);
+    }
+
+    return parts.join(" · ");
+
+}
+
+
+function setProfileLink(
+    linkId,
+    textId,
+    href,
+    label
+) {
+
+    const link =
+        document.getElementById(linkId);
+
+    const textElement =
+        document.getElementById(textId);
+
+    if (!link || !textElement) {
+        return;
+    }
+
+    textElement.textContent =
+        label || "";
+
+    if (href && label) {
+
+        link.href = href;
+        link.style.display = "inline-flex";
+
+    }
+    else {
+
+        link.href = "#";
+        link.style.display = "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function openModal(element) {
+
+    if (!element) {
+        return;
+    }
+
+    element.classList.add("open");
+
+    element.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+}
+
+
+function closeModal(element) {
+
+    if (!element) {
+        return;
+    }
+
+    element.classList.remove("open");
+
+    element.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+}
+
+
+function openLoginModal() {
+
+    const modal =
+        document.getElementById("loginModal");
+
+    openModal(modal);
+
+    setTimeout(() => {
+
+        const email =
+            document.getElementById("loginEmail");
+
+        if (email) {
+            email.focus();
+        }
+
+    }, 50);
+
+}
+
+
+function closeLoginModal() {
+
+    closeModal(
+        document.getElementById("loginModal")
+    );
+
+}
+
+
+function openProfileModal(profile) {
+
+    if (!profile) {
+        return;
+    }
+
+    selectedProfile =
+        normalizeProfile(profile);
+
+    renderProfileModal(
+        selectedProfile
+    );
+
+    openModal(
+        document.getElementById("profileModal")
+    );
+
+}
+
+
+function closeProfileModal() {
+
+    closeModal(
+        document.getElementById("profileModal")
+    );
+
+    selectedProfile = null;
+
+}
+
+
+/* =========================================================
+   PROFILE RENDER
+========================================================= */
+
+function renderProfileModal(profile) {
+
+    if (!profile) {
+        return;
+    }
+
+    const avatar =
+        document.getElementById(
+            "profileHeaderAvatar"
+        );
+
+    const name =
+        document.getElementById(
+            "profileHeaderName"
+        );
+
+    const badge =
+        document.getElementById(
+            "profileHeaderBadge"
+        );
+
+    const role =
+        document.getElementById(
+            "profileHeaderRole"
+        );
+
+
+    avatar.src =
+        profile.avatar ||
+        DEFAULT_AVATAR;
+
+    avatar.onerror =
+        function () {
+
+            this.onerror = null;
+            this.src = DEFAULT_AVATAR;
+
+        };
+
+
+    avatar.alt =
+        getProfileName(profile);
+
+
+    name.textContent =
+        getProfileName(profile);
+
+
+    badge.outerHTML =
+        getVerificationBadge(
+            profile.verification_status
+        ).replace(
+            "<span ",
+            '<span id="profileHeaderBadge" '
+        );
+
+
+    role.textContent =
+        getProfileRole(profile);
+
+
+    document.getElementById(
+        "viewProgram"
+    ).textContent =
+        valueOrDash(profile.program);
+
+
+    document.getElementById(
+        "viewDepartment"
+    ).textContent =
+        valueOrDash(profile.department);
+
+
+    document.getElementById(
+        "viewBatch"
+    ).textContent =
+        valueOrDash(profile.batch);
+
+
+    document.getElementById(
+        "viewPassingYear"
+    ).textContent =
+        valueOrDash(profile.passing_year);
+
+
+    document.getElementById(
+        "viewPrn"
+    ).textContent =
+        valueOrDash(profile.prn);
+
+
+    document.getElementById(
+        "viewVerification"
+    ).textContent =
+        getVerificationText(
+            profile.verification_status
+        );
+
+
+    document.getElementById(
+        "viewAbout"
+    ).textContent =
+        profile.about ||
+        "No information provided.";
+
+
+    document.getElementById(
+        "viewExperience"
+    ).textContent =
+        profile.experience ||
+        "No experience information provided.";
+
+
+    renderTags(
+        "viewSkills",
+        profile.skills
+    );
+
+
+    renderTags(
+        "viewGuidance",
+        profile.guidance
+    );
+
+
+    setProfileLink(
+        "profileLinkedin",
+        "profileLinkedinText",
+        profile.linkedin,
+        "LinkedIn"
+    );
+
+
+    setProfileLink(
+        "profileGithub",
+        "profileGithubText",
+        profile.github,
+        "GitHub"
+    );
+
+
+    setProfileLink(
+        "profileWebsite",
+        "profileWebsiteText",
+        profile.website,
+        "Website"
+    );
+
+
+    const emailElement =
+        document.getElementById(
+            "profileEmail"
+        );
+
+
+    if (profile.email) {
+
+        emailElement.textContent =
+            "Email: " + profile.email;
+
+        emailElement.style.display =
+            "inline-flex";
+
+    }
+    else {
+
+        emailElement.textContent = "";
+        emailElement.style.display = "none";
+
+    }
+
+
+    const phoneElement =
+        document.getElementById(
+            "profilePhone"
+        );
+
+
+    if (profile.phone) {
+
+        phoneElement.textContent =
+            "Phone: " + profile.phone;
+
+        phoneElement.style.display =
+            "inline-flex";
+
+    }
+    else {
+
+        phoneElement.textContent = "";
+        phoneElement.style.display = "none";
+
+    }
+
+
+    const editButton =
+        document.getElementById(
+            "editProfileButton"
+        );
+
+
+    if (
+        currentUser &&
+        profile.id === currentUser.id
+    ) {
+
+        editButton.style.display =
+            "inline-flex";
+
+    }
+    else {
+
+        editButton.style.display =
+            "none";
+
+    }
+
+
+    showProfileView();
+
+}
+
+
+function getVerificationText(status) {
+
+    switch (
+        String(status || "")
+            .toLowerCase()
+    ) {
+
+        case "verified":
+            return "Verified";
+
+        case "pending":
+            return "Pending Admin Review";
+
+        case "rejected":
+            return "Rejected";
+
+        default:
+            return "Unverified";
+
+    }
+
+}
+
+
+/* =========================================================
+   TAGS
+========================================================= */
+
+function renderTags(
+    elementId,
+    values
+) {
+
+    const element =
+        document.getElementById(elementId);
+
+    if (!element) {
+        return;
+    }
+
+    const items =
+        normalizeArray(values);
+
+    if (!items.length) {
+
+        element.innerHTML =
+            '<span class="profile-tag">—</span>';
+
+        return;
+
+    }
+
+    element.innerHTML =
+        items
+            .map(
+                item =>
+                    `<span class="profile-tag">${escapeHTML(item)}</span>`
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   VIEW / EDIT
+========================================================= */
+
+function showProfileView() {
+
+    document
+        .getElementById("profileView")
+        .classList.add("active");
+
+    document
+        .getElementById("editProfileForm")
+        .classList.remove("active");
+
+}
+
+
+function showProfileEdit() {
+
+    if (
+        !selectedProfile ||
+        !currentUser ||
+        selectedProfile.id !== currentUser.id
+    ) {
+        return;
+    }
+
+    fillEditForm(selectedProfile);
+
+    document
+        .getElementById("profileView")
+        .classList.remove("active");
+
+    document
+        .getElementById("editProfileForm")
+        .classList.add("active");
+
+}
+
+
+function setInputValue(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (element) {
+        element.value = value || "";
+    }
+
+}
+
+
+function fillEditForm(profile) {
+
+    setInputValue("editName", profile.name);
+    setInputValue("editTitle", profile.title);
+    setInputValue("editCompany", profile.company);
+    setInputValue("editDomain", profile.domain);
+
+    setInputValue("editProgram", profile.program);
+    setInputValue("editDepartment", profile.department);
+    setInputValue("editBatch", profile.batch);
+    setInputValue("editPassingYear", profile.passing_year);
+    setInputValue("editPrn", profile.prn);
+
+    setInputValue("editAbout", profile.about);
+    setInputValue("editExperience", profile.experience);
+
+    setInputValue(
+        "editSkills",
+        normalizeArray(profile.skills).join(", ")
+    );
+
+    setInputValue(
+        "editGuidance",
+        normalizeArray(profile.guidance).join(", ")
+    );
+
+    setInputValue("editEmail", profile.email);
+    setInputValue("editPhone", profile.phone);
+    setInputValue("editLinkedin", profile.linkedin);
+    setInputValue("editGithub", profile.github);
+    setInputValue("editWebsite", profile.website);
+
+}
+
+
+/* =========================================================
+   AUTH FALLBACK
+========================================================= */
+
+function createAuthFallbackProfile(user) {
+
+    if (!user) {
+        return null;
+    }
+
+    const metadata =
+        user.user_metadata || {};
+
+    return normalizeProfile({
+
+        id: user.id,
+
+        email:
+            user.email || "",
+
+        name:
+            metadata.name ||
+            metadata.full_name ||
+            metadata.fullName ||
+            user.email ||
+            "Alumni",
+
+        avatar:
+            metadata.avatar_url ||
+            metadata.avatar ||
+            DEFAULT_AVATAR,
+
+        verification_status:
+            "unverified",
+
+        profile_visibility:
+            "visible",
+
+        skills: [],
+        guidance: []
+
+    });
+
+}
+
+
+/* =========================================================
+   CURRENT PROFILE
+========================================================= */
+
+async function loadCurrentUserProfile() {
+
+    if (!currentUser) {
+
+        currentUserProfile = null;
+        return null;
+
+    }
+
+    const fallback =
+        createAuthFallbackProfile(
+            currentUser
+        );
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select("*")
+                .eq("id", currentUser.id)
+                .maybeSingle();
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        currentUserProfile =
+            normalizeProfile(
+                data || fallback
+            );
+
+
+        updateVerificationPanel();
+
+        return currentUserProfile;
+
+    }
+    catch (error) {
+
+        console.warn(
+            "Could not load profile:",
+            error.message
+        );
+
+        currentUserProfile =
+            fallback;
+
+        updateVerificationPanel();
+
+        return fallback;
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD ALUMNI
+========================================================= */
+
+async function loadAlumniProfiles() {
+
+    const list =
+        document.getElementById(
+            "alumniList"
+        );
+
+    list.innerHTML =
+        '<div class="loading">Loading alumni...</div>';
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select("*")
+                .order(
+                    "name",
+                    {
+                        ascending: true,
+                        nullsFirst: false
+                    }
+                );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        let rows =
+            (data || [])
+                .map(normalizeProfile)
+                .filter(Boolean);
+
+
+        rows =
+            rows.filter(profile => {
+
+                if (
+                    currentUser &&
+                    profile.id === currentUser.id
+                ) {
+                    return true;
+                }
+
+                return (
+                    profile.profile_visibility !==
+                    "hidden"
+                );
+
+            });
+
+
+        if (
+            currentUserProfile &&
+            !rows.some(
+                profile =>
+                    profile.id ===
+                    currentUserProfile.id
+            )
+        ) {
+
+            rows.push(
+                currentUserProfile
+            );
+
+        }
+
+
+        alumniProfiles =
+            rows;
+
+
+        renderFilterOptions();
+        renderAlumni();
+
+    }
+    catch (error) {
+
+        console.error(
+            "Alumni loading error:",
+            error
+        );
+
+        list.innerHTML = `
+            <div class="empty-state">
+                Unable to load alumni profiles.
+                <br>
+                <small>${escapeHTML(error.message)}</small>
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+function uniqueValues(
+    profiles,
+    property
+) {
+
+    return [
+        ...new Set(
+            profiles
+                .map(
+                    profile =>
+                        String(
+                            profile[property] || ""
+                        ).trim()
+                )
+                .filter(Boolean)
+        )
+    ].sort(
+        (a, b) =>
+            a.localeCompare(b)
+    );
+
+}
+
+
+function populateSelect(
+    selectId,
+    values,
+    defaultText
+) {
+
+    const select =
+        document.getElementById(
+            selectId
+        );
+
+    if (!select) {
+        return;
+    }
+
+    const currentValue =
+        select.value;
+
+    select.innerHTML = "";
+
+    const defaultOption =
+        document.createElement("option");
+
+    defaultOption.value = "";
+    defaultOption.textContent = defaultText;
+
+    select.appendChild(
+        defaultOption
+    );
+
+
+    values.forEach(value => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = value;
+        option.textContent = value;
+
+        select.appendChild(option);
+
+    });
+
+
+    if (values.includes(currentValue)) {
+        select.value = currentValue;
+    }
+
+}
+
+
+function renderFilterOptions() {
+
+    populateSelect(
+        "degreeFilter",
+        uniqueValues(
+            alumniProfiles,
+            "program"
+        ),
+        "All degrees"
+    );
+
+    populateSelect(
+        "departmentFilter",
+        uniqueValues(
+            alumniProfiles,
+            "department"
+        ),
+        "All departments"
+    );
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function profileMatchesSearch(
+    profile,
+    search
+) {
+
+    if (!search) {
+        return true;
+    }
+
+    const values = [
+
+        profile.name,
+        profile.email,
+        profile.company,
+        profile.title,
+        profile.domain,
+        profile.program,
+        profile.department,
+        profile.batch,
+        profile.passing_year,
+        profile.about,
+        profile.experience,
+        ...(profile.skills || []),
+        ...(profile.guidance || [])
+
+    ];
+
+
+    const combined =
+        values
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+
+    return combined.includes(
+        search.toLowerCase()
+    );
+
+}
+
+
+/* =========================================================
+   FILTER ALUMNI
+========================================================= */
+
+function getFilteredProfiles() {
+
+    const search =
+        document
+            .getElementById("alumniSearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const degree =
+        document
+            .getElementById("degreeFilter")
+            .value;
+
+
+    const department =
+        document
+            .getElementById("departmentFilter")
+            .value;
+
+
+    const verification =
+        document
+            .getElementById("verificationFilter")
+            .value;
+
+
+    return alumniProfiles.filter(
+        profile => {
+
+            if (
+                !profileMatchesSearch(
+                    profile,
+                    search
+                )
+            ) {
+                return false;
+            }
+
+
+            if (
+                degree &&
+                profile.program !== degree
+            ) {
+                return false;
+            }
+
+
+            if (
+                department &&
+                profile.department !== department
+            ) {
+                return false;
+            }
+
+
+            if (
+                verification &&
+                profile.verification_status !==
+                verification
+            ) {
+                return false;
+            }
+
+
+            return true;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RENDER ALUMNI
+========================================================= */
+
+function renderAlumni() {
+
+    const list =
+        document.getElementById(
+            "alumniList"
+        );
+
+    const count =
+        document.getElementById(
+            "filterResultCount"
+        );
+
+    const filtered =
+        getFilteredProfiles();
+
+
+    count.textContent =
+        `${filtered.length} alumni`;
+
+
+    if (!filtered.length) {
+
+        list.innerHTML = `
+            <div class="empty-state">
+                No alumni found.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        filtered
+            .map(createAlumniCard)
+            .join("");
+
+
+    list
+        .querySelectorAll(
+            "[data-profile-id]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const id =
+                        button.dataset.profileId;
+
+                    const profile =
+                        alumniProfiles.find(
+                            item =>
+                                item.id === id
+                        );
+
+                    if (profile) {
+                        openProfileModal(profile);
+                    }
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   ALUMNI CARD
+========================================================= */
+
+function createAlumniCard(profile) {
+
+    const avatar =
+        profile.avatar ||
+        DEFAULT_AVATAR;
+
+
+    const name =
+        escapeHTML(
+            getProfileName(profile)
+        );
+
+
+    const role =
+        escapeHTML(
+            getProfileRole(profile)
+        );
+
+
+    const program =
+        escapeHTML(
+            valueOrDash(profile.program)
+        );
+
+
+    const department =
+        escapeHTML(
+            valueOrDash(profile.department)
+        );
+
+
+    return `
+
+        <article class="alumni-card">
+
+            <div class="alumni-profile">
+
+                <img
+                    class="avatar"
+                    src="${escapeHTML(avatar)}"
+                    alt="${name}"
+                    loading="lazy"
+                    onerror="this.onerror=null;this.src='${DEFAULT_AVATAR}'"
+                >
+
+                <div class="alumni-profile-info">
+
+                    <div class="alumni-name-row">
+
+                        <span class="alumni-name">
+                            ${name}
+                        </span>
+
+                        ${getVerificationBadge(
+                            profile.verification_status
+                        )}
+
+                    </div>
+
+                    <div class="alumni-role">
+                        ${role || "Alumni"}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="alumni-column">
+
+                <div class="column-label">
+                    Degree
+                </div>
+
+                <div class="column-value">
+                    ${program}
+                </div>
+
+            </div>
+
+
+            <div class="alumni-column">
+
+                <div class="column-label">
+                    Department
+                </div>
+
+                <div class="column-value">
+                    ${department}
+                </div>
+
+            </div>
+
+
+            <div class="view-column">
+
+                <button
+                    type="button"
+                    class="view-button"
+                    data-profile-id="${escapeHTML(profile.id)}"
+                >
+                    View profile
+                </button>
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =========================================================
+   VERIFICATION PANEL
+========================================================= */
+
+function updateVerificationPanel() {
+
+    const panel =
+        document.getElementById(
+            "verificationPanel"
+        );
+
+    if (
+        !panel ||
+        !currentUserProfile
+    ) {
+        return;
+    }
+
+
+    panel.classList.add("visible");
+
+
+    const status =
+        currentUserProfile.verification_status ||
+        "unverified";
+
+
+    const badge =
+        document.getElementById(
+            "currentVerificationBadge"
+        );
+
+
+    badge.outerHTML =
+        getVerificationBadge(status)
+            .replace(
+                "<span ",
+                '<span id="currentVerificationBadge" '
+            );
+
+
+    const message =
+        document.getElementById(
+            "verificationMessage"
+        );
+
+
+    const rejection =
+        document.getElementById(
+            "verificationRejection"
+        );
+
+
+    const submitButton =
+        document.getElementById(
+            "submitVerificationButton"
+        );
+
+
+    rejection.classList.remove("visible");
+
+
+    if (status === "verified") {
+
+        message.textContent =
+            "Your profile has been verified by an administrator.";
+
+        submitButton.style.display =
+            "none";
+
+    }
+
+    else if (status === "pending") {
+
+        message.textContent =
+            "Your verification request is waiting for admin review.";
+
+        submitButton.style.display =
+            "none";
+
+    }
+
+    else if (status === "rejected") {
+
+        message.textContent =
+            "Your verification request was rejected. You can update your profile and submit it again.";
+
+        if (currentUserProfile.rejection_reason) {
+
+            rejection.textContent =
+                "Admin note: " +
+                currentUserProfile.rejection_reason;
+
+            rejection.classList.add("visible");
+
+        }
+
+        submitButton.style.display =
+            "inline-flex";
+
+        submitButton.textContent =
+            "Resubmit for Verification";
+
+    }
+
+    else {
+
+        message.textContent =
+            "Your profile has not been submitted for verification.";
+
+        submitButton.style.display =
+            "inline-flex";
+
+        submitButton.textContent =
+            "Submit for Verification";
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE PROFILE
+========================================================= */
+
+async function saveProfile(event) {
+
+    event.preventDefault();
+
+
+    if (
+        !currentUser ||
+        !supabaseClient
+    ) {
+        return;
+    }
+
+
+    const saveButton =
+        document.getElementById(
+            "saveProfile"
+        );
+
+
+    saveButton.disabled = true;
+    saveButton.textContent = "Saving...";
+
+
+    try {
+
+        const updateData = {
+
+            id:
+                currentUser.id,
+
+            name:
+                document
+                    .getElementById("editName")
+                    .value
+                    .trim(),
+
+            title:
+                document
+                    .getElementById("editTitle")
+                    .value
+                    .trim(),
+
+            company:
+                document
+                    .getElementById("editCompany")
+                    .value
+                    .trim(),
+
+            domain:
+                document
+                    .getElementById("editDomain")
+                    .value
+                    .trim(),
+
+            program:
+                document
+                    .getElementById("editProgram")
+                    .value
+                    .trim(),
+
+            department:
+                document
+                    .getElementById("editDepartment")
+                    .value
+                    .trim(),
+
+            batch:
+                document
+                    .getElementById("editBatch")
+                    .value
+                    .trim(),
+
+            passing_year:
+                document
+                    .getElementById("editPassingYear")
+                    .value
+                    .trim(),
+
+            prn:
+                document
+                    .getElementById("editPrn")
+                    .value
+                    .trim(),
+
+            about:
+                document
+                    .getElementById("editAbout")
+                    .value
+                    .trim(),
+
+            experience:
+                document
+                    .getElementById("editExperience")
+                    .value
+                    .trim(),
+
+            skills:
+                normalizeArray(
+                    document
+                        .getElementById("editSkills")
+                        .value
+                ),
+
+            guidance:
+                normalizeArray(
+                    document
+                        .getElementById("editGuidance")
+                        .value
+                ),
+
+            email:
+                document
+                    .getElementById("editEmail")
+                    .value
+                    .trim(),
+
+            phone:
+                document
+                    .getElementById("editPhone")
+                    .value
+                    .trim(),
+
+            linkedin:
+                document
+                    .getElementById("editLinkedin")
+                    .value
+                    .trim(),
+
+            github:
+                document
+                    .getElementById("editGithub")
+                    .value
+                    .trim(),
+
+            website:
+                document
+                    .getElementById("editWebsite")
+                    .value
+                    .trim()
+
+        };
+
+
+        /*
+            IMPORTANT:
+            Saving the profile does NOT automatically submit
+            verification anymore.
+        */
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .upsert(
+                    updateData,
+                    {
+                        onConflict: "id"
+                    }
+                )
+                .select()
+                .single();
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        currentUserProfile =
+            normalizeProfile(data);
+
+
+        selectedProfile =
+            currentUserProfile;
+
+
+        const index =
+            alumniProfiles.findIndex(
+                profile =>
+                    profile.id === currentUser.id
+            );
+
+
+        if (index >= 0) {
+
+            alumniProfiles[index] =
+                currentUserProfile;
+
+        }
+        else {
+
+            alumniProfiles.push(
+                currentUserProfile
+            );
+
+        }
+
+
+        renderFilterOptions();
+        renderAlumni();
+        updateVerificationPanel();
+        renderProfileModal(
+            currentUserProfile
+        );
+
+
+        alert(
+            "Profile saved successfully."
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Save profile error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Unable to save profile."
+        );
+
+    }
+    finally {
+
+        saveButton.disabled = false;
+        saveButton.textContent = "Save Changes";
+
+    }
+
+}
+
+
+/* =========================================================
+   SUBMIT FOR VERIFICATION
+========================================================= */
+
+async function submitForVerification() {
+
+    if (
+        !currentUser ||
+        !supabaseClient
+    ) {
+        return;
+    }
+
+
+    /*
+        Always reload the profile first so the user cannot
+        submit an old version of their data.
+    */
+
+    await loadCurrentUserProfile();
+
+
+    const profile =
+        currentUserProfile;
+
+
+    if (!profile) {
+
+        alert(
+            "Your profile could not be loaded."
+        );
+
+        return;
+
+    }
+
+
+    const prn =
+        String(profile.prn || "")
+            .trim();
+
+
+    const prnPattern =
+        /^20(1[0-9]|2[0-6])0154\d{8}$/;
+
+
+    if (!prn) {
+
+        alert(
+            "Please enter your SRTMUN PRN before submitting for verification."
+        );
+
+        return;
+
+    }
+
+
+    if (!prnPattern.test(prn)) {
+
+        alert(
+            "The PRN format is not valid. Please check your PRN before submitting."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        profile.verification_status ===
+        "pending"
+    ) {
+
+        alert(
+            "Your verification request is already pending."
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "submitVerificationButton"
+        );
+
+
+    button.disabled = true;
+    button.textContent = "Submitting...";
+
+
+    try {
+
+        /*
+            Mark profile pending.
+        */
+
+        const {
+            data: updatedProfile,
+            error: profileError
+        } =
+            await supabaseClient
+                .from("profiles")
+                .update({
+
+                    verification_status:
+                        "pending",
+
+                    verification_submitted_at:
+                        new Date().toISOString(),
+
+                    rejection_reason:
+                        null,
+
+                    verification_reviewed_at:
+                        null,
+
+                    verification_reviewed_by:
+                        null
+
+                })
+                .eq(
+                    "id",
+                    currentUser.id
+                )
+                .select()
+                .single();
+
+
+        if (profileError) {
+            throw profileError;
+        }
+
+
+        /*
+            Create verification request.
+        */
+
+        const {
+            error: requestError
+        } =
+            await supabaseClient
+                .from("verification_requests")
+                .insert({
+
+                    user_id:
+                        currentUser.id,
+
+                    status:
+                        "pending",
+
+                    submitted_at:
+                        new Date().toISOString(),
+
+                    rejection_reason:
+                        null
+
+                });
+
+
+        if (requestError) {
+            throw requestError;
+        }
+
+
+        currentUserProfile =
+            normalizeProfile(
+                updatedProfile
+            );
+
+
+        selectedProfile =
+            currentUserProfile;
+
+
+        const index =
+            alumniProfiles.findIndex(
+                profile =>
+                    profile.id ===
+                    currentUser.id
+            );
+
+
+        if (index >= 0) {
+
+            alumniProfiles[index] =
+                currentUserProfile;
+
+        }
+
+
+        updateVerificationPanel();
+        renderAlumni();
+
+
+        alert(
+            "Your profile has been submitted for admin verification."
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Verification submission error:",
+            error
+        );
+
+
+        /*
+            If duplicate pending request exists,
+            explain it cleanly.
+        */
+
+        if (
+            error.code ===
+            "23505"
+        ) {
+
+            alert(
+                "A verification request is already pending."
+            );
+
+        }
+        else {
+
+            alert(
+                error.message ||
+                "Unable to submit verification request."
+            );
+
+        }
+
+    }
+    finally {
+
+        button.disabled = false;
+
+        updateVerificationPanel();
+
+    }
+
+}
+
+
+/* =========================================================
+   REFRESH VERIFICATION
+========================================================= */
+
+async function refreshVerification() {
+
+    await loadCurrentUserProfile();
+
+    await loadAlumniProfiles();
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+async function handleLogin(event) {
+
+    event.preventDefault();
+
+
+    const email =
+        document
+            .getElementById("loginEmail")
+            .value
+            .trim();
+
+
+    const password =
+        document
+            .getElementById("loginPassword")
+            .value;
+
+
+    const errorElement =
+        document.getElementById(
+            "loginError"
+        );
+
+
+    const submitButton =
+        document.getElementById(
+            "loginSubmit"
+        );
+
+
+    errorElement.style.display =
+        "none";
+
+    errorElement.textContent =
+        "";
+
+
+    submitButton.disabled =
+        true;
+
+    submitButton.textContent =
+        "Signing in...";
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth
+                .signInWithPassword({
+                    email,
+                    password
+                });
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        currentUser =
+            data.user;
+
+
+        closeLoginModal();
+
+        await initializeAuthenticatedState();
+
+    }
+    catch (error) {
+
+        console.error(
+            "Sign in error:",
+            error
+        );
+
+
+        errorElement.textContent =
+            error.message ||
+            "Unable to sign in.";
+
+        errorElement.style.display =
+            "block";
+
+    }
+    finally {
+
+        submitButton.disabled =
+            false;
+
+        submitButton.textContent =
+            "Sign In";
+
+    }
+
+}
+
+
+/* =========================================================
+   AUTHENTICATED STATE
+========================================================= */
+
+async function initializeAuthenticatedState() {
+
+    const loginRequired =
+        document.getElementById(
+            "loginRequired"
+        );
+
+
+    const alumniArea =
+        document.getElementById(
+            "alumniArea"
+        );
+
+
+    const logoutButton =
+        document.getElementById(
+            "logoutButton"
+        );
+
+
+    if (!currentUser) {
+
+        loginRequired.style.display =
+            "block";
+
+        alumniArea.style.display =
+            "none";
+
+        logoutButton.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    loginRequired.style.display =
+        "none";
+
+    alumniArea.style.display =
+        "block";
+
+    logoutButton.style.display =
+        "inline-flex";
+
+
+    await loadCurrentUserProfile();
+
+    await loadAlumniProfiles();
+
+    subscribeToVerificationChanges();
+
+}
+
+
+/* =========================================================
+   REALTIME
+========================================================= */
+
+function subscribeToVerificationChanges() {
+
+    if (
+        !supabaseClient ||
+        !currentUser
+    ) {
+        return;
+    }
+
+
+    if (verificationChannel) {
+
+        supabaseClient
+            .removeChannel(
+                verificationChannel
+            );
+
+    }
+
+
+    verificationChannel =
+        supabaseClient
+            .channel(
+                "profile-verification-" +
+                currentUser.id
+            )
+            .on(
+                "postgres_changes",
+                {
+                    event: "*",
+                    schema: "public",
+                    table: "profiles",
+                    filter:
+                        "id=eq." +
+                        currentUser.id
+                },
+                async () => {
+
+                    await loadCurrentUserProfile();
+
+                    if (
+                        currentUserProfile
+                    ) {
+
+                        const index =
+                            alumniProfiles.findIndex(
+                                profile =>
+                                    profile.id ===
+                                    currentUser.id
+                            );
+
+                        if (index >= 0) {
+
+                            alumniProfiles[index] =
+                                currentUserProfile;
+
+                        }
+
+                        renderAlumni();
+
+                        if (
+                            selectedProfile &&
+                            selectedProfile.id ===
+                            currentUser.id
+                        ) {
+
+                            selectedProfile =
+                                currentUserProfile;
+
+                            renderProfileModal(
+                                currentUserProfile
+                            );
+
+                        }
+
+                    }
+
+                }
+            )
+            .subscribe();
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function openLogoutModal() {
+
+    openModal(
+        document.getElementById(
+            "logoutModal"
+        )
+    );
+
+}
+
+
+function closeLogoutModal() {
+
+    closeModal(
+        document.getElementById(
+            "logoutModal"
+        )
+    );
+
+}
+
+
+async function performLogout() {
+
+    const button =
+        document.getElementById(
+            "confirmLogout"
+        );
+
+
+    button.disabled = true;
+    button.textContent = "Logging out...";
+
+
+    try {
+
+        const {
+            error
+        } =
+            await supabaseClient.auth
+                .signOut();
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        currentUser = null;
+        currentUserProfile = null;
+        alumniProfiles = [];
+        selectedProfile = null;
+
+
+        if (verificationChannel) {
+
+            await supabaseClient
+                .removeChannel(
+                    verificationChannel
+                );
+
+            verificationChannel = null;
+
+        }
+
+
+        closeLogoutModal();
+        closeProfileModal();
+
+
+        document.getElementById(
+            "alumniArea"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "loginRequired"
+        ).style.display =
+            "block";
+
+
+        document.getElementById(
+            "logoutButton"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "alumniList"
+        ).innerHTML =
+            "";
+
+    }
+    catch (error) {
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Unable to log out."
+        );
+
+    }
+    finally {
+
+        button.disabled = false;
+        button.textContent = "Log Out";
+
+    }
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+function bindEvents() {
+
+    document
+        .getElementById("mainSignIn")
+        .addEventListener(
+            "click",
+            openLoginModal
+        );
+
+
+    document
+        .getElementById("closeLogin")
+        .addEventListener(
+            "click",
+            closeLoginModal
+        );
+
+
+    document
+        .getElementById("loginForm")
+        .addEventListener(
+            "submit",
+            handleLogin
+        );
+
+
+    document
+        .getElementById("logoutButton")
+        .addEventListener(
+            "click",
+            openLogoutModal
+        );
+
+
+    document
+        .getElementById("cancelLogout")
+        .addEventListener(
+            "click",
+            closeLogoutModal
+        );
+
+
+    document
+        .getElementById("confirmLogout")
+        .addEventListener(
+            "click",
+            performLogout
+        );
+
+
+    document
+        .getElementById("closeProfile")
+        .addEventListener(
+            "click",
+            closeProfileModal
+        );
+
+
+    document
+        .getElementById("editProfileButton")
+        .addEventListener(
+            "click",
+            showProfileEdit
+        );
+
+
+    document
+        .getElementById("cancelEdit")
+        .addEventListener(
+            "click",
+            showProfileView
+        );
+
+
+    document
+        .getElementById("editProfileForm")
+        .addEventListener(
+            "submit",
+            saveProfile
+        );
+
+
+    document
+        .getElementById(
+            "submitVerificationButton"
+        )
+        .addEventListener(
+            "click",
+            submitForVerification
+        );
+
+
+    document
+        .getElementById(
+            "refreshVerificationButton"
+        )
+        .addEventListener(
+            "click",
+            refreshVerification
+        );
+
+
+    document
+        .getElementById("alumniSearch")
+        .addEventListener(
+            "input",
+            renderAlumni
+        );
+
+
+    [
+        "degreeFilter",
+        "departmentFilter",
+        "verificationFilter"
+    ]
+    .forEach(id => {
+
+        document
+            .getElementById(id)
+            .addEventListener(
+                "change",
+                renderAlumni
+            );
+
+    });
+
+
+    document
+        .getElementById("loginModal")
+        .addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    event.currentTarget
+                ) {
+                    closeLoginModal();
+                }
+
+            }
+        );
+
+
+    document
+        .getElementById("profileModal")
+        .addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    event.currentTarget
+                ) {
+                    closeProfileModal();
+                }
+
+            }
+        );
+
+
+    document
+        .getElementById("logoutModal")
+        .addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    event.currentTarget
+                ) {
+                    closeLogoutModal();
+                }
+
+            }
+        );
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key !== "Escape"
+            ) {
+                return;
+            }
+
+            closeLoginModal();
+            closeProfileModal();
+            closeLogoutModal();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   AUTH LISTENER
+========================================================= */
+
+function bindAuthListener() {
+
+    supabaseClient.auth.onAuthStateChange(
+        async (
+            event,
+            session
+        ) => {
+
+            if (
+                session &&
+                session.user
+            ) {
+
+                currentUser =
+                    session.user;
+
+                await initializeAuthenticatedState();
+
+            }
+            else {
+
+                currentUser = null;
+                currentUserProfile = null;
+                alumniProfiles = [];
+
+
+                document
+                    .getElementById(
+                        "loginRequired"
+                    )
+                    .style.display =
+                    "block";
+
+
+                document
+                    .getElementById(
+                        "alumniArea"
+                    )
+                    .style.display =
+                    "none";
+
+
+                document
+                    .getElementById(
+                        "logoutButton"
+                    )
+                    .style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+async function initialize() {
+
+    bindEvents();
+
+
+    if (!supabaseClient) {
+
+        console.error(
+            "Supabase client was not created."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const {
+            data
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (
+            data &&
+            data.user
+        ) {
+
+            currentUser =
+                data.user;
+
+            await initializeAuthenticatedState();
+
+        }
+        else {
+
+            currentUser = null;
+
+        }
+
+
+        bindAuthListener();
+
+    }
+    catch (error) {
+
+        console.error(
+            "Initialization error:",
+            error
+        );
+
+    }
+
+}
+
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initialize
+    );
+
+}
+else {
+
+    initialize();
+
+}
+
+</script>
+
+</body>
+</html>
