@@ -1,0 +1,3633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#fafafa"
+>
+
+<title>Student Guidance — Admin</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+:root {
+
+    --text-main: #262626;
+    --text-muted: #737373;
+    --text-faint: #a3a3a3;
+
+    --border: #f0f0f0;
+    --border-hover: #e5e5e5;
+
+    --bg-main: #fafafa;
+    --bg-card: #ffffff;
+    --bg-subtle: #f7f7f7;
+
+    --verified: #238636;
+    --verified-bg: #f0fdf4;
+
+    --pending: #9a6700;
+    --pending-bg: #fff8c5;
+
+    --rejected: #b42318;
+    --rejected-bg: #fff5f5;
+
+    --unverified: #737373;
+    --unverified-bg: #f5f5f5;
+
+    --radius: 8px;
+
+    --transition:
+        opacity .18s ease,
+        background-color .18s ease,
+        border-color .18s ease,
+        color .18s ease,
+        transform .18s ease;
+
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    margin: 0;
+
+    background: var(--bg-main);
+
+    color: var(--text-main);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+}
+
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+
+button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+.login-screen {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+}
+
+
+.login-box {
+
+    width: 100%;
+
+    max-width: 390px;
+
+    padding: 25px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.05);
+
+}
+
+
+.login-box h1 {
+
+    margin: 0 0 4px;
+
+    font-size: 19px;
+
+    font-weight: 500;
+
+}
+
+
+.login-box p {
+
+    margin: 0 0 20px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+}
+
+
+.form-group {
+
+    margin-bottom: 13px;
+
+}
+
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+}
+
+
+.form-input,
+.form-textarea,
+.filter-select {
+
+    width: 100%;
+
+    padding: 8px 9px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    outline: none;
+
+    background: #fff;
+
+    color: var(--text-main);
+
+    transition: var(--transition);
+
+}
+
+
+.form-input {
+
+    min-height: 35px;
+
+}
+
+
+.form-textarea {
+
+    min-height: 95px;
+
+    resize: vertical;
+
+}
+
+
+.form-input:focus,
+.form-textarea:focus,
+.filter-select:focus {
+
+    border-color: #d5d5d5;
+
+    box-shadow:
+        0 0 0 2px rgba(0,0,0,.025);
+
+}
+
+
+.login-error {
+
+    display: none;
+
+    margin-bottom: 12px;
+
+    padding: 8px 9px;
+
+    border: 1px solid #f0dddd;
+
+    border-radius: 6px;
+
+    background: #fff8f8;
+
+    color: #a33;
+
+    font-size: 12px;
+
+}
+
+
+.login-button {
+
+    width: 100%;
+
+    min-height: 36px;
+
+    border: 1px solid #dedede;
+
+    border-radius: 6px;
+
+    background: #f5f5f5;
+
+    color: var(--text-main);
+
+    font-size: 13px;
+
+}
+
+
+.login-button:hover {
+
+    background: #ededed;
+
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+
+    display: none;
+
+}
+
+
+.topbar {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 20;
+
+    min-height: 54px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 0 20px;
+
+    border-bottom: 1px solid var(--border);
+
+    background: rgba(250,250,250,.94);
+
+    backdrop-filter: blur(8px);
+
+    -webkit-backdrop-filter: blur(8px);
+
+}
+
+
+.brand {
+
+    color: var(--text-main);
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+}
+
+
+.brand span {
+
+    color: var(--text-faint);
+
+    font-weight: 400;
+
+}
+
+
+.topbar-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.live {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: var(--text-faint);
+
+    font-size: 11px;
+
+}
+
+
+.live-dot {
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--verified);
+
+}
+
+
+.signout {
+
+    min-height: 30px;
+
+    padding: 5px 9px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    background: #fff;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+.signout:hover {
+
+    background: var(--bg-subtle);
+
+    color: var(--text-main);
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.page {
+
+    width: 100%;
+
+    max-width: 1180px;
+
+    margin: 0 auto;
+
+    padding: 35px 20px 60px;
+
+}
+
+
+.page-header {
+
+    margin-bottom: 25px;
+
+}
+
+
+.page-header h1 {
+
+    margin: 0 0 4px;
+
+    font-size: 24px;
+
+    font-weight: 500;
+
+    letter-spacing: -.02em;
+
+}
+
+
+.page-header p {
+
+    margin: 0;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 8px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.stat {
+
+    padding: 13px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 7px;
+
+    background: #fff;
+
+}
+
+
+.stat-label {
+
+    color: var(--text-faint);
+
+    font-size: 10px;
+
+}
+
+
+.stat-value {
+
+    margin-top: 2px;
+
+    color: var(--text-main);
+
+    font-size: 20px;
+
+    font-weight: 500;
+
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.search {
+
+    flex: 1;
+
+}
+
+
+.search input {
+
+    width: 100%;
+
+    min-height: 35px;
+
+    padding: 7px 10px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    outline: none;
+
+    background: #fff;
+
+}
+
+
+.status-filter {
+
+    width: 180px;
+
+    flex: 0 0 180px;
+
+}
+
+
+/* =========================================================
+   REQUEST LIST
+========================================================= */
+
+.list-header {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(260px, 2fr)
+        minmax(130px, 1fr)
+        minmax(130px, 1fr)
+        minmax(100px, .7fr)
+        auto;
+
+    gap: 15px;
+
+    padding: 8px 4px;
+
+    color: var(--text-faint);
+
+    font-size: 10px;
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+
+.request-list {
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+
+.request-row {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(260px, 2fr)
+        minmax(130px, 1fr)
+        minmax(130px, 1fr)
+        minmax(100px, .7fr)
+        auto;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 12px 4px;
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+
+.request-row:last-child {
+
+    border-bottom: 0;
+
+}
+
+
+.request-user {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.avatar {
+
+    width: 36px;
+    height: 36px;
+
+    flex: 0 0 36px;
+
+    border-radius: 50%;
+
+    border: 1px solid var(--border);
+
+    object-fit: cover;
+
+    background: var(--bg-subtle);
+
+}
+
+
+.user-info {
+
+    min-width: 0;
+
+}
+
+
+.user-name {
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: var(--text-main);
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+}
+
+
+.user-email {
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: var(--text-faint);
+
+    font-size: 11px;
+
+}
+
+
+.cell {
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+}
+
+
+.actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 5px;
+
+}
+
+
+.action-button {
+
+    min-height: 29px;
+
+    padding: 4px 8px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 5px;
+
+    background: #fff;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+.action-button:hover {
+
+    background: var(--bg-subtle);
+
+    color: var(--text-main);
+
+}
+
+
+.action-button.verify:hover {
+
+    color: var(--verified);
+
+    border-color: #d7eadb;
+
+}
+
+
+.action-button.reject:hover {
+
+    color: var(--rejected);
+
+    border-color: #f0dddd;
+
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    width: fit-content;
+
+    padding: 2px 6px;
+
+    border-radius: 999px;
+
+    border: 1px solid transparent;
+
+    font-size: 10px;
+
+    white-space: nowrap;
+
+}
+
+
+.badge.pending {
+
+    color: var(--pending);
+
+    background: var(--pending-bg);
+
+    border-color: #f4e6a5;
+
+}
+
+
+.badge.verified {
+
+    color: var(--verified);
+
+    background: var(--verified-bg);
+
+    border-color: #dcfce7;
+
+}
+
+
+.badge.rejected {
+
+    color: var(--rejected);
+
+    background: var(--rejected-bg);
+
+    border-color: #f1dddd;
+
+}
+
+
+.badge.unverified {
+
+    color: var(--unverified);
+
+    background: var(--unverified-bg);
+
+    border-color: var(--border);
+
+}
+
+
+/* =========================================================
+   EMPTY / LOADING
+========================================================= */
+
+.empty {
+
+    padding: 45px 20px;
+
+    text-align: center;
+
+    color: var(--text-faint);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(255,255,255,.88);
+
+    backdrop-filter: blur(5px);
+
+    -webkit-backdrop-filter: blur(5px);
+
+}
+
+
+.modal.open {
+
+    display: flex;
+
+}
+
+
+.modal-box {
+
+    width: 100%;
+
+    max-width: 560px;
+
+    max-height: 90vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.08);
+
+}
+
+
+.modal-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding: 13px 15px;
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+
+.modal-title {
+
+    margin: 0;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+}
+
+
+.close {
+
+    width: 28px;
+    height: 28px;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 5px;
+
+    background: transparent;
+
+    color: var(--text-faint);
+
+    font-size: 19px;
+
+}
+
+
+.close:hover {
+
+    background: var(--bg-subtle);
+
+    color: var(--text-main);
+
+}
+
+
+.modal-body {
+
+    overflow-y: auto;
+
+    padding: 17px;
+
+}
+
+
+.profile-head {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.profile-avatar {
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 1px solid var(--border);
+
+}
+
+
+.profile-head-info {
+
+    min-width: 0;
+
+    flex: 1;
+
+}
+
+
+.profile-head-name {
+
+    color: var(--text-main);
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+}
+
+
+.profile-head-role {
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+.section {
+
+    margin-bottom: 20px;
+
+}
+
+
+.section-title {
+
+    margin: 0 0 8px;
+
+    color: var(--text-main);
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+}
+
+
+.grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+    gap: 7px;
+
+}
+
+
+.item {
+
+    min-width: 0;
+
+    padding: 8px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+}
+
+
+.item-label {
+
+    color: var(--text-faint);
+
+    font-size: 9px;
+
+}
+
+
+.item-value {
+
+    overflow-wrap: anywhere;
+
+    color: var(--text-main);
+
+    font-size: 12px;
+
+}
+
+
+.text {
+
+    margin: 0;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    white-space: pre-wrap;
+
+}
+
+
+.tags {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+
+}
+
+
+.tag {
+
+    padding: 3px 7px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 999px;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+
+}
+
+
+.modal-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 7px;
+
+    padding: 12px 15px;
+
+    border-top: 1px solid var(--border);
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+
+    position: fixed;
+
+    right: 18px;
+
+    bottom: 18px;
+
+    z-index: 300;
+
+    max-width: 330px;
+
+    padding: 10px 12px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 7px;
+
+    background: #fff;
+
+    color: var(--text-main);
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.06);
+
+    font-size: 12px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform: translateY(5px);
+
+    transition:
+        opacity .18s ease,
+        transform .18s ease;
+
+}
+
+
+.toast.show {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .list-header {
+        display: none;
+    }
+
+    .request-row {
+
+        grid-template-columns: 1fr;
+
+        gap: 7px;
+
+        padding: 14px 3px;
+
+    }
+
+    .cell {
+
+        white-space: normal;
+
+    }
+
+    .actions {
+
+        justify-content: flex-start;
+
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2, minmax(0,1fr));
+
+    }
+
+    .controls {
+
+        flex-direction: column;
+
+    }
+
+    .status-filter {
+
+        width: 100%;
+
+        flex: none;
+
+    }
+
+    .grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .topbar {
+
+        padding: 0 12px;
+
+    }
+
+    .page {
+
+        padding:
+            25px 12px 45px;
+
+    }
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN SCREEN
+====================================================== -->
+
+<section
+    id="loginScreen"
+    class="login-screen"
+>
+
+    <form
+        id="adminLoginForm"
+        class="login-box"
+    >
+
+        <h1>
+            Student Guidance
+        </h1>
+
+        <p>
+            Administrator access
+        </p>
+
+
+        <div class="form-group">
+
+            <label for="adminEmail">
+                Email
+            </label>
+
+            <input
+                id="adminEmail"
+                class="form-input"
+                type="email"
+                autocomplete="email"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="adminPassword">
+                Password
+            </label>
+
+            <input
+                id="adminPassword"
+                class="form-input"
+                type="password"
+                autocomplete="current-password"
+                required
+            >
+
+        </div>
+
+
+        <div
+            id="adminLoginError"
+            class="login-error"
+        ></div>
+
+
+        <button
+            id="adminLoginButton"
+            class="login-button"
+            type="submit"
+        >
+            Sign In
+        </button>
+
+    </form>
+
+</section>
+
+
+<!-- =====================================================
+     ADMIN APP
+====================================================== -->
+
+<section
+    id="adminApp"
+    class="app"
+>
+
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            Student Guidance
+
+            <span>
+                · Admin
+            </span>
+
+        </div>
+
+
+        <div class="topbar-right">
+
+            <span class="live">
+
+                <span class="live-dot"></span>
+
+                Live
+
+            </span>
+
+
+            <button
+                id="adminSignOut"
+                class="signout"
+                type="button"
+            >
+                Sign Out
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main class="page">
+
+
+        <header class="page-header">
+
+            <h1>
+                Verification
+            </h1>
+
+            <p>
+                Review alumni verification submissions.
+            </p>
+
+        </header>
+
+
+        <!-- =================================================
+             STATS
+        ================================================== -->
+
+        <section class="stats">
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Total profiles
+                </div>
+
+                <div
+                    id="totalCount"
+                    class="stat-value"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Pending
+                </div>
+
+                <div
+                    id="pendingCount"
+                    class="stat-value"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Verified
+                </div>
+
+                <div
+                    id="verifiedCount"
+                    class="stat-value"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Rejected
+                </div>
+
+                <div
+                    id="rejectedCount"
+                    class="stat-value"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CONTROLS
+        ================================================== -->
+
+        <section class="controls">
+
+            <div class="search">
+
+                <input
+                    id="adminSearch"
+                    type="search"
+                    placeholder="Search profiles..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <select
+                id="statusFilter"
+                class="filter-select status-filter"
+            >
+
+                <option value="">
+                    All statuses
+                </option>
+
+                <option value="pending">
+                    Pending
+                </option>
+
+                <option value="verified">
+                    Verified
+                </option>
+
+                <option value="rejected">
+                    Rejected
+                </option>
+
+                <option value="unverified">
+                    Unverified
+                </option>
+
+            </select>
+
+        </section>
+
+
+        <!-- =================================================
+             LIST HEADER
+        ================================================== -->
+
+        <div class="list-header">
+
+            <div>
+                Alumni
+            </div>
+
+            <div>
+                Degree
+            </div>
+
+            <div>
+                Department
+            </div>
+
+            <div>
+                Status
+            </div>
+
+            <div>
+                Actions
+            </div>
+
+        </div>
+
+
+        <div
+            id="requestList"
+            class="request-list"
+        >
+
+            <div class="empty">
+                Loading...
+            </div>
+
+        </div>
+
+    </main>
+
+</section>
+
+
+<!-- =====================================================
+     PROFILE MODAL
+====================================================== -->
+
+<div
+    id="profileModal"
+    class="modal"
+>
+
+    <div class="modal-box">
+
+        <header class="modal-header">
+
+            <h2 class="modal-title">
+                Profile
+            </h2>
+
+            <button
+                type="button"
+                class="close"
+                id="closeProfile"
+            >
+                ×
+            </button>
+
+        </header>
+
+
+        <div
+            id="profileModalBody"
+            class="modal-body"
+        ></div>
+
+
+        <footer
+            id="profileModalFooter"
+            class="modal-footer"
+        ></footer>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     REJECT MODAL
+====================================================== -->
+
+<div
+    id="rejectModal"
+    class="modal"
+>
+
+    <form
+        id="rejectForm"
+        class="modal-box"
+    >
+
+        <header class="modal-header">
+
+            <h2 class="modal-title">
+                Reject verification
+            </h2>
+
+            <button
+                type="button"
+                class="close"
+                id="closeReject"
+            >
+                ×
+            </button>
+
+        </header>
+
+
+        <div class="modal-body">
+
+            <div class="form-group">
+
+                <label for="rejectionReason">
+                    Reason
+                </label>
+
+                <textarea
+                    id="rejectionReason"
+                    class="form-textarea"
+                    placeholder="Explain why this verification request is being rejected..."
+                    required
+                ></textarea>
+
+            </div>
+
+        </div>
+
+
+        <footer class="modal-footer">
+
+            <button
+                type="button"
+                id="cancelReject"
+                class="action-button"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="submit"
+                id="confirmReject"
+                class="action-button"
+            >
+                Reject verification
+            </button>
+
+        </footer>
+
+    </form>
+
+</div>
+
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+    "https://pabqkagdzfevkjiklrpj.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhYnFrYWdkemZldmtqaWtscnBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4MDQxMDMsImV4cCI6MjEwNDM4MDEwM30.MVEnwXCdapV0qXS14JvuRBoWggLAnVJjBJStpkST_6g";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let adminUser = null;
+
+let profiles = [];
+
+let requests = [];
+
+let selectedProfile = null;
+
+let selectedRequest = null;
+
+let realtimeChannel = null;
+
+
+const DEFAULT_AVATAR =
+    "https://fir-rollup.firebaseapp.com/de-sm.jpg";
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function escapeHTML(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function valueOrDash(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        String(value).trim() === ""
+    ) {
+        return "—";
+    }
+
+    return String(value).trim();
+
+}
+
+
+function normalizeArray(value) {
+
+    if (Array.isArray(value)) {
+
+        return value
+            .map(
+                item =>
+                    String(item).trim()
+            )
+            .filter(Boolean);
+
+    }
+
+    if (
+        typeof value === "string" &&
+        value.trim()
+    ) {
+
+        return value
+            .split(",")
+            .map(
+                item =>
+                    item.trim()
+            )
+            .filter(Boolean);
+
+    }
+
+    return [];
+
+}
+
+
+function getName(profile) {
+
+    return (
+        profile.name ||
+        profile.email ||
+        "Alumni"
+    );
+
+}
+
+
+function getRole(profile) {
+
+    const values = [];
+
+    if (profile.title) {
+        values.push(profile.title);
+    }
+
+    if (profile.company) {
+        values.push(profile.company);
+    }
+
+    if (!values.length && profile.domain) {
+        values.push(profile.domain);
+    }
+
+    return values.join(" · ");
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer = null;
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+
+    clearTimeout(toastTimer);
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            3000
+        );
+
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+function statusBadge(status) {
+
+    const normalized =
+        String(status || "unverified")
+            .toLowerCase();
+
+
+    return `
+        <span class="badge ${escapeHTML(normalized)}">
+            ${escapeHTML(
+                normalized.charAt(0).toUpperCase() +
+                normalized.slice(1)
+            )}
+        </span>
+    `;
+
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+async function adminLogin(event) {
+
+    event.preventDefault();
+
+
+    const email =
+        document
+            .getElementById("adminEmail")
+            .value
+            .trim();
+
+
+    const password =
+        document
+            .getElementById("adminPassword")
+            .value;
+
+
+    const errorElement =
+        document.getElementById(
+            "adminLoginError"
+        );
+
+
+    const button =
+        document.getElementById(
+            "adminLoginButton"
+        );
+
+
+    errorElement.style.display =
+        "none";
+
+    errorElement.textContent =
+        "";
+
+
+    button.disabled = true;
+    button.textContent = "Signing in...";
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth
+                .signInWithPassword({
+                    email,
+                    password
+                });
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        adminUser =
+            data.user;
+
+
+        await verifyAdminAccess();
+
+
+    }
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        errorElement.textContent =
+            error.message ||
+            "Unable to sign in.";
+
+        errorElement.style.display =
+            "block";
+
+    }
+    finally {
+
+        button.disabled = false;
+        button.textContent = "Sign In";
+
+    }
+
+}
+
+
+/* =========================================================
+   VERIFY ADMIN
+========================================================= */
+
+async function verifyAdminAccess() {
+
+    if (!adminUser) {
+        throw new Error(
+            "No authenticated user."
+        );
+    }
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("id,is_admin")
+            .eq(
+                "id",
+                adminUser.id
+            )
+            .maybeSingle();
+
+
+    if (error) {
+        throw error;
+    }
+
+
+    if (
+        !data ||
+        data.is_admin !== true
+    ) {
+
+        await supabaseClient.auth.signOut();
+
+        adminUser = null;
+
+        throw new Error(
+            "This account does not have administrator access."
+        );
+
+    }
+
+
+    showAdminApp();
+
+    await loadAdminData();
+
+    subscribeRealtime();
+
+}
+
+
+/* =========================================================
+   SHOW APP
+========================================================= */
+
+function showAdminApp() {
+
+    document.getElementById(
+        "loginScreen"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "adminApp"
+    ).style.display =
+        "block";
+
+}
+
+
+function showLoginScreen() {
+
+    document.getElementById(
+        "loginScreen"
+    ).style.display =
+        "flex";
+
+
+    document.getElementById(
+        "adminApp"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   LOAD DATA
+========================================================= */
+
+async function loadAdminData() {
+
+    await Promise.all([
+        loadProfiles(),
+        loadRequests()
+    ]);
+
+    renderStats();
+    renderRequests();
+
+}
+
+
+async function loadProfiles() {
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .order(
+                "name",
+                {
+                    ascending: true,
+                    nullsFirst: false
+                }
+            );
+
+
+    if (error) {
+        throw error;
+    }
+
+
+    profiles =
+        data || [];
+
+}
+
+
+async function loadRequests() {
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("verification_requests")
+            .select("*")
+            .order(
+                "submitted_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+    if (error) {
+        throw error;
+    }
+
+
+    requests =
+        data || [];
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function renderStats() {
+
+    document.getElementById(
+        "totalCount"
+    ).textContent =
+        profiles.length;
+
+
+    document.getElementById(
+        "pendingCount"
+    ).textContent =
+        profiles.filter(
+            profile =>
+                profile.verification_status ===
+                "pending"
+        ).length;
+
+
+    document.getElementById(
+        "verifiedCount"
+    ).textContent =
+        profiles.filter(
+            profile =>
+                profile.verification_status ===
+                "verified"
+        ).length;
+
+
+    document.getElementById(
+        "rejectedCount"
+    ).textContent =
+        profiles.filter(
+            profile =>
+                profile.verification_status ===
+                "rejected"
+        ).length;
+
+}
+
+
+/* =========================================================
+   REQUEST + PROFILE JOIN
+========================================================= */
+
+function getRequestRows() {
+
+    return requests.map(request => {
+
+        const profile =
+            profiles.find(
+                item =>
+                    item.id ===
+                    request.user_id
+            );
+
+
+        return {
+
+            request,
+
+            profile:
+                profile || {
+
+                    id:
+                        request.user_id,
+
+                    name:
+                        "Unknown user",
+
+                    email:
+                        "",
+
+                    verification_status:
+                        request.status
+
+                }
+
+        };
+
+    });
+
+}
+
+
+function getDisplayedRows() {
+
+    const search =
+        document
+            .getElementById("adminSearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const status =
+        document
+            .getElementById("statusFilter")
+            .value;
+
+
+    return getRequestRows()
+        .filter(row => {
+
+            const profile =
+                row.profile;
+
+
+            const combined = [
+
+                profile.name,
+
+                profile.email,
+
+                profile.program,
+
+                profile.department,
+
+                profile.prn,
+
+                profile.batch,
+
+                profile.company,
+
+                profile.title
+
+            ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+
+            if (
+                search &&
+                !combined.includes(search)
+            ) {
+
+                return false;
+
+            }
+
+
+            if (
+                status &&
+                (
+                    profile.verification_status ||
+                    row.request.status
+                ) !== status
+            ) {
+
+                return false;
+
+            }
+
+
+            return true;
+
+        });
+
+}
+
+
+/* =========================================================
+   RENDER REQUESTS
+========================================================= */
+
+function renderRequests() {
+
+    const list =
+        document.getElementById(
+            "requestList"
+        );
+
+
+    const rows =
+        getDisplayedRows();
+
+
+    if (!rows.length) {
+
+        list.innerHTML = `
+            <div class="empty">
+                No matching verification requests.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        rows
+            .map(
+                row =>
+                    createRequestRow(
+                        row
+                    )
+            )
+            .join("");
+
+
+    list
+        .querySelectorAll(
+            "[data-view]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const userId =
+                        button.dataset.view;
+
+                    openProfile(
+                        userId
+                    );
+
+                }
+            );
+
+        });
+
+
+    list
+        .querySelectorAll(
+            "[data-verify]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    verifyProfile(
+                        button.dataset.verify
+                    );
+
+                }
+            );
+
+        });
+
+
+    list
+        .querySelectorAll(
+            "[data-reject]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    openRejectModal(
+                        button.dataset.reject
+                    );
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   REQUEST ROW
+========================================================= */
+
+function createRequestRow(row) {
+
+    const profile =
+        row.profile;
+
+
+    const status =
+        profile.verification_status ||
+        row.request.status ||
+        "unverified";
+
+
+    const avatar =
+        profile.avatar ||
+        DEFAULT_AVATAR;
+
+
+    const canReview =
+        status === "pending";
+
+
+    return `
+
+        <div class="request-row">
+
+            <div class="request-user">
+
+                <img
+                    class="avatar"
+                    src="${escapeHTML(avatar)}"
+                    alt=""
+                    onerror="this.onerror=null;this.src='${DEFAULT_AVATAR}'"
+                >
+
+                <div class="user-info">
+
+                    <div class="user-name">
+                        ${escapeHTML(
+                            getName(profile)
+                        )}
+                    </div>
+
+                    <div class="user-email">
+                        ${escapeHTML(
+                            profile.email || ""
+                        )}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="cell">
+
+                ${escapeHTML(
+                    valueOrDash(
+                        profile.program
+                    )
+                )}
+
+            </div>
+
+
+            <div class="cell">
+
+                ${escapeHTML(
+                    valueOrDash(
+                        profile.department
+                    )
+                )}
+
+            </div>
+
+
+            <div>
+
+                ${statusBadge(status)}
+
+            </div>
+
+
+            <div class="actions">
+
+                <button
+                    type="button"
+                    class="action-button"
+                    data-view="${escapeHTML(profile.id)}"
+                >
+                    View
+                </button>
+
+                ${
+                    canReview
+                    ? `
+                        <button
+                            type="button"
+                            class="action-button verify"
+                            data-verify="${escapeHTML(profile.id)}"
+                        >
+                            Verify
+                        </button>
+
+                        <button
+                            type="button"
+                            class="action-button reject"
+                            data-reject="${escapeHTML(profile.id)}"
+                        >
+                            Reject
+                        </button>
+                    `
+                    : ""
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   PROFILE MODAL
+========================================================= */
+
+function openProfile(userId) {
+
+    const profile =
+        profiles.find(
+            item =>
+                item.id === userId
+        );
+
+
+    if (!profile) {
+        return;
+    }
+
+
+    selectedProfile =
+        profile;
+
+
+    const request =
+        requests.find(
+            item =>
+                item.user_id ===
+                userId &&
+                item.status ===
+                "pending"
+        );
+
+
+    selectedRequest =
+        request || null;
+
+
+    const body =
+        document.getElementById(
+            "profileModalBody"
+        );
+
+
+    body.innerHTML = `
+
+        <div class="profile-head">
+
+            <img
+                class="profile-avatar"
+                src="${escapeHTML(
+                    profile.avatar ||
+                    DEFAULT_AVATAR
+                )}"
+                alt=""
+                onerror="this.onerror=null;this.src='${DEFAULT_AVATAR}'"
+            >
+
+            <div class="profile-head-info">
+
+                <div class="profile-head-name">
+                    ${escapeHTML(
+                        getName(profile)
+                    )}
+                </div>
+
+                <div class="profile-head-role">
+                    ${escapeHTML(
+                        getRole(profile) ||
+                        "Alumni"
+                    )}
+                </div>
+
+                <div style="margin-top:4px">
+                    ${statusBadge(
+                        profile.verification_status
+                    )}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <section class="section">
+
+            <h3 class="section-title">
+                Academic Record
+            </h3>
+
+            <div class="grid">
+
+                ${profileItem(
+                    "Degree / Program",
+                    profile.program
+                )}
+
+                ${profileItem(
+                    "Department",
+                    profile.department
+                )}
+
+                ${profileItem(
+                    "Batch",
+                    profile.batch
+                )}
+
+                ${profileItem(
+                    "Passing Year",
+                    profile.passing_year
+                )}
+
+                ${profileItem(
+                    "PRN",
+                    profile.prn
+                )}
+
+                ${profileItem(
+                    "Verification",
+                    profile.verification_status
+                )}
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <h3 class="section-title">
+                Profile
+            </h3>
+
+            <div class="grid">
+
+                ${profileItem(
+                    "Name",
+                    profile.name
+                )}
+
+                ${profileItem(
+                    "Title",
+                    profile.title
+                )}
+
+                ${profileItem(
+                    "Company",
+                    profile.company
+                )}
+
+                ${profileItem(
+                    "Domain",
+                    profile.domain
+                )}
+
+                ${profileItem(
+                    "Email",
+                    profile.email
+                )}
+
+                ${profileItem(
+                    "Phone",
+                    profile.phone
+                )}
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <h3 class="section-title">
+                About
+            </h3>
+
+            <p class="text">
+                ${escapeHTML(
+                    profile.about ||
+                    "No information provided."
+                )}
+            </p>
+
+        </section>
+
+
+        <section class="section">
+
+            <h3 class="section-title">
+                Experience
+            </h3>
+
+            <p class="text">
+                ${escapeHTML(
+                    profile.experience ||
+                    "No experience information provided."
+                )}
+            </p>
+
+        </section>
+
+
+        <section class="section">
+
+            <h3 class="section-title">
+                Skills
+            </h3>
+
+            <div class="tags">
+
+                ${
+                    normalizeArray(
+                        profile.skills
+                    )
+                    .map(
+                        skill =>
+                            `<span class="tag">${escapeHTML(skill)}</span>`
+                    )
+                    .join("")
+                    ||
+                    '<span class="tag">—</span>'
+                }
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <h3 class="section-title">
+                Guidance
+            </h3>
+
+            <div class="tags">
+
+                ${
+                    normalizeArray(
+                        profile.guidance
+                    )
+                    .map(
+                        item =>
+                            `<span class="tag">${escapeHTML(item)}</span>`
+                    )
+                    .join("")
+                    ||
+                    '<span class="tag">—</span>'
+                }
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <h3 class="section-title">
+                Links
+            </h3>
+
+            <p class="text">
+
+                ${profile.linkedin
+                    ? `LinkedIn: ${escapeHTML(profile.linkedin)}<br>`
+                    : ""}
+
+                ${profile.github
+                    ? `GitHub: ${escapeHTML(profile.github)}<br>`
+                    : ""}
+
+                ${profile.website
+                    ? `Website: ${escapeHTML(profile.website)}`
+                    : ""}
+
+            </p>
+
+        </section>
+
+
+        ${
+            profile.rejection_reason
+            ? `
+                <section class="section">
+
+                    <h3 class="section-title">
+                        Rejection reason
+                    </h3>
+
+                    <p
+                        class="text"
+                        style="color:#b42318"
+                    >
+                        ${escapeHTML(
+                            profile.rejection_reason
+                        )}
+                    </p>
+
+                </section>
+            `
+            : ""
+        }
+
+    `;
+
+
+    const footer =
+        document.getElementById(
+            "profileModalFooter"
+        );
+
+
+    if (
+        profile.verification_status ===
+        "pending"
+    ) {
+
+        footer.innerHTML = `
+
+            <button
+                type="button"
+                class="action-button reject"
+                id="modalReject"
+            >
+                Reject
+            </button>
+
+            <button
+                type="button"
+                class="action-button verify"
+                id="modalVerify"
+            >
+                Verify
+            </button>
+
+        `;
+
+
+        document
+            .getElementById("modalVerify")
+            .addEventListener(
+                "click",
+                () =>
+                    verifyProfile(
+                        profile.id
+                    )
+            );
+
+
+        document
+            .getElementById("modalReject")
+            .addEventListener(
+                "click",
+                () =>
+                    openRejectModal(
+                        profile.id
+                    )
+            );
+
+    }
+    else {
+
+        footer.innerHTML = "";
+
+    }
+
+
+    document
+        .getElementById("profileModal")
+        .classList.add("open");
+
+}
+
+
+function profileItem(label, value) {
+
+    return `
+
+        <div class="item">
+
+            <div class="item-label">
+                ${escapeHTML(label)}
+            </div>
+
+            <div class="item-value">
+                ${escapeHTML(
+                    valueOrDash(value)
+                )}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+function closeProfileModal() {
+
+    document
+        .getElementById("profileModal")
+        .classList.remove("open");
+
+    selectedProfile = null;
+    selectedRequest = null;
+
+}
+
+
+/* =========================================================
+   VERIFY
+========================================================= */
+
+async function verifyProfile(userId) {
+
+    const profile =
+        profiles.find(
+            item =>
+                item.id === userId
+        );
+
+
+    if (!profile) {
+        return;
+    }
+
+
+    if (
+        profile.verification_status !==
+        "pending"
+    ) {
+
+        showToast(
+            "This profile is no longer pending."
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            `Verify ${getName(profile)}?`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        /*
+            Update verification request.
+        */
+
+        const request =
+            requests.find(
+                item =>
+                    item.user_id ===
+                    userId &&
+                    item.status ===
+                    "pending"
+            );
+
+
+        if (request) {
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from(
+                        "verification_requests"
+                    )
+                    .update({
+
+                        status:
+                            "verified",
+
+                        reviewed_at:
+                            new Date()
+                                .toISOString(),
+
+                        reviewed_by:
+                            adminUser.id,
+
+                        rejection_reason:
+                            null
+
+                    })
+                    .eq(
+                        "id",
+                        request.id
+                    );
+
+
+            if (error) {
+                throw error;
+            }
+
+        }
+
+
+        /*
+            Update profile.
+        */
+
+        const {
+            error: profileError
+        } =
+            await supabaseClient
+                .from("profiles")
+                .update({
+
+                    verification_status:
+                        "verified",
+
+                    verification_reviewed_at:
+                        new Date()
+                            .toISOString(),
+
+                    verification_reviewed_by:
+                        adminUser.id,
+
+                    rejection_reason:
+                        null
+
+                })
+                .eq(
+                    "id",
+                    userId
+                );
+
+
+        if (profileError) {
+            throw profileError;
+        }
+
+
+        showToast(
+            "Profile verified successfully."
+        );
+
+
+        closeProfileModal();
+
+        await loadAdminData();
+
+    }
+    catch (error) {
+
+        console.error(
+            "Verification error:",
+            error
+        );
+
+        showToast(
+            error.message ||
+            "Unable to verify profile."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   REJECT
+========================================================= */
+
+function openRejectModal(userId) {
+
+    selectedProfile =
+        profiles.find(
+            item =>
+                item.id === userId
+        );
+
+
+    if (!selectedProfile) {
+        return;
+    }
+
+
+    selectedRequest =
+        requests.find(
+            item =>
+                item.user_id ===
+                userId &&
+                item.status ===
+                "pending"
+        ) || null;
+
+
+    document.getElementById(
+        "rejectionReason"
+    ).value = "";
+
+
+    document
+        .getElementById("rejectModal")
+        .classList.add("open");
+
+}
+
+
+function closeRejectModal() {
+
+    document
+        .getElementById("rejectModal")
+        .classList.remove("open");
+
+}
+
+
+async function rejectProfile(event) {
+
+    event.preventDefault();
+
+
+    if (!selectedProfile) {
+        return;
+    }
+
+
+    const reason =
+        document
+            .getElementById(
+                "rejectionReason"
+            )
+            .value
+            .trim();
+
+
+    if (!reason) {
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "confirmReject"
+        );
+
+
+    button.disabled = true;
+    button.textContent = "Rejecting...";
+
+
+    try {
+
+        const request =
+            requests.find(
+                item =>
+                    item.user_id ===
+                    selectedProfile.id &&
+                    item.status ===
+                    "pending"
+            );
+
+
+        if (request) {
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from(
+                        "verification_requests"
+                    )
+                    .update({
+
+                        status:
+                            "rejected",
+
+                        reviewed_at:
+                            new Date()
+                                .toISOString(),
+
+                        reviewed_by:
+                            adminUser.id,
+
+                        rejection_reason:
+                            reason
+
+                    })
+                    .eq(
+                        "id",
+                        request.id
+                    );
+
+
+            if (error) {
+                throw error;
+            }
+
+        }
+
+
+        const {
+            error: profileError
+        } =
+            await supabaseClient
+                .from("profiles")
+                .update({
+
+                    verification_status:
+                        "rejected",
+
+                    verification_reviewed_at:
+                        new Date()
+                            .toISOString(),
+
+                    verification_reviewed_by:
+                        adminUser.id,
+
+                    rejection_reason:
+                        reason
+
+                })
+                .eq(
+                    "id",
+                    selectedProfile.id
+                );
+
+
+        if (profileError) {
+            throw profileError;
+        }
+
+
+        closeRejectModal();
+
+        closeProfileModal();
+
+
+        showToast(
+            "Verification request rejected."
+        );
+
+
+        await loadAdminData();
+
+    }
+    catch (error) {
+
+        console.error(
+            "Reject error:",
+            error
+        );
+
+        showToast(
+            error.message ||
+            "Unable to reject request."
+        );
+
+    }
+    finally {
+
+        button.disabled = false;
+        button.textContent =
+            "Reject verification";
+
+    }
+
+}
+
+
+/* =========================================================
+   REALTIME
+========================================================= */
+
+function subscribeRealtime() {
+
+    if (realtimeChannel) {
+
+        supabaseClient
+            .removeChannel(
+                realtimeChannel
+            );
+
+    }
+
+
+    realtimeChannel =
+        supabaseClient
+            .channel(
+                "admin-verification-live"
+            )
+            .on(
+                "postgres_changes",
+                {
+                    event: "*",
+                    schema: "public",
+                    table: "profiles"
+                },
+                async () => {
+
+                    await loadAdminData();
+
+                }
+            )
+            .on(
+                "postgres_changes",
+                {
+                    event: "*",
+                    schema: "public",
+                    table: "verification_requests"
+                },
+                async () => {
+
+                    await loadAdminData();
+
+                }
+            )
+            .subscribe();
+
+}
+
+
+/* =========================================================
+   SIGN OUT
+========================================================= */
+
+async function signOut() {
+
+    await supabaseClient.auth.signOut();
+
+    adminUser = null;
+
+    if (realtimeChannel) {
+
+        await supabaseClient
+            .removeChannel(
+                realtimeChannel
+            );
+
+        realtimeChannel = null;
+
+    }
+
+    showLoginScreen();
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+document
+    .getElementById("adminLoginForm")
+    .addEventListener(
+        "submit",
+        adminLogin
+    );
+
+
+document
+    .getElementById("adminSignOut")
+    .addEventListener(
+        "click",
+        signOut
+    );
+
+
+document
+    .getElementById("adminSearch")
+    .addEventListener(
+        "input",
+        renderRequests
+    );
+
+
+document
+    .getElementById("statusFilter")
+    .addEventListener(
+        "change",
+        renderRequests
+    );
+
+
+document
+    .getElementById("closeProfile")
+    .addEventListener(
+        "click",
+        closeProfileModal
+    );
+
+
+document
+    .getElementById("closeReject")
+    .addEventListener(
+        "click",
+        closeRejectModal
+    );
+
+
+document
+    .getElementById("cancelReject")
+    .addEventListener(
+        "click",
+        closeRejectModal
+    );
+
+
+document
+    .getElementById("rejectForm")
+    .addEventListener(
+        "submit",
+        rejectProfile
+    );
+
+
+document
+    .getElementById("profileModal")
+    .addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                event.currentTarget
+            ) {
+
+                closeProfileModal();
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById("rejectModal")
+    .addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                event.currentTarget
+            ) {
+
+                closeRejectModal();
+
+            }
+
+        }
+    );
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeProfileModal();
+            closeRejectModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIAL AUTH CHECK
+========================================================= */
+
+async function initializeAdmin() {
+
+    try {
+
+        const {
+            data
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (
+            data &&
+            data.user
+        ) {
+
+            adminUser =
+                data.user;
+
+
+            try {
+
+                await verifyAdminAccess();
+
+            }
+            catch (error) {
+
+                console.warn(
+                    error.message
+                );
+
+            }
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "Admin initialization error:",
+            error
+        );
+
+    }
+
+}
+
+
+initializeAdmin();
+
+</script>
+
+</body>
+</html>
